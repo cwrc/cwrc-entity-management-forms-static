@@ -319,7 +319,7 @@ class PlaceComponent extends Component<Props, State> {
 				</Rail>
 				<Form onSubmit={handleSubmit} error={invalid}>
 					<Header as="h2">
-						<FormattedMessage id="Person.identity"/>
+						<FormattedMessage id="Place.identity"/>
 					</Header>
 
 					<Segment.Group>
@@ -329,7 +329,7 @@ class PlaceComponent extends Component<Props, State> {
 					</Segment.Group>
 
 					<Header as="h2">
-						<FormattedMessage id="Person.description"/>
+						<FormattedMessage id="Place.description"/>
 					</Header>
 
 					<Segment.Group>
@@ -339,7 +339,7 @@ class PlaceComponent extends Component<Props, State> {
 					</Segment.Group>
 
 					<Header as="h2">
-						<FormattedMessage id="Person.sources"/>
+						<FormattedMessage id="Place.sources"/>
 					</Header>
 					{/* <Segment> */}
 					<SegmentRepeater

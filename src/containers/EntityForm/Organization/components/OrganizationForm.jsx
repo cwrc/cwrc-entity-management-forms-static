@@ -235,7 +235,7 @@ class OrganizationComponent extends Component<Props, State> {
 				</Rail>
 				<Form onSubmit={handleSubmit} error={invalid}>
 					<Header as="h2">
-						<FormattedMessage id="Person.identity"/>
+						<FormattedMessage id="Organization.identity"/>
 					</Header>
 
 					<Segment.Group>
@@ -245,7 +245,7 @@ class OrganizationComponent extends Component<Props, State> {
 					</Segment.Group>
 
 					<Header as="h2">
-						<FormattedMessage id="Person.description"/>
+						<FormattedMessage id="Organization.description"/>
 					</Header>
 
 					<Segment.Group>
@@ -255,7 +255,7 @@ class OrganizationComponent extends Component<Props, State> {
 					</Segment.Group>
 
 					<Header as="h2">
-						<FormattedMessage id="Person.sources"/>
+						<FormattedMessage id="Organization.sources"/>
 					</Header>
 					{/* <Segment> */}
 					<SegmentRepeater

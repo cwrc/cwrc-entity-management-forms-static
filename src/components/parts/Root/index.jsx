@@ -9,10 +9,9 @@ import App from '../../../containers/App'
 import RoutingWrapper from '../../../components/addons/RoutingWrapper'
 import {getRouterRoutes} from '../../../routing'
 import type {RouteItem, i18nConfigObject} from '../../../types'
+import {ConnectedRouter} from 'react-router-redux'
 
-const Router = require('react-router-redux').ConnectedRouter
-// ? require('react-router-redux').ConnectedRouter
-// : require('react-router').StaticRouter
+const Router = ConnectedRouter
 
 type Props = {
 	store: Object,
