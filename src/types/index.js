@@ -7,6 +7,7 @@ export type LinkItem = {
 }
 
 export type RouteItem = {
+	title: string,
 	path: string,
 	exact?: boolean,
 	strict?: boolean,
