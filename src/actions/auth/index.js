@@ -30,6 +30,9 @@ const awralLogin = awral.of({
 	success ({payload, dispatch}) {
 		setLocalToken(payload.token)
 		dispatch({type: LOGIN_AUTH_SUCCESS, payload})
+	},
+	fail ({dispatch}) {
+		dispatch({type: LOGIN_AUTH_SUCCESS})
 	}
 })
 
