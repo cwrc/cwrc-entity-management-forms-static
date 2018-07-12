@@ -21,10 +21,3 @@ export type RouteItem = {
 		sidebarVisible?: boolean,
 	}
 }
-
-export type i18nConfigObject = {
-	messages: Object,
-	localeData: Object,
-	locale: string,
-	lang?: string
-}

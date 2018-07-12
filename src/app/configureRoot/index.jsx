@@ -10,7 +10,6 @@ import Root from '../../components/parts/Root'
 import '../../styles/global'
 
 type Props = {
-	i18n: Object,
 	store: Object, // unconfigured store
 	// SSR: {
 	// 	// SSR options, see `/server` for more info

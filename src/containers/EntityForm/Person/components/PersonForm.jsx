@@ -17,7 +17,6 @@ import {
 	Field,
 	FieldArray
 } from 'redux-form'
-import {FormattedMessage} from 'react-intl'
 
 import {InputField, DropdownComponent} from '../../components/FormControls'
 import {DescriptiveNote, ProjectNote} from '../../components/CommonComponents'
@@ -337,9 +336,7 @@ class PersonComponent extends Component<Props, State> {
 					<Values form='PERSON_FORM'/>
 				</Rail>
 				<Form onSubmit={handleSubmit} error={invalid}>
-					<Header as="h2">
-						<FormattedMessage id="Person.identity"/>
-					</Header>
+					<Header as="h2">Identity</Header>
 
 					<Segment.Group>
 						{NamePanels.map((panel, index) => (
@@ -347,9 +344,7 @@ class PersonComponent extends Component<Props, State> {
 						))}
 					</Segment.Group>
 
-					<Header as="h2">
-						<FormattedMessage id="Person.description"/>
-					</Header>
+					<Header as="h2">Description</Header>
 
 					<Segment.Group>
 						{DescriptionPanels.map((panel, index) => (
@@ -357,9 +352,7 @@ class PersonComponent extends Component<Props, State> {
 						))}
 					</Segment.Group>
 
-					<Header as="h2">
-						<FormattedMessage id="Person.sources"/>
-					</Header>
+					<Header as="h2">Sources</Header>
 					{/* <Segment> */}
 					<SegmentRepeater
 						fieldArrayName="sources.bibl"
