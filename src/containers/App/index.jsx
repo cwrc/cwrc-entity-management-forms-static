@@ -11,7 +11,7 @@ import Footer from '../../components/parts/Footer'
 import Header from '../../components/parts/Header'
 // Import actions
 import {TOGGLE_SIDEBAR, WINDOW_RESIZE} from '../../actions/layout'
-import {getAuthState, getLayoutState, getWindowInnerWidth, getLayoutMobileStatuses} from '../../selectors'
+import {getLayoutState, getWindowInnerWidth, getLayoutMobileStatuses} from '../../selectors'
 import ReactGA from 'react-ga'
 // Import styled components
 import {
@@ -39,27 +39,17 @@ type Props = {
 	// IsLoggedIn can force component to re-render
 	isLoggedIn: boolean,
 	handleWindowResize: Function,
-	checkAuthLogic: Function,
 	// IsMobile can force component to re-render
 	isMobile: boolean
 }
 
 class App extends Component <Props> {
 	componentWillMount () {
-		const {isLoggedIn} = this.props
 		if (process.env.BROWSER) {
 			const {handleWindowResize} = this.props
 			handleWindowResize()
 			window.addEventListener('resize', handleWindowResize)
 		}
-		this.checkAppAuthLogic(isLoggedIn)
-	}
-
-	/**
-   * Check that user is still allowed to visit path after props changed
-   */
-	componentWillReceiveProps ({isLoggedIn}: Props) {
-		this.checkAppAuthLogic(isLoggedIn)
 	}
 
 	componentDidMount () {
@@ -68,27 +58,16 @@ class App extends Component <Props> {
 		}
 	}
 
-	/**
-     * Check that user is allowed to visit route
-     * @param  {Boolean} isLoggedIn state.auth.me.isLoggedIn, current prop
-     * @return {Void}
-     */
-	checkAppAuthLogic (isLoggedIn: boolean) {
-		const {pathname} = this.props.location
-		this.props.checkAuthLogic(pathname, isLoggedIn)
-	}
-
 	render () {
 		const {
 			children,
 			sidebarOpened,
 			toggleSidebar,
-			isLoggedIn,
 			isMobile
 		} = this.props
 
 		const dimmerProps = {
-			active: isLoggedIn && sidebarOpened,
+			active: sidebarOpened,
 			page: true,
 			onClick: toggleSidebar
 		}
@@ -100,9 +79,9 @@ class App extends Component <Props> {
 		return (
 			<PageLayout>
 				<SidebarSemanticPushableStyled>
-					{isLoggedIn && <Sidebar />}
+					<Sidebar />
 					<SidebarSemanticPusherStyled
-						isloggedin={isLoggedIn ? '1' : ''}
+						isloggedin='1'
 						ismobile={isMobile ? '1' : ''}
 					>
 						<StyledDimmer {...dimmerProps} />
@@ -122,13 +101,11 @@ class App extends Component <Props> {
 
 function mapStateToProps (state: GlobalState) {
 	const {sidebarOpened} = getLayoutState(state)
-	const {isLoggedIn} = getAuthState(state)
 	const {isMobile} = getLayoutMobileStatuses(state)
 
 	return {
 		sidebarOpened,
-		isMobile,
-		isLoggedIn
+		isMobile
 	}
 }
 
@@ -137,21 +114,6 @@ function mapDispatchToProps (dispatch) {
 	return {
 		toggleSidebar () {
 			dispatch(TOGGLE_SIDEBAR())
-		},
-		/**
-         * Immediately push to homePath('/'), if user is logged.
-         * Can be used for other auth logic checks.
-         * Useful, because we don't need to dispatch `push(homePath)` action
-         * from `Login` container after LOGIN_AUTH_SUCCESS action
-         * @param  {String}  path       [current location path]
-         * @param  {Boolean} isLoggedIn [is user logged in?]
-         */
-		checkAuthLogic (path: string, isLoggedIn: boolean) {
-			const authPath = '/auth'
-			const homePath = '/'
-			if (isLoggedIn && path === authPath) {
-				dispatch(push(homePath))
-			}
 		},
 		handleWindowResize () {
 			clearTimeout(resizer)

@@ -15,7 +15,7 @@ import {
 } from './style'
 import {Spacer} from '../../../styles/base'
 import {getMetaRoutes} from '../../../routing'
-import {getAuthState, getLayoutMobileStatuses} from '../../../selectors'
+import {getLayoutMobileStatuses} from '../../../selectors'
 import Headroom from 'react-headroom'
 
 type Props = {
@@ -48,11 +48,9 @@ const mapStateToProps = (state, props) => {
 	const {location: {pathname}} = props
 	const currentRoute = _.find(getMetaRoutes(), a => matchPath(pathname, a)) || {}
 	const title = currentRoute.meta.name
-	const {isLoggedIn} = getAuthState(state)
 	const {isMobile} = getLayoutMobileStatuses(state)
 	return {
 		title,
-		isLoggedIn,
 		isMobile
 	}
 }

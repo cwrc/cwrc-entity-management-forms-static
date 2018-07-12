@@ -1,11 +1,9 @@
 // @flow
 import React from 'react'
 import {Route, Redirect} from 'react-router-dom'
-import {Loader, Dimmer, Header, Icon} from 'semantic-ui-react'
 import _ from 'lodash'
 
 import Dashboard from '../containers/Dashboard'
-import Login from '../containers/Login'
 import NotFound from '../containers/NotFound'
 
 import Person from '../containers/EntityForm/Person'
@@ -72,15 +70,6 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 				sidebarVisible: true
 			}
 		},
-		{
-			path: '/auth',
-			exact: true,
-			tag: Route,
-			component: Login,
-			meta: {
-				name: 'Auth'
-			}
-		},
 		// Find the way to add/remove routes conditionally
 		{
 			tag: Route,
@@ -91,7 +80,7 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 		},
 		{
 			tag: Redirect,
-			to: '/auth'
+			to: '/'
 		}
 	]
 

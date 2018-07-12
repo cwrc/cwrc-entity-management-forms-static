@@ -3,7 +3,6 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {Menu, Icon} from 'semantic-ui-react'
 import {NavLink} from 'react-router-dom'
-import {LOGOUT_AUTH} from '../../../actions/auth'
 import {getSidebarRoutes} from '../../../routing'
 import {getLayoutState, getLayoutMobileStatuses} from '../../../selectors'
 import {
@@ -77,10 +76,6 @@ class SidebarComponent extends Component<Props> {
 				</SidebarLogoContainer>
 				{routes}
 				<Spacer />
-				<SidebarLogoutItem onClick={logout}>
-					<Icon name="sign out" />
-					Logout
-				</SidebarLogoutItem>
 			</StyledSidebar>
 		)
 	}
@@ -97,9 +92,6 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-	logout () {
-		dispatch(LOGOUT_AUTH())
-	}
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SidebarComponent)
