@@ -5,7 +5,6 @@ import 'semantic-ui-css/semantic.css'
 import 'babel-polyfill'
 
 // Application
-import React from 'react'
 import { render } from 'react-snapshot'
 
 import configureApp from './app/configureApp'

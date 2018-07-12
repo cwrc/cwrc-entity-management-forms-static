@@ -1,4 +1,5 @@
 // replace node_modules/react-snapshot/lib/cli.js with this file
+// https://github.com/geelen/react-snapshot/issues/31
 // handling for "homepage": "." in package.json
 
 'use strict';

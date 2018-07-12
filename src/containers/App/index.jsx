@@ -4,7 +4,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router'
-import {push} from 'react-router-redux'
 // Import main views
 import Sidebar from '../../components/parts/Sidebar'
 import Footer from '../../components/parts/Footer'
@@ -36,8 +35,6 @@ type Props = {
 	// SidebarOpened can force component to re-render
 	sidebarOpened: boolean,
 	toggleSidebar: Function,
-	// IsLoggedIn can force component to re-render
-	isLoggedIn: boolean,
 	handleWindowResize: Function,
 	// IsMobile can force component to re-render
 	isMobile: boolean

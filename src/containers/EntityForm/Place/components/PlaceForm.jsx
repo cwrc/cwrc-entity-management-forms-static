@@ -313,9 +313,9 @@ class PlaceComponent extends Component<Props, State> {
 
 		return (
 			<Segment basic>
-				<Rail attached position='left'>
+				{/* <Rail attached position='left' size='tiny'>
 					<Values form='PLACE_FORM'/>
-				</Rail>
+				</Rail> */}
 				<Form onSubmit={handleSubmit} error={invalid}>
 					<Header as="h2">Identity</Header>
 

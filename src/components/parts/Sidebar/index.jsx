@@ -9,15 +9,13 @@ import {
 	StyledSidebar,
 	SidebarLogo,
 	SidebarLogoContainer,
-	SidebarItem,
-	SidebarLogoutItem
+	SidebarItem
 } from './style'
 import {Spacer} from '../../../styles/base'
 import type {RouteItem} from '../../../types'
 
 type Props = {
 	open: boolean,
-	logout: () => void,
 	isMobile: boolean
 }
 
@@ -25,7 +23,7 @@ class SidebarComponent extends Component<Props> {
 	props: Props
 
 	render () {
-		const {open, logout, isMobile} = this.props
+		const {open, isMobile} = this.props
 		const routing: RouteItem[] = getSidebarRoutes()
 
 		const sidebarProps = {

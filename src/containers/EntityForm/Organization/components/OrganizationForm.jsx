@@ -7,8 +7,7 @@ import {
 	Grid,
 	Button,
 	Segment,
-	Rail,
-	Input
+	Rail
 } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {reduxForm, Field, FieldArray} from 'redux-form'
@@ -229,9 +228,9 @@ class OrganizationComponent extends Component<Props, State> {
 
 		return (
 			<Segment basic>
-				<Rail attached position='left'>
+				{/* <Rail attached position='left' size='tiny'>
 					<Values form='ORG_FORM'/>
-				</Rail>
+				</Rail> */}
 				<Form onSubmit={handleSubmit} error={invalid}>
 					<Header as="h2">Identity</Header>
 

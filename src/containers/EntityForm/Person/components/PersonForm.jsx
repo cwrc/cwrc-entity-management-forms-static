@@ -55,7 +55,7 @@ import json2xml from '../json2xml'
 import xml2json from '../xml2json'
 
 import samplePersonDoc from '../samplePerson'
-import {GET_PERSON, PUT_PERSON, POST_PERSON, GET_PLACE, PUT_PLACE, POST_PLACE} from '../../../../actions/entities'
+import {GET_PERSON, PUT_PERSON, POST_PERSON} from '../../../../actions/entities'
 
 const nameOptions = [
 	{key: '', text: '', value: ''},
@@ -332,9 +332,9 @@ class PersonComponent extends Component<Props, State> {
 
 		return (
 			<Segment basic>
-				<Rail attached position='left'>
+				{/* <Rail attached position='left' size='tiny'>
 					<Values form='PERSON_FORM'/>
-				</Rail>
+				</Rail> */}
 				<Form onSubmit={handleSubmit} error={invalid}>
 					<Header as="h2">Identity</Header>
 
