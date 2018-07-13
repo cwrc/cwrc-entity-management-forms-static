@@ -22,6 +22,7 @@ function requestWrapper (method: 'GET' | 'POST' | 'DELETE' | 'PUT' | 'PATCH') {
 			method,
 			headers: {},
 			mode: process.env.NODE_ENV === 'development' ? 'cors' : 'same-origin',
+			credentials: 'same-origin',
 			...body
 		}
 

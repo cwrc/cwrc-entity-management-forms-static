@@ -124,7 +124,12 @@ class PersonComponent extends Component<Props, State> {
 
 	testGet = () => {
 		console.log('triggered the testGet')
-		this.props.getPerson('cwrc:d47d3302-b566-478f-a53f-dd433c4ed648')
+		let personPromise = this.props.getPerson('cwrc:d47d3302-b566-478f-a53f-dd433c4ed648')
+		personPromise.then((value) => {
+			console.log(value)
+		}, (reason) => {
+			console.log(reason)
+		})
 		// AFTER THE GET IS ISSUE, THE STATE WILL GO THROUGH AT LEAST TWO CHANGES:
 		// 1. WHEN THE CALL IS ISSUED, THE STATE AT state.entities.person.get.status changes to 'pending' from 'none'
 		// 2. after the call returns, that status changes to either 'done' or 'error'.  If 'done' then state.entities.person.get.data
