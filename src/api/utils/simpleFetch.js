@@ -27,9 +27,18 @@ function requestWrapper (method: 'GET' | 'POST' | 'DELETE' | 'PUT' | 'PATCH') {
 		}
 
 		return fetch(url, request)
-			.then(parseJSON)
+			.then(parseXML)
 			.catch((err: any) => err)
 	}
+}
+
+async function parseXML (res: Response): Object {
+	let data = await res.text()
+	data = decodeURIComponent(data)
+	const parser = new DOMParser()
+	const xml = parser.parseFromString(data, 'application/xml')
+	const {status, ok} = res
+	return {xml, ok, status}
 }
 
 async function parseJSON (res: Response): Object {

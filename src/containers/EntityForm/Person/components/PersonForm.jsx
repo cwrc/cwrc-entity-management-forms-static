@@ -127,6 +127,9 @@ class PersonComponent extends Component<Props, State> {
 		let personPromise = this.props.getPerson('cwrc:d47d3302-b566-478f-a53f-dd433c4ed648')
 		personPromise.then((value) => {
 			console.log(value)
+			console.log(this)
+			let data = this.props.getPersonGetData
+			console.log(data)
 		}, (reason) => {
 			console.log(reason)
 		})
