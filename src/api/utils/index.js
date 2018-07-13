@@ -1,4 +1,3 @@
 // @flow
-export {get, post, put} from './simpleFetch'
-
-export {authpost} from './xhr_wrapper'
+// export {get, post, put} from './simpleFetch'
+export {get, post, put} from './xhr_wrapper'

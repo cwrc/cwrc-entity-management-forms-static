@@ -166,7 +166,7 @@ function getHeaderDataDecoration (data): Object {
 
 export const get = requestWrapper('GET')
 export const post = requestWrapper('POST')
-export const authpost = requestWrapper('POST')
+export const put = requestWrapper('PUT')
 
 // USAGE:
 // get('https://www.google.com', options)
