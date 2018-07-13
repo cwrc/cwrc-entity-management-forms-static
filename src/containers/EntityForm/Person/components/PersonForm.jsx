@@ -396,12 +396,12 @@ class PersonComponent extends Component<Props, State> {
 	}
 }
 
-const onSubmit = (values, dispatch) => {
+const onSubmit = (values, dispatch, props) => {
 	let xml = json2xml(values)
 	let s = new XMLSerializer()
 	let xmlStr = s.serializeToString(xml)
-	console.log(xmlStr)
-	// dispatch()
+	console.log('submitting', xmlStr)
+	props.postPerson(xmlStr)
 }
 
 const validate = values => {
@@ -438,21 +438,17 @@ const mapDispatchToProps = dispatch => {
 		async getPerson (id) {
 			return dispatch(GET_PERSON(id))
 		},
-		async putPerson (id) {
-			return dispatch(PUT_PERSON(id))
+		async putPerson (id, data) {
+			return dispatch(PUT_PERSON(id, data))
 		},
-		async postPerson () {
-			return dispatch(POST_PERSON())
+		async postPerson (data) {
+			return dispatch(POST_PERSON(data))
 		}
 	}
 }
 
-const reduxFormConfig = reduxForm({
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
 	form: 'PERSON_FORM',
 	validate,
 	onSubmit
-})
-
-export default reduxFormConfig(
-	connect(mapStateToProps, mapDispatchToProps)(PersonComponent)
-)
+})(PersonComponent))
