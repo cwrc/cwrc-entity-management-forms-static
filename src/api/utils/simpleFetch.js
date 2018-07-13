@@ -33,12 +33,12 @@ function requestWrapper (method: 'GET' | 'POST' | 'DELETE' | 'PUT' | 'PATCH') {
 }
 
 async function parseXML (res: Response): Object {
-	let data = await res.text()
-	data = decodeURIComponent(data)
+	let text = await res.text()
+	text = JSON.parse(text)
 	const parser = new DOMParser()
-	const xml = parser.parseFromString(data, 'application/xml')
+	const xml = parser.parseFromString(text, 'text/xml')
 	const {status, ok} = res
-	return {xml, ok, status}
+	return {data: xml, ok, status}
 }
 
 async function parseJSON (res: Response): Object {
