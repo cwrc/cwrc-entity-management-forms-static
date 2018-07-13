@@ -1,9 +1,9 @@
-// @remove-on-eject-begin
-
 /**
- * need to replace config in node_modules/react-scripts/config
+ * replace node_modules/react-scripts/config/webpack.config.prod.js with this file
+ * adds node modules (our lookups) that need processing with babel 
  */
 
+// @remove-on-eject-begin
 
 /**
  * Copyright (c) 2015-present, Facebook, Inc.
@@ -158,13 +158,13 @@ module.exports = {
         ],
         include: [
           paths.appSrc,
-          paths.appNodeModules+'\\cwrc-public-entity-dialogs',
-          paths.appNodeModules+'\\dbpedia-entity-lookup',
-          paths.appNodeModules+'\\geonames-entity-lookup',
-          paths.appNodeModules+'\\getty-entity-lookup',
-          paths.appNodeModules+'\\viaf-entity-lookup',
-          paths.appNodeModules+'\\wikidata-entity-lookup',
-          paths.appNodeModules+'\\wikidata-sdk'
+          paths.appNodeModules+path.sep+'cwrc-public-entity-dialogs',
+          paths.appNodeModules+path.sep+'dbpedia-entity-lookup',
+          paths.appNodeModules+path.sep+'geonames-entity-lookup',
+          paths.appNodeModules+path.sep+'getty-entity-lookup',
+          paths.appNodeModules+path.sep+'viaf-entity-lookup',
+          paths.appNodeModules+path.sep+'wikidata-entity-lookup',
+          paths.appNodeModules+path.sep+'wikidata-sdk'
         ],
       },
       {
@@ -187,13 +187,13 @@ module.exports = {
             test: /\.(js|jsx|mjs)$/,
             include: [
               paths.appSrc,
-              paths.appNodeModules+'\\cwrc-public-entity-dialogs',
-              paths.appNodeModules+'\\dbpedia-entity-lookup',
-              paths.appNodeModules+'\\geonames-entity-lookup',
-              paths.appNodeModules+'\\getty-entity-lookup',
-              paths.appNodeModules+'\\viaf-entity-lookup',
-              paths.appNodeModules+'\\wikidata-entity-lookup',
-              paths.appNodeModules+'\\wikidata-sdk'
+              paths.appNodeModules+path.sep+'cwrc-public-entity-dialogs',
+              paths.appNodeModules+path.sep+'dbpedia-entity-lookup',
+              paths.appNodeModules+path.sep+'geonames-entity-lookup',
+              paths.appNodeModules+path.sep+'getty-entity-lookup',
+              paths.appNodeModules+path.sep+'viaf-entity-lookup',
+              paths.appNodeModules+path.sep+'wikidata-entity-lookup',
+              paths.appNodeModules+path.sep+'wikidata-sdk'
             ],
             loader: require.resolve('babel-loader'),
             options: {
