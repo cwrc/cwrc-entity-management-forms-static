@@ -20,29 +20,14 @@ function requestWrapper (method: 'GET' | 'POST' | 'DELETE' | 'PUT' | 'PATCH') {
 
 		const request = {
 			method,
-			headers: {},
+			headers: {
+				'Accept': 'application/json'
+			},
 			mode: process.env.NODE_ENV === 'development' ? 'cors' : 'same-origin',
 			credentials: 'same-origin',
 			...body
 		}
 
 		return fetch(url, request)
-			.then(parseXML)
-			.catch((err: any) => err)
 	}
-}
-
-async function parseXML (res: Response): Object {
-	let text = await res.text()
-	text = JSON.parse(text)
-	const parser = new DOMParser()
-	const xml = parser.parseFromString(text, 'text/xml')
-	const {status, ok} = res
-	return {data: xml, ok, status}
-}
-
-async function parseJSON (res: Response): Object {
-	const data = await res.json()
-	const {status, ok} = res
-	return {data, ok, status}
 }

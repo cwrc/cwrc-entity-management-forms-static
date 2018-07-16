@@ -400,8 +400,7 @@ const onSubmit = (values, dispatch, props) => {
 	let xml = json2xml(values)
 	let s = new XMLSerializer()
 	let xmlStr = s.serializeToString(xml)
-	console.log('submitting', xmlStr)
-	props.postPerson(xmlStr)
+	return props.postPerson(xmlStr)
 }
 
 const validate = values => {
