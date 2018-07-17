@@ -26,6 +26,7 @@ import NameParts from '../../components/NameParts'
 import VariantNames from '../../components/VariantNames'
 import LanguageSelector from '../../components/LanguageSelector'
 import EntityLookup from '../../components/EntityLookup'
+import MessageDialog from '../../components/MessageDialog'
 
 import {required} from '../../components/FieldValidation'
 
@@ -117,6 +118,10 @@ const genderOptions = [
 type Props = FormProps
 
 class PersonComponent extends Component<Props, State> {
+	resetForm = () => {
+		this.props.dispatch(initialize('PERSON_FORM', {}))
+	}
+
 	doLoad = () => {
 		let json = xml2json(samplePersonDoc)
 		this.props.dispatch(initialize('PERSON_FORM', json))
@@ -388,8 +393,15 @@ class PersonComponent extends Component<Props, State> {
 					<div style={{textAlign: 'center'}}>
 						<Button type="button" content="Load Sample Person" icon="cloud download" onClick={() => this.doLoad()}/>
 						<Button content="Submit" icon="sign in" loading={submitting}/>
-						<Button content="Test api get call" icon="cloud download" onClick={this.testGet}/>
+						<Button type="button" content="Test api get call" icon="cloud download" onClick={this.testGet}/>
 					</div>
+					{this.props.isPersonPostDone ? (
+						<MessageDialog
+							header="Entity Created!"
+							content={<p>New entity: <a href={'https://dev-02.cwrc.ca/islandora/object/' + this.props.getPersonPostData.data.pid + '/manage/datastreams'}>{this.props.getPersonPostData.data.pid}</a></p>}
+							onClose={this.resetForm}
+						/>
+					) : ''}
 				</Form>
 			</Segment>
 		)
