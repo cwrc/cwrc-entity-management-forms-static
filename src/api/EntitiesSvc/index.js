@@ -1,11 +1,22 @@
 // @flow
 import {get, put, post, parseJSON} from '../utils'
 
-export const getPerson = async (id) => {
-	get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person/${id}`).then(parseXML)
+import {json2xml as json2xmlPerson} from './Person/json2xml'
+import {xml2json as xml2jsonPerson} from './Person/xml2json'
+
+export const getPerson = async (id) =>
+	get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person/${id}`)
+		.then(parseXML)
+		.then(res => {
+			return {data: xml2jsonPerson(res.data)}
+		})
+
+export const postPerson = async (data) => {
+	let xml = json2xmlPerson(data)
+	let s = new XMLSerializer()
+	let xmlStr = s.serializeToString(xml)
+	return post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person`, xmlStr).then(parseJSON)
 }
-export const postPerson = async (data) =>
-	post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person`, data).then(parseJSON)
 
 export const putPerson = async (id, data) =>
 	put(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person/${id}`, data)

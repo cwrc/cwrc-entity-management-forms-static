@@ -1,6 +1,6 @@
 // @flow
 
-const xml2json = (xmlDoc: XMLDocument) => {
+export const xml2json = (xmlDoc: XMLDocument) => {
 	let values = {
 		identity: {},
 		description: {},
@@ -134,5 +134,3 @@ const xml2json = (xmlDoc: XMLDocument) => {
 
 	return values
 }
-
-export default xml2json

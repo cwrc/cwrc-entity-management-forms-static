@@ -51,10 +51,6 @@ import {isPersonPostDone,
 	getPersonPutError,
 	getPersonPutData} from '../../../../selectors'
 
-import json2xml from '../json2xml'
-import xml2json from '../xml2json'
-
-import samplePersonDoc from '../samplePerson'
 import {GET_PERSON, PUT_PERSON, POST_PERSON} from '../../../../actions/entities'
 
 const nameOptions = [
@@ -122,8 +118,8 @@ class PersonComponent extends Component<Props, State> {
 	}
 
 	doSampleLoad = () => {
-		let json = xml2json(samplePersonDoc)
-		this.props.dispatch(initialize('PERSON_FORM', json))
+		// let json = xml2json(samplePersonDoc)
+		// this.props.dispatch(initialize('PERSON_FORM', json))
 	}
 
 	testGet = () => {
@@ -336,75 +332,71 @@ class PersonComponent extends Component<Props, State> {
 
 		return (
 			<Segment basic>
+				{this.props.isPersonPostDone ? (
+					<MessageDialog
+						header="Entity Created!"
+						content={<p>New entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getPersonPostData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getPersonPostData.data.pid}</a></p>}
+						onClose={this.resetForm}
+					/>
+				) : ''}
 				{this.props.isPersonGetPending ? (
-					<Dimmer active>
-						<Loader>Loading Person</Loader>
+					<Dimmer active inverted>
+						<Loader inverted>Loading Person</Loader>
 					</Dimmer>
-				) : (
-					<Form onSubmit={handleSubmit} error={invalid}>
-						<Header as="h2">Identity</Header>
+				) : ''}
+				<Form onSubmit={handleSubmit} error={invalid}>
+					<Header as="h2">Identity</Header>
 
-						<Segment.Group>
-							{NamePanels.map((panel, index) => (
-								<Segment basic key={panel.key}>{panel.content}</Segment>
-							))}
-						</Segment.Group>
+					<Segment.Group>
+						{NamePanels.map((panel, index) => (
+							<Segment basic key={panel.key}>{panel.content}</Segment>
+						))}
+					</Segment.Group>
 
-						<Header as="h2">Description</Header>
+					<Header as="h2">Description</Header>
 
-						<Segment.Group>
-							{DescriptionPanels.map((panel, index) => (
-								<Segment basic key={panel.key}>{panel.content}</Segment>
-							))}
-						</Segment.Group>
+					<Segment.Group>
+						{DescriptionPanels.map((panel, index) => (
+							<Segment basic key={panel.key}>{panel.content}</Segment>
+						))}
+					</Segment.Group>
 
-						<Header as="h2">Sources</Header>
-						<SegmentRepeater
-							fieldArrayName="sources.bibl"
-							headerLabel=""
-							componentLabel="Source"
-							RepeatableComponent={EntityLookup}
-							buttonLabel='Add Source'
-							entityType='title'
-							changeFunc={this.props.change}
-						/>
+					<Header as="h2">Sources</Header>
+					<SegmentRepeater
+						fieldArrayName="sources.bibl"
+						headerLabel=""
+						componentLabel="Source"
+						RepeatableComponent={EntityLookup}
+						buttonLabel='Add Source'
+						entityType='title'
+						changeFunc={this.props.change}
+					/>
 
-						<Field key="non_field_errors"
-							name="non_field_errors"
-							component={({meta: {error}}) => {
-								return error ? (
-									<Message error>
-										<Message.Header>{'Login failed :('}</Message.Header>
-										<p>{error}</p>
-									</Message>
-								) : null
-							}}
-						/>
+					<Field key="non_field_errors"
+						name="non_field_errors"
+						component={({meta: {error}}) => {
+							return error ? (
+								<Message error>
+									<Message.Header>{'Login failed :('}</Message.Header>
+									<p>{error}</p>
+								</Message>
+							) : null
+						}}
+					/>
 
-						<div style={{textAlign: 'center'}}>
-							<Button type="button" content="Load Sample Person (local)" icon="cloud download" onClick={() => this.doSampleLoad()}/>
-							<Button type="button" content="Load Person (remote)" icon="cloud download" onClick={this.testGet}/>
-							<Button content="Submit" icon="sign in" loading={submitting}/>
-						</div>
-						{this.props.isPersonPostDone ? (
-							<MessageDialog
-								header="Entity Created!"
-								content={<p>New entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getPersonPostData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getPersonPostData.data.pid}</a></p>}
-								onClose={this.resetForm}
-							/>
-						) : ''}
-					</Form>
-				)}
+					<div style={{textAlign: 'center'}}>
+						{/* <Button type="button" content="Load Sample Person (local)" icon="cloud download" onClick={() => this.doSampleLoad()}/> */}
+						<Button type="button" content="Load Person (remote)" icon="cloud download" onClick={this.testGet}/>
+						<Button content="Submit" icon="sign in" loading={submitting}/>
+					</div>
+				</Form>
 			</Segment>
 		)
 	}
 }
 
 const onSubmit = (values, dispatch, props) => {
-	let xml = json2xml(values)
-	let s = new XMLSerializer()
-	let xmlStr = s.serializeToString(xml)
-	return props.postPerson(xmlStr)
+	return props.postPerson(values)
 }
 
 const validate = values => {

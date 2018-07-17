@@ -27,8 +27,6 @@ import Values from '../../components/Values'
 
 import type {FormProps} from 'redux-form'
 
-import json2xml from '../json2xml'
-
 import countries from '../../../../static/countries'
 
 const nameOptions = [
@@ -368,10 +366,7 @@ class PlaceComponent extends Component<Props, State> {
 }
 
 const onSubmit = (values, dispatch) => {
-	let xml = json2xml(values)
-	let s = new XMLSerializer()
-	let xmlStr = s.serializeToString(xml)
-	console.log(xmlStr)
+	console.log(values)
 	// dispatch()
 }
 
