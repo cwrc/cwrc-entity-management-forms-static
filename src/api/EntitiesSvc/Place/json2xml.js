@@ -151,7 +151,8 @@ export const json2xml = (values) => {
 				noteEl.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:lang', note.lang)
 			}
 			if (note.project) {
-				createXMLFromPath(noteEl, 'respons[@locus="value"]/desc/orgName', note.project)
+				let orgEl = createXMLFromPath(noteEl, 'respons[@locus="value"]/desc/orgName')
+				orgEl.setAttribute('ref', note.project)
 			}
 		}
 	}
