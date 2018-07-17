@@ -2,23 +2,33 @@
 import React from 'react'
 import {Field} from 'redux-form'
 import {DropdownComponent} from './FormControls'
+import {get} from '../../../api/utils'
 
-const projectOptions = [
-	{key: 'ww', text: 'Women Writers', value: 'ww'},
-	{key: 'isicily', text: 'I.Sicily', value: 'isicily'},
-	{key: 'smith', text: 'Smith', value: 'smith'}
-]
+class ProjectSelector extends React.Component {
+	// static propTypes = {
+	// 	name: String,
+	// 	label: String
+	// }
+	state = {
+		projects: []
+	}
 
-const ProjectSelector = ({
-	input,
-	...rest
-}: any) => (
-	<Field
-		{...input}
-		{...rest}
-		options={projectOptions}
-		placeholder='Select Project'
-		component={DropdownComponent}/>
-)
+	componentDidMount () {
+		get(process.env.REACT_APP_ENTITIES_HOST + '/projects/json-lookup').then(res => {
+			console.log(res)
+		})
+	}
+
+	render () {
+		return (
+			<Field
+				name={this.props.name}
+				label={this.props.label}
+				options={this.state.projects}
+				placeholder='Select Project'
+				component={DropdownComponent}/>
+		)
+	}
+}
 
 export default ProjectSelector
