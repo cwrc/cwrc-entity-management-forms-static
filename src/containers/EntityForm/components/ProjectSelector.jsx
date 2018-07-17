@@ -14,8 +14,16 @@ class ProjectSelector extends React.Component {
 	}
 
 	componentDidMount () {
-		get(process.env.REACT_APP_ENTITIES_HOST + '/projects/json-lookup').then(parseJSON).then(data => {
-			console.log(data)
+		get(process.env.REACT_APP_ENTITIES_HOST + '/projects/json-lookup').then(parseJSON).then(res => {
+			const projects = res.data.map(obj => {
+				return {
+					key: obj.field_top_level_collection.und[0].pid,
+					value: obj.field_top_level_collection.und[0].pid,
+					text: obj.title
+				}
+			})
+			console.log(projects)
+			this.setState({projects})
 		})
 	}
 
