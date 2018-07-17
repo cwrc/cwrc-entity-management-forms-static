@@ -4,6 +4,9 @@ import {Field} from 'redux-form'
 import {DropdownComponent} from './FormControls'
 import {get, parseJSON} from '../../../api/utils'
 
+let isFetched = false
+let fetchedProjects = []
+
 class ProjectSelector extends React.Component {
 	// static propTypes = {
 	// 	name: String,
@@ -13,18 +16,27 @@ class ProjectSelector extends React.Component {
 		projects: []
 	}
 
+	static isFetched = false
+
 	componentDidMount () {
-		get(process.env.REACT_APP_ENTITIES_HOST + '/projects/json-lookup').then(parseJSON).then(res => {
-			const projects = res.data.map(obj => {
-				return {
-					key: obj.field_top_level_collection.und[0].pid,
-					value: obj.field_top_level_collection.und[0].pid,
-					text: obj.title
+		if (!isFetched) {
+			get(process.env.REACT_APP_ENTITIES_HOST + '/projects/json-lookup').then(parseJSON).then(res => {
+				const projects = []
+				for (let key in res.data) {
+					const obj = res.data[key]
+					projects.push({
+						key: obj.field_top_level_collection.und[0].pid,
+						value: obj.field_top_level_collection.und[0].pid,
+						text: obj.title
+					})
 				}
+				this.setState({projects})
+				isFetched = true
+				fetchedProjects = projects
 			})
-			console.log(projects)
-			this.setState({projects})
-		})
+		} else {
+			this.setState({projects: fetchedProjects})
+		}
 	}
 
 	render () {
