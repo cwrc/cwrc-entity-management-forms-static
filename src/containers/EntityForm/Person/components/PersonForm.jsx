@@ -7,7 +7,8 @@ import {
 	Grid,
 	Button,
 	Segment,
-	Rail
+	Dimmer,
+	Loader
 } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {
@@ -29,8 +30,6 @@ import EntityLookup from '../../components/EntityLookup'
 import MessageDialog from '../../components/MessageDialog'
 
 import {required} from '../../components/FieldValidation'
-
-import Values from '../../components/Values'
 
 import type {FormProps} from 'redux-form'
 
@@ -122,22 +121,14 @@ class PersonComponent extends Component<Props, State> {
 		this.props.dispatch(initialize('PERSON_FORM', {}))
 	}
 
-	doLoad = () => {
+	doSampleLoad = () => {
 		let json = xml2json(samplePersonDoc)
 		this.props.dispatch(initialize('PERSON_FORM', json))
 	}
 
 	testGet = () => {
 		console.log('triggered the testGet')
-		let personPromise = this.props.getPerson('cwrc:d47d3302-b566-478f-a53f-dd433c4ed648')
-		personPromise.then((value) => {
-			console.log(value)
-			console.log(this)
-			let data = this.props.getPersonGetData
-			console.log(data)
-		}, (reason) => {
-			console.log(reason)
-		})
+		this.props.getPerson('cwrc:d47d3302-b566-478f-a53f-dd433c4ed648')
 		// AFTER THE GET IS ISSUE, THE STATE WILL GO THROUGH AT LEAST TWO CHANGES:
 		// 1. WHEN THE CALL IS ISSUED, THE STATE AT state.entities.person.get.status changes to 'pending' from 'none'
 		// 2. after the call returns, that status changes to either 'done' or 'error'.  If 'done' then state.entities.person.get.data
@@ -345,64 +336,65 @@ class PersonComponent extends Component<Props, State> {
 
 		return (
 			<Segment basic>
-				{/* <Rail attached position='left' size='tiny'>
-					<Values form='PERSON_FORM'/>
-				</Rail> */}
-				<Form onSubmit={handleSubmit} error={invalid}>
-					<Header as="h2">Identity</Header>
+				{this.props.isPersonGetPending ? (
+					<Dimmer active>
+						<Loader>Loading Person</Loader>
+					</Dimmer>
+				) : (
+					<Form onSubmit={handleSubmit} error={invalid}>
+						<Header as="h2">Identity</Header>
 
-					<Segment.Group>
-						{NamePanels.map((panel, index) => (
-							<Segment basic key={panel.key}>{panel.content}</Segment>
-						))}
-					</Segment.Group>
+						<Segment.Group>
+							{NamePanels.map((panel, index) => (
+								<Segment basic key={panel.key}>{panel.content}</Segment>
+							))}
+						</Segment.Group>
 
-					<Header as="h2">Description</Header>
+						<Header as="h2">Description</Header>
 
-					<Segment.Group>
-						{DescriptionPanels.map((panel, index) => (
-							<Segment basic key={panel.key}>{panel.content}</Segment>
-						))}
-					</Segment.Group>
+						<Segment.Group>
+							{DescriptionPanels.map((panel, index) => (
+								<Segment basic key={panel.key}>{panel.content}</Segment>
+							))}
+						</Segment.Group>
 
-					<Header as="h2">Sources</Header>
-					{/* <Segment> */}
-					<SegmentRepeater
-						fieldArrayName="sources.bibl"
-						headerLabel=""
-						componentLabel="Source"
-						RepeatableComponent={EntityLookup}
-						buttonLabel='Add Source'
-						entityType='title'
-						changeFunc={this.props.change}
-					/>
-					{/* </Segment> */}
-
-					<Field key="non_field_errors"
-						name="non_field_errors"
-						component={({meta: {error}}) => {
-							return error ? (
-								<Message error>
-									<Message.Header>{'Login failed :('}</Message.Header>
-									<p>{error}</p>
-								</Message>
-							) : null
-						}}
-					/>
-
-					<div style={{textAlign: 'center'}}>
-						<Button type="button" content="Load Sample Person" icon="cloud download" onClick={() => this.doLoad()}/>
-						<Button content="Submit" icon="sign in" loading={submitting}/>
-						<Button type="button" content="Test api get call" icon="cloud download" onClick={this.testGet}/>
-					</div>
-					{this.props.isPersonPostDone ? (
-						<MessageDialog
-							header="Entity Created!"
-							content={<p>New entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getPersonPostData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getPersonPostData.data.pid}</a></p>}
-							onClose={this.resetForm}
+						<Header as="h2">Sources</Header>
+						<SegmentRepeater
+							fieldArrayName="sources.bibl"
+							headerLabel=""
+							componentLabel="Source"
+							RepeatableComponent={EntityLookup}
+							buttonLabel='Add Source'
+							entityType='title'
+							changeFunc={this.props.change}
 						/>
-					) : ''}
-				</Form>
+
+						<Field key="non_field_errors"
+							name="non_field_errors"
+							component={({meta: {error}}) => {
+								return error ? (
+									<Message error>
+										<Message.Header>{'Login failed :('}</Message.Header>
+										<p>{error}</p>
+									</Message>
+								) : null
+							}}
+						/>
+
+						<div style={{textAlign: 'center'}}>
+							<Button type="button" content="Load Sample Person (local)" icon="cloud download" onClick={() => this.doSampleLoad()}/>
+							<Button type="button" content="Load Person (remote)" icon="cloud download" onClick={this.testGet}/>
+							<Button content="Submit" icon="sign in" loading={submitting}/>
+						</div>
+						{this.props.isPersonPostDone ? (
+							<MessageDialog
+								header="Entity Created!"
+								content={<p>New entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getPersonPostData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getPersonPostData.data.pid}</a></p>}
+								onClose={this.resetForm}
+							/>
+						) : ''}
+					</Form>
+				)}
 			</Segment>
 		)
 	}
