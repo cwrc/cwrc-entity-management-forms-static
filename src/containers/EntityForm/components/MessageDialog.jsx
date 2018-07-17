@@ -22,6 +22,7 @@ export default class MessageDialog extends Component {
 				open={this.state.modalOpen}
 				onClose={this.handleClose}
 				style={{position: 'relative'}}
+				closeOnDimmerClick={false}
 			>
 				<Modal.Header>{this.props.header}</Modal.Header>
 				<Modal.Content>{this.props.content}</Modal.Content>

@@ -398,7 +398,7 @@ class PersonComponent extends Component<Props, State> {
 					{this.props.isPersonPostDone ? (
 						<MessageDialog
 							header="Entity Created!"
-							content={<p>New entity: <a href={'https://dev-02.cwrc.ca/islandora/object/' + this.props.getPersonPostData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getPersonPostData.data.pid}</a></p>}
+							content={<p>New entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getPersonPostData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getPersonPostData.data.pid}</a></p>}
 							onClose={this.resetForm}
 						/>
 					) : ''}
