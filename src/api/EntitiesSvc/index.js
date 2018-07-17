@@ -1,5 +1,5 @@
 // @flow
-import {get, put, post} from '../utils'
+import {get, put, post, parseJSON} from '../utils'
 
 export const getPerson = async (id) => {
 	get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person/${id}`).then(parseXML)
@@ -35,10 +35,4 @@ async function parseXML (res: Response): Object {
 	const xml = parser.parseFromString(text, 'text/xml')
 	const {status, ok} = res
 	return {data: xml, ok, status}
-}
-
-async function parseJSON (res: Response): Object {
-	const data = await res.json()
-	const {status, ok} = res
-	return {data, ok, status}
 }

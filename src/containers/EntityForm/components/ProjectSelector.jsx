@@ -2,7 +2,7 @@
 import React from 'react'
 import {Field} from 'redux-form'
 import {DropdownComponent} from './FormControls'
-import {get} from '../../../api/utils'
+import {get, parseJSON} from '../../../api/utils'
 
 class ProjectSelector extends React.Component {
 	// static propTypes = {
@@ -14,8 +14,8 @@ class ProjectSelector extends React.Component {
 	}
 
 	componentDidMount () {
-		get(process.env.REACT_APP_ENTITIES_HOST + '/projects/json-lookup').then(res => {
-			console.log(res)
+		get(process.env.REACT_APP_ENTITIES_HOST + '/projects/json-lookup').then(parseJSON).then(data => {
+			console.log(data)
 		})
 	}
 
