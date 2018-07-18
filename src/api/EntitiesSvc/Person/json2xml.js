@@ -64,7 +64,7 @@ export const json2xml = (values) => {
 					variantEl.setAttribute('role', variantType)
 				}
 				if (variant.project) {
-					createXMLFromPath(variantEl, 'note/desc/orgName', variant.project)
+					createXMLFromPath(variantEl, `note/desc/orgName[@ref="${encodeURIComponent(process.env.REACT_APP_ENTITIES_HOST + '/' + variant.project)}"]`)
 				}
 				if (variant.parts) {
 					for (let part of variant.parts) {
@@ -168,8 +168,7 @@ export const json2xml = (values) => {
 					noteEl.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:lang', note.lang)
 				}
 				if (note.project) {
-					let orgEl = createXMLFromPath(noteEl, 'respons[@locus="value"]/desc/orgName')
-					orgEl.setAttribute('ref', note.project)
+					createXMLFromPath(noteEl, `respons[@locus="value"]/desc/orgName[@ref="${encodeURIComponent(process.env.REACT_APP_ENTITIES_HOST + '/' + note.project)}"]`)
 				}
 			}
 		}
