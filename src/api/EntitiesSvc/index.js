@@ -1,5 +1,5 @@
 // @flow
-import {get, put, post, parseJSON} from '../utils'
+import {get, put, post, parseJSON, parseXML} from '../utils'
 
 import {json2xml as json2xmlPerson} from './Person/json2xml'
 import {xml2json as xml2jsonPerson} from './Person/xml2json'
@@ -8,7 +8,7 @@ export const getPerson = async (id) =>
 	get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person/${id}`)
 		.then(parseXML)
 		.then(res => {
-			return {data: xml2jsonPerson(res.data)}
+			return xml2jsonPerson(res.data)
 		})
 
 export const postPerson = async (data) => {
@@ -38,12 +38,3 @@ export const postOrganization = async (data) =>
 
 export const putOrganization = async (id, data) =>
 	put(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/organization/${id}`, data)
-
-async function parseXML (res: Response): Object {
-	let text = await res.text()
-	text = JSON.parse(text)
-	const parser = new DOMParser()
-	const xml = parser.parseFromString(text, 'text/xml')
-	const {status, ok} = res
-	return {data: xml, ok, status}
-}

@@ -38,14 +38,14 @@
                   <name type="cognomen">Antoninus</name>
                   <roleName>Augustus</roleName>
                </persName>
-               <persName type="variant" role="birth" xml:lang="LAT">
+               <persName type="variant" role="foobar" xml:lang="LAT">
                   <name type="prenomen">Marcus</name>
                   <name type="nomen">Annius</name>
                   <name type="cognomen">Verus</name>
                   <note>
                      <label>Named prefered by: </label>
                      <desc>
-                        <orgName ref="https://beta.cwrc.ca/project/canada%E2%80%99s-early-women-writers">Canada's Early Women Writers</orgName>
+                        <orgName ref="https://beta.cwrc.ca/node/26">Canada's Early Women Writers</orgName>
                      </desc>
                   </note>
                </persName>
@@ -74,7 +74,7 @@
                   <note>He wrote the "Meditations"</note>
                   <respons locus="value">
                      <desc>
-                        <orgName ref="https://beta.cwrc.ca/project/canada%E2%80%99s-early-women-writers">Canada's Early Women Writers</orgName>
+                        <orgName ref="https://beta.cwrc.ca/node/26">Canada's Early Women Writers</orgName>
                      </desc>
                   </respons>
                </note>

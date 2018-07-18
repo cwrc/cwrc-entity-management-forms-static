@@ -53,6 +53,9 @@ import {isPersonPostDone,
 
 import {GET_PERSON, PUT_PERSON, POST_PERSON} from '../../../../actions/entities'
 
+import {xml2json} from '../../../../api/EntitiesSvc/Person/xml2json'
+import {get, parseXML} from '../../../../api/utils'
+
 const nameOptions = [
 	{key: '', text: '', value: ''},
 	{key: 'forename', text: 'Forename', value: 'forename'},
@@ -118,8 +121,42 @@ class PersonComponent extends Component<Props, State> {
 	}
 
 	doSampleLoad = () => {
-		// let json = xml2json(samplePersonDoc)
-		// this.props.dispatch(initialize('PERSON_FORM', json))
+		get(process.env.PUBLIC_URL + '/sample_person_entity.xml').then(parseXML).then(res => {
+			let json = xml2json(res.data)
+			if (json.identity.nameParts) {
+				json.identity.nameParts.forEach(np => {
+					let match = false
+					for (let n of nameOptions) {
+						if (n.value === np.type) {
+							match = true
+							break
+						}
+					}
+					if (!match) {
+						nameOptions.push({
+							key: np.type, value: np.type, text: np.type
+						})
+					}
+				})
+			}
+			if (json.identity.variants) {
+				json.identity.variants.forEach(vr => {
+					let match = false
+					for (let v of variantOptions) {
+						if (v.value === vr.type) {
+							match = true
+							break
+						}
+					}
+					if (!match) {
+						variantOptions.push({
+							key: vr.type, value: vr.type, text: vr.type
+						})
+					}
+				})
+			}
+			this.props.dispatch(initialize('PERSON_FORM', json))
+		})
 	}
 
 	testGet = () => {
@@ -415,7 +452,7 @@ class PersonComponent extends Component<Props, State> {
 					/>
 
 					<div style={{textAlign: 'center'}}>
-						{/* <Button type="button" content="Load Sample Person (local)" icon="cloud download" onClick={() => this.doSampleLoad()}/> */}
+						<Button type="button" content="Load Sample Person (local)" icon="cloud download" onClick={() => this.doSampleLoad()}/>
 						<Button type="button" content="Load Person (remote)" icon="cloud download" onClick={this.testGet}/>
 						<Button content="Submit" icon="sign in" loading={submitting}/>
 					</div>
