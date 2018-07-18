@@ -25,8 +25,8 @@ class ProjectSelector extends React.Component {
 				for (let key in res.data) {
 					const obj = res.data[key]
 					projects.push({
-						key: obj.field_top_level_collection.und[0].pid,
-						value: obj.field_top_level_collection.und[0].pid,
+						key: 'node/' + obj.nid,
+						value: 'node/' + obj.nid,
 						text: obj.title
 					})
 				}

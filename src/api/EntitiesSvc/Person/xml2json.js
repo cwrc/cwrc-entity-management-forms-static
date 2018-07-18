@@ -20,6 +20,12 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 			value: el.textContent
 		})
 	})
+	prefName.querySelectorAll('roleName').forEach((el, index) => {
+		values.identity.nameParts.push({
+			type: 'role',
+			value: el.textContent
+		})
+	})
 
 	values.identity.variants = []
 	person.querySelectorAll('persName[type="variant"]').forEach((el, index) => {
@@ -33,7 +39,12 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 		let project = ''
 		let orgName = el.querySelector('orgName')
 		if (orgName) {
-			project = orgName.getAttribute('ref')
+			project = orgName.getAttribute('ref').match(/node\/\d+$/)
+			if (project !== null) {
+				project = project[0]
+			} else {
+				project = ''
+			}
 		}
 		values.identity.variants.push({
 			lang: el.getAttribute('xml:lang').toLowerCase(),
@@ -123,10 +134,21 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 
 	values.description.projectNote = []
 	person.querySelectorAll('note[type="project-specific"]').forEach((el, index) => {
+		let project = ''
+		let orgName = el.querySelector('orgName')
+		if (orgName) {
+			project = orgName.getAttribute('ref').match(/node\/\d+$/)
+			if (project !== null) {
+				project = project[0]
+			} else {
+				project = ''
+			}
+		}
+
 		values.description.projectNote.push({
 			value: el.textContent,
 			lang: el.getAttribute('xml:lang').toLowerCase(),
-			project: el.querySelector('orgName').getAttribute('ref')
+			project: project
 		})
 	})
 

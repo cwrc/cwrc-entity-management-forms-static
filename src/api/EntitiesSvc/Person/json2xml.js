@@ -43,8 +43,10 @@ export const json2xml = (values) => {
 				if (values.identity.namePartsLang) {
 					namePartEl.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:lang', values.identity.namePartsLang)
 				}
-				let nameEl = createXMLFromPath(namePartEl, 'name', namePart.value)
-				if (namePart.type) {
+				if (namePart.type === 'role') {
+					createXMLFromPath(namePartEl, 'roleName', namePart.value)
+				} else {
+					let nameEl = createXMLFromPath(namePartEl, 'name', namePart.value)
 					let namePartType = namePart.type.replace(/\s+/g, '_')
 					nameEl.setAttribute('type', namePartType)
 				}
