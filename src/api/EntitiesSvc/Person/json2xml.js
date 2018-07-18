@@ -1,4 +1,4 @@
-import {createXMLFromPath} from '../../utils/xml_utilities'
+import {createXMLFromPath, getDateString} from '../../utils/conversion_utilities'
 
 export const json2xml = (values) => {
 	let xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -97,10 +97,10 @@ export const json2xml = (values) => {
 					dateEl.setAttribute('cert', date.cert)
 				}
 				if (date.date1 && date.qualifier1) {
-					dateEl.setAttribute(date.qualifier1, date.date1)
+					dateEl.setAttribute(date.qualifier1, getDateString(date.date1))
 				}
 				if (date.date2 && date.qualifier2) {
-					dateEl.setAttribute(date.qualifier2, date.date2)
+					dateEl.setAttribute(date.qualifier2, getDateString(date.date2))
 				}
 				if (date.note) {
 					createXMLFromPath(dateEl, 'note', date.note)

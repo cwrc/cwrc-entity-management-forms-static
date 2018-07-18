@@ -1,4 +1,4 @@
-import {createXMLFromPath} from '../../utils/xml_utilities'
+import {createXMLFromPath} from '../../utils/conversion_utilities'
 
 export const json2xml = (values) => {
 	let xml = `<?xml version="1.0" encoding="UTF-8"?>
