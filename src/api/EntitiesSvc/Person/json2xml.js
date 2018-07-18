@@ -139,6 +139,15 @@ export const json2xml = (values) => {
 					}
 				}
 			}
+			// affiliation
+			if (props.affiliation) {
+				for (let aff of props.affiliation) {
+					let affEl = createXMLFromPath(person, 'affiliation', aff.value)
+					if (aff.cert) {
+						affEl.setAttribute('cert', aff.cert)
+					}
+				}
+			}
 		}
 		// description
 		if (values.description.descriptiveNote) {

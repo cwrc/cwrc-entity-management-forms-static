@@ -105,6 +105,14 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 		})
 	})
 
+	values.description.properties.affiliation = []
+	person.querySelectorAll('affiliation').forEach((el, index) => {
+		values.description.properties.affiliation.push({
+			value: el.textContent,
+			cert: el.getAttribute('cert')
+		})
+	})
+
 	values.description.descriptiveNote = []
 	person.querySelectorAll('note[type="general"]').forEach((el, index) => {
 		values.description.descriptiveNote.push({
@@ -116,7 +124,7 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 	values.description.projectNote = []
 	person.querySelectorAll('note[type="project-specific"]').forEach((el, index) => {
 		values.description.projectNote.push({
-			value: el.querySelector('note').textContent,
+			value: el.textContent,
 			lang: el.getAttribute('xml:lang').toLowerCase(),
 			project: el.querySelector('orgName').getAttribute('ref')
 		})

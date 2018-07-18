@@ -181,6 +181,30 @@ class PersonComponent extends Component<Props, State> {
 			</div>
 		)
 
+		const AffiliationComponent = ({name}) => (
+			<div>
+				<Grid verticalAlign='middle' columns='equal'>
+					<Grid.Column>
+						<Field
+							inline
+							label="Affiliation"
+							name={`${name}.value`}
+							placeholder="Affiliation"
+							component={InputField}
+						/>
+					</Grid.Column>
+					<Grid.Column>
+						<Field
+							label='Certainty'
+							name={`${name}.cert`}
+							placeholder='Certainty'
+							options={certaintyOptions}
+							component={DropdownComponent}/>
+					</Grid.Column>
+				</Grid>
+			</div>
+		)
+
 		const NamePanels = [
 			{
 				title: 'Standard Name',
@@ -298,6 +322,12 @@ class PersonComponent extends Component<Props, State> {
 							headerLabel="Occupation"
 							componentLabel="Occupation"
 							RepeatableComponent={OccupationComponent}
+						/>
+						<SegmentRepeater
+							fieldArrayName="description.properties.affiliation"
+							headerLabel="Affiliation"
+							componentLabel="Affiliation"
+							RepeatableComponent={AffiliationComponent}
 						/>
 					</Segment.Group>
 				)
