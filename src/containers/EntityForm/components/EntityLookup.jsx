@@ -86,6 +86,13 @@ class EntityLookup extends React.Component<Props, State> {
 							<Field name={`${name}.name`} component={this.renderName} />
 							<Field name={`${name}.idno`} component={this.renderURI} />
 						</Grid.Column>
+						{includeCertainty &&
+						<Grid.Column>
+							<Field name={`${name}.cert`}
+								label='Certainty' placeholder='Certainty' component={DropdownComponent} options={certaintyOptions}
+							/>
+						</Grid.Column>
+						}
 						{includeClear &&
 						<Grid.Column width={1}>
 							<Popup size='tiny' position='right center' trigger={
@@ -94,15 +101,6 @@ class EntityLookup extends React.Component<Props, State> {
 						</Grid.Column>
 						}
 					</Grid.Row>
-					{includeCertainty &&
-					<Grid.Row style={{paddingTop: 0}}>
-						<Grid.Column>
-							<Field name={`${name}.cert`}
-								label='Certainty' placeholder='Certainty' component={DropdownComponent} options={certaintyOptions}
-							/>
-						</Grid.Column>
-					</Grid.Row>
-					}
 				</Grid>
 			</div>
 		)
