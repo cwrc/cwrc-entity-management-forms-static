@@ -60,7 +60,7 @@ const variantOptions = [
 const factualityOptions = [
 	{key: '', text: '', value: ''},
 	{key: 'real', text: 'Real', value: 'real'},
-	{key: 'fake', text: 'Fake', value: 'fake'}
+	{key: 'fictional', text: 'Fictional', value: 'fictional'}
 ]
 
 const placeTypeOptions = [
