@@ -12,7 +12,7 @@ export function createXMLFromPath (parent: Element, path: String, childText?: St
 			} else {
 				tagName = tag
 			}
-			let el = parent.ownerDocument.createElement(tagName)
+			let el = parent.ownerDocument.createElementNS('http://www.tei-c.org/ns/1.0', tagName)
 			if (hasAtt) {
 				let attName = tag.slice(tag.indexOf('@') + 1, tag.indexOf('='))
 				let attValue = tag.slice(tag.indexOf('"') + 1, tag.lastIndexOf('"'))
