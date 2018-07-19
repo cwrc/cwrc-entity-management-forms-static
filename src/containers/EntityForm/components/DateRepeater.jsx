@@ -59,21 +59,26 @@ const DateRepeater = ({
 	)
 }
 
-const handleDateChange = (dateObj, dateValue) => {
-	console.log(dateValue)
+const renderDatePicker = ({input: {onChange, value}, showTime = false}: any) => {
+	if (value === '') {
+		value = null
+	} else {
+		// handling for weird date stuff
+		// see https://stackoverflow.com/a/31732581
+		value = new Date(value.replace(/-/g, '/'))
+	}
+	return (
+		<DateTimePicker
+			onChange={onChange}
+			value={value}
+			min={new Date(-3000, 1, 1)}
+			max={new Date(3000, 12, 31)}
+			format='YYYY-MM-DD'
+			placeholder='YYYY-MM-DD'
+			time={showTime}
+		/>
+	)
 }
-
-const renderDatePicker = ({input: {onChange, value}, showTime = false}: any) => (
-	<DateTimePicker
-		onChange={onChange}
-		value={!value ? null : new Date(value)}
-		min={new Date(-3000, 1, 1)}
-		max={new Date(3000, 12, 31)}
-		format='YYYY-MM-DD'
-		placeholder='YYYY-MM-DD'
-		time={showTime}
-	/>
-)
 
 const renderSegment = ({
 	fields,
@@ -94,9 +99,11 @@ const renderSegment = ({
 			</Button>
 		</Segment>
 		{fields.map((name, index) => {
-			const isRange = fields.get(index).isRange
-			const date1 = null
-			const date2 = null
+			const field = fields.get(index)
+			let isRange = field.isRange
+			if (isRange === undefined) {
+				isRange = field.date1 !== undefined && field.date2 !== undefined
+			}
 			return (
 				<Segment key={index}>
 					<Grid columns='equal'>
@@ -107,8 +114,6 @@ const renderSegment = ({
 										<Grid.Column>
 											<Field
 												name={`${name}.date1`}
-												value={date1}
-												onChange={handleDateChange}
 												component={renderDatePicker} />
 											<Field
 												required
@@ -141,8 +146,6 @@ const renderSegment = ({
 										<Grid.Column>
 											<Field
 												name={`${name}.date1`}
-												value={date1}
-												onChange={handleDateChange}
 												component={renderDatePicker} />
 											<Field
 												required
@@ -165,8 +168,6 @@ const renderSegment = ({
 										<Grid.Column>
 											<Field
 												name={`${name}.date2`}
-												value={date2}
-												onChange={handleDateChange}
 												component={renderDatePicker} />
 											<Field
 												required

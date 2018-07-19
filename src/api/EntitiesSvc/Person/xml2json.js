@@ -67,21 +67,36 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 	let dates = person.querySelectorAll('birth, death, floruit')
 	dates.forEach((el, index) => {
 		let date = el.querySelector('date')
-		let date1 = date.getAttribute('when')
+		let date1 = date.getAttribute('when-iso')
 		let date2
+		let qualifier1
+		let qualifier2
 		if (date1 === null) {
-			date1 = date.getAttribute('from')
-			date2 = date.getAttribute('to')
+			date1 = date.getAttribute('from-iso')
+			date2 = date.getAttribute('to-iso')
+			qualifier1 = 'from-iso'
+			qualifier2 = 'to-iso'
+		} else {
+			qualifier1 = 'when-iso'
 		}
 		let note = el.querySelector('note')
 		if (note) {
 			note = note.textContent
 		}
+		let place = el.querySelector('placeName')
+		if (place) {
+			let name = place.textContent
+			let idno = place.getAttribute('ref')
+			place = {name, idno}
+		}
 		values.description.dates.push({
 			type: el.nodeName,
 			date1,
 			date2,
+			qualifier1,
+			qualifier2,
 			note,
+			place,
 			cert: date.getAttribute('cert')
 		})
 	})

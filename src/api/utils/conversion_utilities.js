@@ -31,14 +31,18 @@ export function createXMLFromPath (parent: Element, path: String, childText?: St
 	return currParent
 }
 
-export function getDateString (date: Date) {
-	let d = new Date(date)
+export function getDateString (date: String) {
+	// handling for weird date stuff
+	// see https://stackoverflow.com/a/31732581
+	let d = new Date(date.replace(/-/g, '/'))
+
 	let month = '' + (d.getMonth() + 1)
 	let day = '' + d.getDate()
-	let year = d.getFullYear()
+	let year = '' + d.getFullYear()
 
-	if (month.length < 2) month = '0' + month
-	if (day.length < 2) day = '0' + day
+	year = year.padStart(4, '0')
+	month = month.padStart(2, '0')
+	day = day.padStart(2, '0')
 
 	return [year, month, day].join('-')
 }
