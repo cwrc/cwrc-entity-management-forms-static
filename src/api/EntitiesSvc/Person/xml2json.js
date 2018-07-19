@@ -157,7 +157,8 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 		values.sources.bibl = []
 		listBibl.querySelectorAll('bibl').forEach((el, index) => {
 			values.sources.bibl.push({
-				name: el.querySelector('title').textContent
+				name: el.querySelector('title').textContent,
+				idno: el.querySelector('ref').getAttribute('target')
 			})
 		})
 	}

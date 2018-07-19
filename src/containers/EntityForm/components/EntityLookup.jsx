@@ -59,7 +59,7 @@ class EntityLookup extends React.Component<Props, State> {
 
 	renderURI = (field) => {
 		if (field.input.value !== undefined) {
-			return <a href={field.input.value} target='_blank' rel="noopener noreferrer">{field.input.value}</a>
+			return <a href={field.input.value} style={{display: 'block', overflow: 'hidden', textOverflow: 'ellipsis'}} target='_blank' rel="noopener noreferrer">{field.input.value}</a>
 		} else {
 			return ''
 		}
