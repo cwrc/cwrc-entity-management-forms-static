@@ -50,16 +50,16 @@
                   </note>
                </persName>
                <birth>
-                  <date cert="high"  source="https://www.w3.org/TR/NOTE-datetime" when="0121-04-26">26 April 121</date>, <placeName>Rome</placeName>
+                  <date cert="high"  source="https://www.w3.org/TR/NOTE-datetime" when-iso="0121-04-26">26 April 121</date>, <placeName>Rome</placeName>
                   <note/>
                </birth>
                <death>
-                  <date cert="high" when="0180-03-17"> 17 March 180</date>,
+                  <date cert="high" when-iso="0180-03-17"> 17 March 180</date>,
                   <placeName>Vindobona</placeName>
                   <note/>
                </death>
                <floruit>
-                  <date cert="high" from="0161-03-08" to="0180-03-17">8 March 161 - 17 March 180</date>
+                  <date cert="high" from-iso="0161-03-08" to-iso="0180-03-17">8 March 161 - 17 March 180</date>
                   <note>Reign</note>
                </floruit>
                <sex source="http://sparql.cwrc.ca/ontology/cwrc.html#Gender" value="cisMan" cert="high"/>
@@ -84,13 +84,13 @@
                </listBibl>
                <respons locus="value">
                   <desc> 
-                     <date type="created" source="https://www.w3.org/TR/NOTE-datetime" when="2017-11-06"/>
+                     <date type="created" source="https://www.w3.org/TR/NOTE-datetime" when-iso="2017-11-06"/>
                      <persName ref="https://beta.cwrc.ca/users/mihaela-ilovan">Mihaela Ilovan</persName>
                   </desc>
                </respons>
                <respons locus="value">
                   <desc> 
-                     <date type="modified" source="https://www.w3.org/TR/NOTE-datetime" when="2017-11-07"/>
+                     <date type="modified" source="https://www.w3.org/TR/NOTE-datetime" when-iso="2017-11-07"/>
                      <persName ref="https://beta.cwrc.ca/users/karyn-huenemann">Karyn Huenemann</persName>
                   </desc>
                </respons>
