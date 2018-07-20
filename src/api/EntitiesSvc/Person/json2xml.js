@@ -124,7 +124,7 @@ export const json2xml = (values) => {
 			// gender
 			if (props.gender) {
 				let sex = props.gender.value.join(' ')
-				let sexEl = createXMLFromPath(person, 'sex', sex)
+				let sexEl = createXMLFromPath(person, `sex[@value="${sex}"]`)
 				if (props.gender.cert) {
 					sexEl.setAttribute('cert', props.gender.cert)
 				}

@@ -110,11 +110,11 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 		}
 	}
 
-	values.description.properties.gender = []
+	values.description.properties.gender = {}
 	let sex = person.querySelector('sex')
 	if (sex) {
-		values.description.properties.gender.value = sex.getAttribute('value').split(' ')
 		values.description.properties.gender.cert = sex.getAttribute('cert')
+		values.description.properties.gender.value = sex.getAttribute('value').split(' ')
 	}
 
 	values.description.properties.occupation = []

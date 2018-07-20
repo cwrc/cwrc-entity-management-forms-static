@@ -62,7 +62,7 @@
                   <date cert="high" from-iso="0161-03-08" to-iso="0180-03-17">8 March 161 - 17 March 180</date>
                   <note>Reign</note>
                </floruit>
-               <sex source="http://sparql.cwrc.ca/ontology/cwrc.html#Gender" value="cisMan" cert="high"/>
+               <sex source="http://sparql.cwrc.ca/ontology/cwrc.html#Gender" value="cisMan cisGender" cert="high"/>
                <trait type="factuality" cert="high">
                   <ab>real</ab>
                </trait>
