@@ -8,7 +8,8 @@ import {
 	Button,
 	Segment,
 	Dimmer,
-	Loader
+	Loader,
+	Popup
 } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {
@@ -65,6 +66,7 @@ const nameOptions = [
 ]
 
 const variantOptions = [
+	{key: '', text: '', value: ''},
 	{key: 'birth', text: 'birth', value: 'birth'},
 	{key: 'married', text: 'married', value: 'married'},
 	{key: 'indexed', text: 'indexed', value: 'indexed'},
@@ -465,9 +467,13 @@ class PersonComponent extends Component<Props, State> {
 					/>
 
 					<div style={{textAlign: 'center'}}>
-						<Button type="button" content="Load Sample Person (local)" icon="cloud download" onClick={() => this.doSampleLoad()}/>
+						<Button type="button" content="Load Sample Person (local)" icon="cloud download" onClick={this.doSampleLoad}/>
 						<Button type="button" content="Load Person (remote)" icon="cloud download" onClick={this.testGet}/>
-						<Button content="Submit" icon="sign in" loading={submitting}/>
+						{invalid ? (
+							<Popup size='tiny' position='right center' trigger={
+								<span><Button content="Submit" icon="sign in" disabled={true}/></span>
+							} content="Please fix invalid fields before submitting"/>
+						) : <Button content="Submit" icon="sign in" loading={submitting}/>}
 					</div>
 				</Form>
 			</Segment>

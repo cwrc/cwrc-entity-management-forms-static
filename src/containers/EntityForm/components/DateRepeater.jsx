@@ -12,10 +12,9 @@ import {Field, FieldArray} from 'redux-form'
 import {DropdownComponent} from './FormControls'
 import Moment from 'moment'
 import momentLocalizer from 'react-widgets-moment'
-
 import {DateTimePicker} from 'react-widgets'
-
 import EntityLookup from './EntityLookup'
+import {required} from '../components/FieldValidation'
 
 import 'react-widgets/dist/css/react-widgets.css'
 
@@ -23,6 +22,7 @@ Moment.locale('en')
 momentLocalizer()
 
 const dateQualifierOptions = [
+	{key: '', text: '', value: ''},
 	{key: 'when-iso', text: 'When', value: 'when-iso'},
 	{key: 'from-iso', text: 'From', value: 'from-iso'},
 	{key: 'to-iso', text: 'To', value: 'to-iso'},
@@ -31,12 +31,14 @@ const dateQualifierOptions = [
 ]
 
 const dateTypeOptions = [
+	{key: '', text: '', value: ''},
 	{key: 'birth', text: 'Birth', value: 'birth'},
 	{key: 'death', text: 'Death', value: 'death'},
 	{key: 'floruit', text: 'Floruit', value: 'floruit'}
 ]
 
 const certaintyOptions = [
+	{key: '', text: '', value: ''},
 	{key: 'high', text: 'High', value: 'high'},
 	{key: 'medium', text: 'Medium', value: 'medium'},
 	{key: 'low', text: 'Low', value: 'low'},
@@ -117,6 +119,7 @@ const renderSegment = ({
 												component={renderDatePicker} />
 											<Field
 												required
+												validate={[required]}
 												label='Type'
 												style={{marginTop: '1em'}}
 												name={`${name}.type`}
@@ -129,12 +132,15 @@ const renderSegment = ({
 										<Grid.Column>
 											<Field
 												required
+												validate={[required]}
 												label='Qualifier'
 												name={`${name}.qualifier1`}
 												options={dateQualifierOptions}
 												placeholder='Qualifier'
 												component={DropdownComponent}/>
 											<Field
+												required
+												validate={[required]}
 												label='Certainty'
 												name={`${name}.cert`}
 												options={certaintyOptions}
@@ -149,6 +155,7 @@ const renderSegment = ({
 												component={renderDatePicker} />
 											<Field
 												required
+												validate={[required]}
 												label='Qualifier'
 												style={{marginTop: '1em'}}
 												name={`${name}.qualifier1`}
@@ -157,6 +164,7 @@ const renderSegment = ({
 												component={DropdownComponent}/>
 											<Field
 												required
+												validate={[required]}
 												label='Type'
 												name={`${name}.type`}
 												options={dateTypeOptions}
@@ -171,6 +179,7 @@ const renderSegment = ({
 												component={renderDatePicker} />
 											<Field
 												required
+												validate={[required]}
 												label='Qualifier'
 												style={{marginTop: '1em'}}
 												name={`${name}.qualifier2`}
@@ -178,6 +187,8 @@ const renderSegment = ({
 												placeholder='Qualifier'
 												component={DropdownComponent}/>
 											<Field
+												required
+												validate={[required]}
 												label='Certainty'
 												name={`${name}.cert`}
 												options={certaintyOptions}
