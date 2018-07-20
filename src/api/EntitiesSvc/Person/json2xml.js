@@ -123,8 +123,11 @@ export const json2xml = (values) => {
 			}
 			// gender
 			if (props.gender) {
-				let sex = props.gender.join(' ')
-				person.setAttribute('sex', sex)
+				let sex = props.gender.value.join(' ')
+				let sexEl = createXMLFromPath(person, 'sex', sex)
+				if (props.gender.cert) {
+					sexEl.setAttribute('cert', props.gender.cert)
+				}
 			}
 			// occupation
 			if (props.occupation) {
@@ -189,5 +192,6 @@ export const json2xml = (values) => {
 			}
 		}
 	}
+	// responsibility
 	return xmlDoc
 }

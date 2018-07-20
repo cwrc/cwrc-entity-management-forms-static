@@ -27,7 +27,7 @@
    <text>
       <body>
          <listPerson>
-            <person xml:id="PID_entity_record" sex="f">
+            <person xml:id="PID_entity_record">
                <idno type="VIAF" cert="high">https://viaf.org/viaf/102895066</idno>
                <persName type="standard">
                   <name>Marcus Aurelius</name>
@@ -71,7 +71,7 @@
                <affiliation cert="high">Stoic philosopher</affiliation>
                <note type="general" xml:lang="ENG"> Considered the last of the "Good Emperors" </note>
                <note type="project-specific" xml:lang="ENG">
-                  <note>He wrote the "Meditations"</note>
+                  He wrote the "Meditations"
                   <respons locus="value">
                      <desc>
                         <orgName ref="https://beta.cwrc.ca/node/26">Canada's Early Women Writers</orgName>

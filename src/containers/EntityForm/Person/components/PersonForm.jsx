@@ -100,9 +100,9 @@ const certaintyOptions = [
 
 const genderOptions = [
 	{key: '', text: '', value: ''},
-	{key: 'cisgender', text: 'cisgender', value: 'cisgender'},
-	{key: 'ciswoman', text: 'ciswoman', value: 'ciswoman'},
-	{key: 'cisman', text: 'cisman', value: 'cisman'},
+	{key: 'cisGender', text: 'cisGender', value: 'cisGender'},
+	{key: 'cisWoman', text: 'cisWoman', value: 'cisWoman'},
+	{key: 'cisMan', text: 'cisMan', value: 'cisMan'},
 	{key: 'woman', text: 'woman', value: 'woman'},
 	{key: 'man', text: 'man', value: 'man'},
 	{key: 'transgender', text: 'transgender', value: 'transgender'},
@@ -123,6 +123,7 @@ class PersonComponent extends Component<Props, State> {
 	doSampleLoad = () => {
 		get(process.env.PUBLIC_URL + '/sample_person_entity.xml').then(parseXML).then(res => {
 			let json = xml2json(res.data)
+			console.log(json)
 			if (json.identity.nameParts) {
 				json.identity.nameParts.forEach(np => {
 					let match = false
@@ -338,15 +339,27 @@ class PersonComponent extends Component<Props, State> {
 							</Grid>
 						</Segment>
 						<Segment>
-							<Field
-								label="Gender"
-								name="description.properties.gender"
-								placeholder="Gender"
-								multiple
-								scrolling
-								options={genderOptions}
-								component={DropdownComponent}
-							/>
+							<Grid columns='equal'>
+								<Grid.Column>
+									<Field
+										label="Gender"
+										name="description.properties.gender.value"
+										placeholder="Gender"
+										multiple
+										scrolling
+										options={genderOptions}
+										component={DropdownComponent}
+									/>
+								</Grid.Column>
+								<Grid.Column>
+									<Field
+										label='Certainty'
+										name='description.properties.gender.cert'
+										placeholder='Certainty'
+										options={certaintyOptions}
+										component={DropdownComponent}/>
+								</Grid.Column>
+							</Grid>
 						</Segment>
 						<SegmentRepeater
 							fieldArrayName="description.properties.nationality"

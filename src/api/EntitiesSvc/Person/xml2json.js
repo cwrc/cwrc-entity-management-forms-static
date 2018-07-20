@@ -110,9 +110,11 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 		}
 	}
 
-	let sex = person.getAttribute('sex')
+	values.description.properties.gender = []
+	let sex = person.querySelector('sex')
 	if (sex) {
-		values.description.properties.gender = sex.split(' ')
+		values.description.properties.gender.value = sex.getAttribute('value').split(' ')
+		values.description.properties.gender.cert = sex.getAttribute('cert')
 	}
 
 	values.description.properties.occupation = []
@@ -161,7 +163,7 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 		}
 
 		values.description.projectNote.push({
-			value: el.textContent,
+			value: el.firstChild.textContent,
 			lang: el.getAttribute('xml:lang').toLowerCase(),
 			project: project
 		})
