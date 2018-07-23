@@ -9,7 +9,8 @@ import {
 	Segment,
 	Dimmer,
 	Loader,
-	Popup
+	Popup,
+	Rail
 } from 'semantic-ui-react'
 import {connect} from 'react-redux'
 import {
@@ -33,6 +34,8 @@ import MessageDialog from '../../components/MessageDialog'
 import {required} from '../../components/FieldValidation'
 
 import type {FormProps} from 'redux-form'
+
+import Values from '../../components/Values'
 
 import {isPersonPostDone,
 	isPersonPostPending,
@@ -260,9 +263,14 @@ class PersonComponent extends Component<Props, State> {
 							component={InputField}
 						/>
 						<Segment basic>
-							<Header as="h4">Components</Header>
 							<LanguageSelector label="Language" name="identity.namePartsLang"/>
-							<FieldArray name="identity.nameParts" component={NameParts} nameOptions={nameOptions}/>
+							<SegmentRepeater
+								fieldArrayName="identity.nameParts"
+								headerLabel="Components"
+								componentLabel="Component"
+								nameOptions={nameOptions}
+								RepeatableComponent={NameParts}
+							/>
 						</Segment>
 					</Segment>
 				)
@@ -426,6 +434,9 @@ class PersonComponent extends Component<Props, State> {
 						<Loader inverted>Loading Person</Loader>
 					</Dimmer>
 				) : ''}
+				{/* <Rail attached position='left' size='tiny'>
+					<Values form='PERSON_FORM'/>
+				</Rail> */}
 				<Form onSubmit={handleSubmit} error={invalid}>
 					<Header as="h2">Identity</Header>
 

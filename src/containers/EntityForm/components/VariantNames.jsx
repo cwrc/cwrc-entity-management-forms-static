@@ -1,8 +1,9 @@
 // @flow
 import React from 'react'
 import {Field, FieldArray} from 'redux-form'
-import {Grid, Divider} from 'semantic-ui-react'
+import {Grid, Header, Divider} from 'semantic-ui-react'
 import {DropdownAddableComponent} from '../components/FormControls'
+import SegmentRepeater from '../components/SegmentRepeater'
 import NameParts from '../components/NameParts'
 import LanguageSelector from '../components/LanguageSelector'
 import ProjectSelector from '../components/ProjectSelector'
@@ -14,6 +15,7 @@ const VariantNames = ({
 	nameOptions
 }: any) => (
 	<div>
+		<Header as="h4">Variant Name</Header>
 		<Grid stackable>
 			<Grid.Column width={6}>
 				<Field
@@ -37,7 +39,13 @@ const VariantNames = ({
 			</Grid.Column>
 		</Grid>
 		<Divider/>
-		<FieldArray name={`${name}.parts`} nameOptions={nameOptions} component={NameParts}/>
+		<SegmentRepeater
+			fieldArrayName={`${name}.parts`}
+			headerLabel="Components"
+			componentLabel="Component"
+			nameOptions={nameOptions}
+			RepeatableComponent={NameParts}
+		/>
 	</div>
 )
 
