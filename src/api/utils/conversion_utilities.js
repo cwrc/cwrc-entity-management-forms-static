@@ -32,9 +32,14 @@ export function createXMLFromPath (parent: Element, path: String, childText?: St
 }
 
 export function getDateString (date: String) {
-	// handling for weird date stuff
-	// see https://stackoverflow.com/a/31732581
-	let d = new Date(date.replace(/-/g, '/'))
+	let d
+	if (typeof date === 'string') {
+		// handling for weird date stuff
+		// see https://stackoverflow.com/a/31732581
+		d = new Date(date.replace(/-/g, '/'))
+	} else {
+		d = date
+	}
 
 	let month = '' + (d.getMonth() + 1)
 	let day = '' + d.getDate()

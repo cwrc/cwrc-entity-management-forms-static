@@ -62,12 +62,14 @@ const DateRepeater = ({
 }
 
 const renderDatePicker = ({input: {onChange, value}, showTime = false}: any) => {
-	if (value === '') {
-		value = null
-	} else {
-		// handling for weird date stuff
-		// see https://stackoverflow.com/a/31732581
-		value = new Date(value.replace(/-/g, '/'))
+	if (typeof value === 'string') {
+		if (value === '') {
+			value = null
+		} else {
+			// handling for weird date stuff
+			// see https://stackoverflow.com/a/31732581
+			value = new Date(value.replace(/-/g, '/'))
+		}
 	}
 	return (
 		<DateTimePicker
