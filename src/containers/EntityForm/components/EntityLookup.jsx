@@ -81,13 +81,13 @@ class EntityLookup extends React.Component<Props, State> {
 			<div>
 				<Grid columns='equal'>
 					<Grid.Row verticalAlign='top'>
+						{this.state.hasLookup === false &&
 						<Grid.Column width={4}>
-							{this.state.hasLookup === false &&
 							<Button type="button" size='tiny' color='olive' onClick={() => this.handleSearchClick()}>
 								<Icon name='search' />{buttonLabel}
 							</Button>
-							}
 						</Grid.Column>
+						}
 						<Grid.Column>
 							<Field name={`${name}.name`} component={this.renderName} />
 							<Field name={`${name}.idno`} component={this.renderURI} />
