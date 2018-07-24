@@ -26,6 +26,8 @@ PublicEntityDialog.registerEntitySources({
 })
 
 class EntityLookup extends React.Component<Props, State> {
+	state = { hasLookup: false }
+
 	handleSearchClick = () => {
 		const name = this.props.name
 		const entityType = this.props.entityType
@@ -38,6 +40,7 @@ class EntityLookup extends React.Component<Props, State> {
 				changeFunc(`${name}.name`, result.name)
 				changeFunc(`${name}.idno`, result.uri)
 				changeFunc(`${name}.type`, result.repository)
+				this.setState({ hasLookup: true })
 			},
 			error: (error) => {
 				console.log(error)
@@ -51,6 +54,7 @@ class EntityLookup extends React.Component<Props, State> {
 		changeFunc(`${name}.name`, '')
 		changeFunc(`${name}.idno`, '')
 		changeFunc(`${name}.type`, '')
+		this.setState({ hasLookup: false })
 	}
 
 	renderName = (field) => (
@@ -78,9 +82,11 @@ class EntityLookup extends React.Component<Props, State> {
 				<Grid columns='equal'>
 					<Grid.Row verticalAlign='top'>
 						<Grid.Column width={4}>
+							{this.state.hasLookup === false &&
 							<Button type="button" size='tiny' color='olive' onClick={() => this.handleSearchClick()}>
 								<Icon name='search' />{buttonLabel}
 							</Button>
+							}
 						</Grid.Column>
 						<Grid.Column>
 							<Field name={`${name}.name`} component={this.renderName} />
@@ -93,7 +99,7 @@ class EntityLookup extends React.Component<Props, State> {
 							/>
 						</Grid.Column>
 						}
-						{includeClear &&
+						{(includeClear && this.state.hasLookup) &&
 						<Grid.Column width={1}>
 							<Popup size='tiny' position='right center' trigger={
 								<Button type="button" size='tiny' color='red' icon='remove' onClick={() => this.handleClearClick()} />
