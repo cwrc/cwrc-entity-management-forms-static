@@ -17,8 +17,7 @@ import {
 	reduxForm,
 	getFormInitialValues,
 	initialize,
-	Field,
-	FieldArray
+	Field
 } from 'redux-form'
 
 import {InputField, DropdownComponent} from '../../components/FormControls'
@@ -167,7 +166,7 @@ class PersonComponent extends Component<Props, State> {
 
 	testGet = () => {
 		console.log('triggered the testGet')
-		this.props.getPerson('cwrc:d47d3302-b566-478f-a53f-dd433c4ed648')
+		this.props.getPerson('cwrc:7ce31c4a-d3ef-4839-95e9-984e394d31ef')
 		// AFTER THE GET IS ISSUE, THE STATE WILL GO THROUGH AT LEAST TWO CHANGES:
 		// 1. WHEN THE CALL IS ISSUED, THE STATE AT state.entities.person.get.status changes to 'pending' from 'none'
 		// 2. after the call returns, that status changes to either 'done' or 'error'.  If 'done' then state.entities.person.get.data
@@ -504,7 +503,7 @@ const validate = values => {
 // i.e. model -> view
 const mapStateToProps = state => {
 	return {
-		initialValues: getFormInitialValues('PERSON_FORM')(state),
+		initialValues: state.entities.person.get.data,
 		isPersonPostDone: isPersonPostDone(state),
 		isPersonPostPending: isPersonPostPending(state),
 		isPersonPostError: isPersonPostError(state),
