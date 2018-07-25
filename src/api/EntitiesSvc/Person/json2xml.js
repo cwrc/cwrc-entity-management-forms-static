@@ -41,17 +41,22 @@ export const json2xml = (values) => {
 		createXMLFromPath(person, 'persName[@type="standard"]/name', values.identity.standardName)
 		// name components
 		if (values.identity.nameParts) {
+			let namePartEl = createXMLFromPath(person, 'persName[@type="prefered"]')
 			for (let namePart of values.identity.nameParts) {
-				let namePartEl = createXMLFromPath(person, 'persName[@type="prefered"]')
 				if (values.identity.namePartsLang) {
 					namePartEl.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:lang', values.identity.namePartsLang)
 				}
 				if (namePart.type === 'role') {
 					createXMLFromPath(namePartEl, 'roleName', namePart.value)
+				} else if (namePart.type === 'generational') {
+					createXMLFromPath(namePartEl, 'genName', namePart.value)
 				} else {
-					let nameEl = createXMLFromPath(namePartEl, 'name', namePart.value)
-					let namePartType = namePart.type.replace(/\s+/g, '_')
-					nameEl.setAttribute('type', namePartType)
+					let namePartType = namePart.type
+					if (namePartType === undefined || namePartType === '') {
+						namePartType = 'undefined'
+					}
+					namePartType = namePartType.replace(/\s+/g, '_')
+					createXMLFromPath(namePartEl, `name[@type="${namePartType}"]`, namePart.value)
 				}
 			}
 		}
@@ -62,16 +67,31 @@ export const json2xml = (values) => {
 				if (variant.lang) {
 					variantEl.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:lang', variant.lang)
 				}
-				if (variant.type) {
-					let variantType = variant.type.replace(/\s+/g, '_')
-					variantEl.setAttribute('role', variantType)
+
+				let variantType = variant.type
+				if (variantType === undefined || variantType === '') {
+					variantType = 'undefined'
 				}
+				variantType = variantType.replace(/\s+/g, '_')
+				variantEl.setAttribute('role', variantType)
+
 				if (variant.project) {
 					createXMLFromPath(variantEl, `note/desc/orgName[@ref="${encodeURIComponent(process.env.REACT_APP_ENTITIES_HOST + '/' + variant.project)}"]`)
 				}
 				if (variant.parts) {
 					for (let part of variant.parts) {
-						createXMLFromPath(variantEl, `name[@type="${part.type}"]`, part.value)
+						if (part.type === 'role') {
+							createXMLFromPath(variantEl, 'roleName', part.value)
+						} else if (part.type === 'generational') {
+							createXMLFromPath(variantEl, 'genName', part.value)
+						} else {
+							let namePartType = part.type
+							if (namePartType === undefined || namePartType === '') {
+								namePartType = 'undefined'
+							}
+							namePartType = namePartType.replace(/\s+/g, '_')
+							createXMLFromPath(variantEl, `name[@type="${namePartType}"]`, part.value)
+						}
 					}
 				}
 			}

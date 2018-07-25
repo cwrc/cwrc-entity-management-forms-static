@@ -26,18 +26,17 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 			value: el.textContent
 		})
 	})
+	prefName.querySelectorAll('genName').forEach((el, index) => {
+		values.identity.nameParts.push({
+			type: 'generational',
+			value: el.textContent
+		})
+	})
 
 	values.identity.variants = []
-	person.querySelectorAll('persName[type="variant"]').forEach((el, index) => {
-		let parts = []
-		el.querySelectorAll('name').forEach((el2, index2) => {
-			parts.push({
-				type: el2.getAttribute('type'),
-				value: el2.textContent
-			})
-		})
+	person.querySelectorAll('persName[type="variant"]').forEach((variantEl, index) => {
 		let project = ''
-		let orgName = el.querySelector('orgName')
+		let orgName = variantEl.querySelector('orgName')
 		if (orgName) {
 			project = orgName.getAttribute('ref').match(/node\/\d+$/)
 			if (project !== null) {
@@ -46,12 +45,33 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 				project = ''
 			}
 		}
-		values.identity.variants.push({
-			lang: el.getAttribute('xml:lang').toLowerCase(),
-			type: el.getAttribute('role'),
+		let variant = {
 			project,
-			parts
+			lang: variantEl.getAttribute('xml:lang').toLowerCase(),
+			type: variantEl.getAttribute('role'),
+			parts: []
+		}
+
+		variantEl.querySelectorAll('name').forEach((namePartEl, index2) => {
+			variant.parts.push({
+				type: namePartEl.getAttribute('type'),
+				value: namePartEl.textContent
+			})
 		})
+		variantEl.querySelectorAll('roleName').forEach((namePartEl, index2) => {
+			variant.parts.push({
+				type: 'role',
+				value: namePartEl.textContent
+			})
+		})
+		variantEl.querySelectorAll('genName').forEach((namePartEl, index2) => {
+			variant.parts.push({
+				type: 'generational',
+				value: namePartEl.textContent
+			})
+		})
+
+		values.identity.variants.push(variant)
 	})
 
 	values.identity.sameAs = []
