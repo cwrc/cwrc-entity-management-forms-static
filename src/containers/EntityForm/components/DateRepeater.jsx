@@ -30,13 +30,6 @@ const dateQualifierOptions = [
 	{key: 'notAfter-iso', text: 'Not after', value: 'notAfter-iso'}
 ]
 
-const dateTypeOptions = [
-	{key: '', text: '', value: ''},
-	{key: 'birth', text: 'Birth', value: 'birth'},
-	{key: 'death', text: 'Death', value: 'death'},
-	{key: 'floruit', text: 'Floruit', value: 'floruit'}
-]
-
 const certaintyOptions = [
 	{key: '', text: '', value: ''},
 	{key: 'high', text: 'High', value: 'high'},
@@ -48,13 +41,14 @@ const certaintyOptions = [
 const DateRepeater = ({
 	fieldArrayName,
 	componentLabel,
+	dateTypeOptions,
 	changeFunc,
 	...rest
 }: any) => {
 	return (
 		<FieldArray
 			name={fieldArrayName}
-			props={{componentLabel, changeFunc}}
+			props={{componentLabel, changeFunc, dateTypeOptions}}
 			component={renderSegment}
 			{...rest}
 		/>
@@ -89,6 +83,7 @@ const renderSegment = ({
 	headerLabel,
 	componentLabel,
 	changeFunc,
+	dateTypeOptions,
 	meta: {touched, error, submitFailed},
 	...rest
 }: any) => (

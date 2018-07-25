@@ -1,4 +1,5 @@
 // @flow
+import {addIdentityJSON, addNotesJSON, addSourcesJSON} from '../../utils/conversion_utilities'
 
 export const xml2json = (xmlDoc: XMLDocument) => {
 	let values = {
@@ -9,79 +10,7 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 
 	let person = xmlDoc.querySelector('person')
 
-	values.identity.standardName = person.querySelector('persName[type="standard"]').firstElementChild.textContent
-
-	let prefName = person.querySelector('persName[type="prefered"]')
-	values.identity.namePartsLang = prefName.getAttribute('xml:lang').toLowerCase()
-	values.identity.nameParts = []
-	prefName.querySelectorAll('name').forEach((el, index) => {
-		values.identity.nameParts.push({
-			type: el.getAttribute('type'),
-			value: el.textContent
-		})
-	})
-	prefName.querySelectorAll('roleName').forEach((el, index) => {
-		values.identity.nameParts.push({
-			type: 'role',
-			value: el.textContent
-		})
-	})
-	prefName.querySelectorAll('genName').forEach((el, index) => {
-		values.identity.nameParts.push({
-			type: 'generational',
-			value: el.textContent
-		})
-	})
-
-	values.identity.variants = []
-	person.querySelectorAll('persName[type="variant"]').forEach((variantEl, index) => {
-		let project = ''
-		let orgName = variantEl.querySelector('orgName')
-		if (orgName) {
-			project = orgName.getAttribute('ref').match(/node\/\d+$/)
-			if (project !== null) {
-				project = project[0]
-			} else {
-				project = ''
-			}
-		}
-		let variant = {
-			project,
-			lang: variantEl.getAttribute('xml:lang').toLowerCase(),
-			type: variantEl.getAttribute('role'),
-			parts: []
-		}
-
-		variantEl.querySelectorAll('name').forEach((namePartEl, index2) => {
-			variant.parts.push({
-				type: namePartEl.getAttribute('type'),
-				value: namePartEl.textContent
-			})
-		})
-		variantEl.querySelectorAll('roleName').forEach((namePartEl, index2) => {
-			variant.parts.push({
-				type: 'role',
-				value: namePartEl.textContent
-			})
-		})
-		variantEl.querySelectorAll('genName').forEach((namePartEl, index2) => {
-			variant.parts.push({
-				type: 'generational',
-				value: namePartEl.textContent
-			})
-		})
-
-		values.identity.variants.push(variant)
-	})
-
-	values.identity.sameAs = []
-	person.querySelectorAll('idno').forEach((el, index) => {
-		values.identity.sameAs.push({
-			type: el.getAttribute('type'),
-			cert: el.getAttribute('cert'),
-			idno: el.textContent
-		})
-	})
+	addIdentityJSON(person, 'persName', values)
 
 	values.description.dates = []
 	let dates = person.querySelectorAll('birth, death, floruit')
@@ -161,44 +90,9 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 		})
 	})
 
-	values.description.descriptiveNote = []
-	person.querySelectorAll('note[type="general"]').forEach((el, index) => {
-		values.description.descriptiveNote.push({
-			value: el.textContent,
-			lang: el.getAttribute('xml:lang').toLowerCase()
-		})
-	})
+	addNotesJSON(person, values)
 
-	values.description.projectNote = []
-	person.querySelectorAll('note[type="project-specific"]').forEach((el, index) => {
-		let project = ''
-		let orgName = el.querySelector('orgName')
-		if (orgName) {
-			project = orgName.getAttribute('ref').match(/node\/\d+$/)
-			if (project !== null) {
-				project = project[0]
-			} else {
-				project = ''
-			}
-		}
-
-		values.description.projectNote.push({
-			value: el.firstChild.textContent,
-			lang: el.getAttribute('xml:lang').toLowerCase(),
-			project: project
-		})
-	})
-
-	let listBibl = person.querySelector('listBibl')
-	if (listBibl) {
-		values.sources.bibl = []
-		listBibl.querySelectorAll('bibl').forEach((el, index) => {
-			values.sources.bibl.push({
-				name: el.querySelector('title').textContent,
-				idno: el.querySelector('ref').getAttribute('target')
-			})
-		})
-	}
+	addSourcesJSON(person, values)
 
 	return values
 }

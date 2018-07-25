@@ -1,6 +1,6 @@
 // @flow
 import React from 'react'
-import {Field, FieldArray} from 'redux-form'
+import {Field} from 'redux-form'
 import {Grid, Header, Divider} from 'semantic-ui-react'
 import {DropdownAddableComponent} from '../components/FormControls'
 import SegmentRepeater from '../components/SegmentRepeater'

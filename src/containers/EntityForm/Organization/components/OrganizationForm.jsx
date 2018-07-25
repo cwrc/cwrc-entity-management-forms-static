@@ -7,247 +7,130 @@ import {
 	Grid,
 	Button,
 	Segment,
+	Dimmer,
+	Loader,
+	Popup,
 	Rail
 } from 'semantic-ui-react'
 import {connect} from 'react-redux'
-import {reduxForm, Field, FieldArray} from 'redux-form'
+import {
+	reduxForm,
+	initialize,
+	Field
+} from 'redux-form'
 
-import {InputField, DropdownComponent} from '../../components/FormControls'
-import {DescriptiveNote, ProjectNote} from '../../components/CommonComponents'
+import IdentityGroup from '../../components/IdentityGroup'
+import {DescriptiveNote, ProjectNote} from '../../components/NotesGroup'
+import {DropdownComponent} from '../../components/FormControls'
 import SegmentRepeater from '../../components/SegmentRepeater'
 import DateRepeater from '../../components/DateRepeater'
-import NameParts from '../../components/NameParts'
-import VariantNames from '../../components/VariantNames'
-import LanguageSelector from '../../components/LanguageSelector'
 import EntityLookup from '../../components/EntityLookup'
+import MessageDialog from '../../components/MessageDialog'
 
-import {required} from '../../components/FieldValidation'
+import {nonPersonVariantTypeOptions, nonPersonDateTypeOptions, factualityOptions, certaintyOptions} from '../../components/options'
 
 import Values from '../../components/Values'
 
 import type {FormProps} from 'redux-form'
 
-const nameOptions = [
-	{key: '', text: '', value: ''},
-	{key: 'forename', text: 'Forename', value: 'forename'},
-	{key: 'surname', text: 'Surname', value: 'surname'},
-	{key: 'generational', text: 'Generational', value: 'generational'},
-	{key: 'role', text: 'Role', value: 'role'}
-]
+import {isOrganizationPostDone,
+	isOrganizationPostPending,
+	isOrganizationPostError,
+	getOrganizationPostError,
+	getOrganizationPostData,
 
-const variantOptions = [
-	{key: 'birth', text: 'birth', value: 'birth'},
-	{key: 'married', text: 'married', value: 'married'},
-	{key: 'indexed', text: 'indexed', value: 'indexed'},
-	{key: 'pseudonym', text: 'pseudonym', value: 'pseudonym'},
-	{key: 'nickname', text: 'nickname', value: 'nickname'},
-	{key: 'religious', text: 'religious', value: 'religious'},
-	{key: 'royal', text: 'royal', value: 'royal'},
-	{key: 'self-constructed', text: 'self-constructed', value: 'self-constructed'},
-	{key: 'styled', text: 'styled', value: 'styled'},
-	{key: 'titled', text: 'titled', value: 'titled'},
-	{key: 'orlando_standard', text: 'orlando standard', value: 'orlando_standard'},
-	{key: 'descriptive', text: 'descriptive', value: 'descriptive'},
-	{key: 'popular', text: 'popular', value: 'popular'},
-	{key: 'acronym', text: 'acronym', value: 'acronym'},
-	{key: 'alternate', text: 'alternate', value: 'alternate'},
-	{key: 'deprecated', text: 'deprecated', value: 'deprecated'},
-	{key: 'historic', text: 'historic', value: 'historic'}
-]
+	isOrganizationGetDone,
+	isOrganizationGetPending,
+	isOrganizationGetError,
+	getOrganizationGetError,
+	getOrganizationGetData,
 
-const factualityOptions = [
-	{key: '', text: '', value: ''},
-	{key: 'real', text: 'Real', value: 'real'},
-	{key: 'fictional', text: 'Fictional', value: 'fictional'}
-]
+	isOrganizationPutDone,
+	isOrganizationPutPending,
+	isOrganizationPutError,
+	getOrganizationPutError,
+	getOrganizationPutData} from '../../../../selectors'
 
-const orgTypeOptions = [
-	{key: '', text: '', value: ''}
-]
-
-const certaintyOptions = [
-	{key: '', text: '', value: ''},
-	{key: 'high', text: 'High', value: 'high'},
-	{key: 'medium', text: 'Medium', value: 'medium'},
-	{key: 'low', text: 'Low', value: 'low'},
-	{key: 'unknown', text: 'Unknown', value: 'unknown'}
-]
+import {GET_ORGANIZATION, PUT_ORGANIZATION, POST_ORGANIZATION} from '../../../../actions/entities'
 
 type Props = FormProps
 
 class OrganizationComponent extends Component<Props, State> {
+	resetForm = () => {
+		this.props.dispatch(initialize('ORG_FORM', {}))
+	}
+
 	render () {
-		const NamePanels = [
-			{
-				title: 'Standard Name',
-				key: 'standardNamePanel',
-				content: (
-					<Segment>
-						<Field
-							required
-							validate={[required]}
-							placeholder="e.g. Last Name, First Name (for indexing purposes)"
-							name="identity.standardName"
-							label="Standard Name"
-							component={InputField}
-						/>
-						<Segment basic>
-							<Header as="h4">Components</Header>
-							<LanguageSelector label="Language" name="identity.namePartsLang"/>
-							<FieldArray name="identity.nameParts" component={NameParts} nameOptions={nameOptions}/>
-						</Segment>
-					</Segment>
-				)
-			},
-			{
-				title: 'Variant Name(s)',
-				key: 'variantPanel',
-				content: (
-					<SegmentRepeater
-						fieldArrayName="identity.variants"
-						headerLabel="Variant Name(s)"
-						componentLabel="Variant Name"
-						RepeatableComponent={VariantNames}
-						nameOptions={nameOptions}
-						variantOptions={variantOptions}
-					/>
-				)
-			},
-			{
-				title: 'Same As',
-				key: 'sameAsPanel',
-				content: (
-					<SegmentRepeater
-						fieldArrayName="identity.sameAs"
-						headerLabel="Same As"
-						componentLabel="Same As"
-						RepeatableComponent={EntityLookup}
-						buttonLabel='Add Place'
-						includeCertainty={true}
-						certaintyOptions={certaintyOptions}
-						entityType='place'
-						changeFunc={this.props.change}
-					/>
-				)
-			}
-		]
-
-		const DescriptionPanels = [
-			{
-				title: 'Important Date(s)',
-				key: 'datePanel',
-				content: (
-					<DateRepeater
-						fieldArrayName="description.dates"
-						headerLabel="Important Date(s)"
-						componentLabel="Date"
-						changeFunc={this.props.change}
-					/>
-				)
-			},
-			{
-				title: 'Properties',
-				key: 'propPanel',
-				content: (
-					<Segment.Group>
-						<Segment><Header as='h4'>Properties</Header></Segment>
-						<Segment>
-							<Grid columns='equal'>
-								<Grid.Column>
-									<Field
-										label="Factuality"
-										name="description.properties.factuality.value"
-										placeholder="Factuality"
-										options={factualityOptions}
-										component={DropdownComponent}
-									/>
-								</Grid.Column>
-								<Grid.Column>
-									<Field
-										label='Certainty'
-										name='description.properties.factuality.cert'
-										placeholder='Certainty'
-										options={certaintyOptions}
-										component={DropdownComponent}/>
-								</Grid.Column>
-							</Grid>
-						</Segment>
-						<Segment>
-							<Grid columns='equal'>
-								<Grid.Column>
-									<Field
-										label="Organization Type"
-										name="description.properties.orgType.value"
-										placeholder="Organization Type"
-										options={orgTypeOptions}
-										component={DropdownComponent}
-									/>
-								</Grid.Column>
-								<Grid.Column>
-									<Field
-										label='Certainty'
-										name='description.properties.orgType.cert'
-										placeholder='Certainty'
-										options={certaintyOptions}
-										component={DropdownComponent}/>
-								</Grid.Column>
-							</Grid>
-						</Segment>
-					</Segment.Group>
-				)
-			},
-			{
-				title: 'General Description(s)',
-				key: 'genNotePanel',
-				content: (
-					<SegmentRepeater
-						fieldArrayName="description.descriptiveNote"
-						headerLabel="General Description(s)"
-						componentLabel="Description"
-						RepeatableComponent={DescriptiveNote}
-					/>
-				)
-			},
-			{
-				title: 'Project-Specific Note(s)',
-				key: 'projNotePanel',
-				content: (
-					<SegmentRepeater
-						fieldArrayName="description.projectNote"
-						headerLabel="Project-Specific Note(s)"
-						componentLabel="Note"
-						RepeatableComponent={ProjectNote}
-					/>
-				)
-			}
-		]
-
 		const {handleSubmit, invalid, submitting} = this.props
 
 		return (
 			<Segment basic>
+				{this.props.isOrganizationPostDone ? (
+					<MessageDialog
+						header="Entity Created!"
+						content={<p>New entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getOrganizationPostData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getOrganizationPostData.data.pid}</a></p>}
+						onClose={this.resetForm}
+					/>
+				) : ''}
+				{this.props.isOrganizationGetPending ? (
+					<Dimmer active inverted>
+						<Loader inverted>Loading Organization</Loader>
+					</Dimmer>
+				) : ''}
 				{/* <Rail attached position='left' size='tiny'>
 					<Values form='ORG_FORM'/>
 				</Rail> */}
 				<Form onSubmit={handleSubmit} error={invalid}>
+
 					<Header as="h2">Identity</Header>
 
-					<Segment.Group>
-						{NamePanels.map((panel, index) => (
-							<Segment basic key={panel.key}>{panel.content}</Segment>
-						))}
-					</Segment.Group>
+					<IdentityGroup
+						entityType="organization"
+						nameOptions={[]}
+						variantOptions={nonPersonVariantTypeOptions}
+						certaintyOptions={certaintyOptions}
+						changeFunc={this.props.change}
+					/>
 
 					<Header as="h2">Description</Header>
 
 					<Segment.Group>
-						{DescriptionPanels.map((panel, index) => (
-							<Segment basic key={panel.key}>{panel.content}</Segment>
-						))}
+						<DateRepeater
+							fieldArrayName="description.dates"
+							headerLabel="Important Date(s)"
+							componentLabel="Date"
+							dateTypeOptions={nonPersonDateTypeOptions}
+							changeFunc={this.props.change}
+						/>
+						<Segment>
+							<Header as='h4'>Properties</Header>
+							<Segment basic>
+								<Grid columns='equal'>
+									<Grid.Column>
+										<Field
+											label="Factuality"
+											name="description.properties.factuality.value"
+											placeholder="Factuality"
+											options={factualityOptions}
+											component={DropdownComponent}
+										/>
+									</Grid.Column>
+									<Grid.Column>
+										<Field
+											label='Certainty'
+											name='description.properties.factuality.cert'
+											placeholder='Certainty'
+											options={certaintyOptions}
+											component={DropdownComponent}/>
+									</Grid.Column>
+								</Grid>
+							</Segment>
+						</Segment>
+						<DescriptiveNote />
+						<ProjectNote />
 					</Segment.Group>
 
 					<Header as="h2">Sources</Header>
-					{/* <Segment> */}
 					<SegmentRepeater
 						fieldArrayName="sources.bibl"
 						headerLabel=""
@@ -257,7 +140,6 @@ class OrganizationComponent extends Component<Props, State> {
 						entityType='title'
 						changeFunc={this.props.change}
 					/>
-					{/* </Segment> */}
 
 					<Field key="non_field_errors"
 						name="non_field_errors"
@@ -272,7 +154,13 @@ class OrganizationComponent extends Component<Props, State> {
 					/>
 
 					<div style={{textAlign: 'center'}}>
-						<Button content="Submit" icon="sign in" loading={submitting}/>
+						{/* <Button type="button" content="Load Sample Person (local)" icon="cloud download" onClick={this.doSampleLoad}/>
+						<Button type="button" content="Load Person (remote)" icon="cloud download" onClick={this.testGet}/> */}
+						{invalid ? (
+							<Popup size='tiny' position='right center' trigger={
+								<span><Button content="Submit" icon="sign in" disabled={true}/></span>
+							} content="Please fix invalid fields before submitting"/>
+						) : <Button content="Submit" icon="sign in" loading={submitting}/>}
 					</div>
 				</Form>
 			</Segment>
@@ -280,9 +168,8 @@ class OrganizationComponent extends Component<Props, State> {
 	}
 }
 
-const onSubmit = (values, dispatch) => {
-	console.log(values)
-	// dispatch()
+const onSubmit = (values, dispatch, props) => {
+	return props.postOrganization(values)
 }
 
 const validate = values => {
@@ -291,19 +178,45 @@ const validate = values => {
 }
 
 // i.e. model -> view
-const mapStateToProps = state => ({
-	// initialValues: {}
-})
+const mapStateToProps = state => {
+	return {
+		initialValues: state.entities.organization.get.data,
+		isOrganizationPostDone: isOrganizationPostDone(state),
+		isOrganizationPostPending: isOrganizationPostPending(state),
+		isOrganizationPostError: isOrganizationPostError(state),
+		getOrganizationPostError: getOrganizationPostError(state),
+		getOrganizationPostData: getOrganizationPostData(state),
 
-// i.e. controller -> model
-const mapDispatchToProps = dispatch => ({})
+		isOrganizationGetDone: isOrganizationGetDone(state),
+		isOrganizationGetPending: isOrganizationGetPending(state),
+		isOrganizationGetError: isOrganizationGetError(state),
+		getOrganizationGetError: getOrganizationGetError(state),
+		getOrganizationGetData: getOrganizationGetData(state),
 
-const reduxFormConfig = reduxForm({
+		isOrganizationPutDone: isOrganizationPutDone(state),
+		isOrganizationPutPending: isOrganizationPutPending(state),
+		isOrganizationPutError: isOrganizationPutError(state),
+		getOrganizationPutError: getOrganizationPutError(state),
+		getOrganizationPutData: getOrganizationPutData(state)
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		async getOrganization (id) {
+			return dispatch(GET_ORGANIZATION(id))
+		},
+		async putOrganization (id, data) {
+			return dispatch(PUT_ORGANIZATION(id, data))
+		},
+		async postOrganization (data) {
+			return dispatch(POST_ORGANIZATION(data))
+		}
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
 	form: 'ORG_FORM',
 	validate,
 	onSubmit
-})
-
-export default reduxFormConfig(
-	connect(mapStateToProps, mapDispatchToProps)(OrganizationComponent)
-)
+})(OrganizationComponent))

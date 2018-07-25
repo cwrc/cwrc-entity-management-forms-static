@@ -1,4 +1,4 @@
-import {createXMLFromPath, getDateString} from '../../utils/conversion_utilities'
+import {createXMLFromPath, getDateString, addIdentityXML, addNotesXML, addSourcesXML} from '../../utils/conversion_utilities'
 
 export const json2xml = (values) => {
 	let xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -31,81 +31,10 @@ export const json2xml = (values) => {
 		return null
 	}
 
-	let title = xmlDoc.querySelector('title')
-	createXMLFromPath(title, '', values.identity.standardName)
-
 	let person = xmlDoc.querySelector('person')
-	// identity
-	if (values.identity) {
-		// standard name
-		createXMLFromPath(person, 'persName[@type="standard"]/name', values.identity.standardName)
-		// name components
-		if (values.identity.nameParts) {
-			let namePartEl = createXMLFromPath(person, 'persName[@type="prefered"]')
-			for (let namePart of values.identity.nameParts) {
-				if (values.identity.namePartsLang) {
-					namePartEl.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:lang', values.identity.namePartsLang)
-				}
-				if (namePart.type === 'role') {
-					createXMLFromPath(namePartEl, 'roleName', namePart.value)
-				} else if (namePart.type === 'generational') {
-					createXMLFromPath(namePartEl, 'genName', namePart.value)
-				} else {
-					let namePartType = namePart.type
-					if (namePartType === undefined || namePartType === '') {
-						namePartType = 'undefined'
-					}
-					namePartType = namePartType.replace(/\s+/g, '_')
-					createXMLFromPath(namePartEl, `name[@type="${namePartType}"]`, namePart.value)
-				}
-			}
-		}
-		// name variants
-		if (values.identity.variants) {
-			for (let variant of values.identity.variants) {
-				let variantEl = createXMLFromPath(person, 'persName[@type="variant"]')
-				if (variant.lang) {
-					variantEl.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:lang', variant.lang)
-				}
 
-				let variantType = variant.type
-				if (variantType === undefined || variantType === '') {
-					variantType = 'undefined'
-				}
-				variantType = variantType.replace(/\s+/g, '_')
-				variantEl.setAttribute('role', variantType)
+	addIdentityXML(person, 'persName', values)
 
-				if (variant.project) {
-					createXMLFromPath(variantEl, `note/desc/orgName[@ref="${encodeURIComponent(process.env.REACT_APP_ENTITIES_HOST + '/' + variant.project)}"]`)
-				}
-				if (variant.parts) {
-					for (let part of variant.parts) {
-						if (part.type === 'role') {
-							createXMLFromPath(variantEl, 'roleName', part.value)
-						} else if (part.type === 'generational') {
-							createXMLFromPath(variantEl, 'genName', part.value)
-						} else {
-							let namePartType = part.type
-							if (namePartType === undefined || namePartType === '') {
-								namePartType = 'undefined'
-							}
-							namePartType = namePartType.replace(/\s+/g, '_')
-							createXMLFromPath(variantEl, `name[@type="${namePartType}"]`, part.value)
-						}
-					}
-				}
-			}
-		}
-		// same as
-		if (values.identity.sameAs) {
-			for (let sameAs of values.identity.sameAs) {
-				let sameAsEl = createXMLFromPath(person, `idno[@type="${sameAs.type}"]`, sameAs.idno)
-				if (sameAs.cert) {
-					sameAsEl.setAttribute('cert', sameAs.cert)
-				}
-			}
-		}
-	}
 	// description
 	if (values.description) {
 		// dates
@@ -177,41 +106,12 @@ export const json2xml = (values) => {
 				}
 			}
 		}
-		// description
-		if (values.description.descriptiveNote) {
-			for (let note of values.description.descriptiveNote) {
-				let noteEl = createXMLFromPath(person, 'note[@type="general"]', note.value)
-				if (note.lang) {
-					noteEl.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:lang', note.lang)
-				}
-			}
-		}
-		// project note
-		if (values.description.projectNote) {
-			for (let note of values.description.projectNote) {
-				let noteEl = createXMLFromPath(person, 'note[@type="project-specific"]', note.value)
-				if (note.lang) {
-					noteEl.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:lang', note.lang)
-				}
-				if (note.project) {
-					createXMLFromPath(noteEl, `respons[@locus="value"]/desc/orgName[@ref="${encodeURIComponent(process.env.REACT_APP_ENTITIES_HOST + '/' + note.project)}"]`)
-				}
-			}
-		}
+		addNotesXML(person, values)
 	}
 	// sources
 	if (values.sources) {
-		if (values.sources.bibl) {
-			let listBibl = createXMLFromPath(person, 'listBibl')
-			for (let bibl of values.sources.bibl) {
-				let biblEl = createXMLFromPath(listBibl, 'bibl')
-				createXMLFromPath(biblEl, 'title', bibl.name)
-				let ref = createXMLFromPath(biblEl, 'ref')
-				ref.setAttribute('source', bibl.type)
-				ref.setAttribute('target', bibl.idno)
-			}
-		}
+		addSourcesXML(person, values)
 	}
-	// responsibility
+
 	return xmlDoc
 }
