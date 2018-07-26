@@ -25,6 +25,14 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 			date2 = date.getAttribute('to-iso')
 			qualifier1 = 'from-iso'
 			qualifier2 = 'to-iso'
+			if (date1 === null) {
+				date1 = date.getAttribute('notBefore-iso')
+				qualifier1 = 'notBefore-iso'
+			}
+			if (date2 === null) {
+				date2 = date.getAttribute('notAfter-iso')
+				qualifier2 = 'notAfter-iso'
+			}
 		} else {
 			qualifier1 = 'when-iso'
 		}

@@ -20,13 +20,22 @@ const NameParts = ({
 				/>
 			</Grid.Column>
 			<Grid.Column width={6}>
-				<Field
-					name={`${name}.type`}
-					options={nameOptions}
-					label='Name Type'
-					placeholder='Name Type'
-					component={DropdownAddableComponent}
-				/>
+				{nameOptions === null
+					? <Field
+						name={`${name}.type`}
+						label='Name Type'
+						placeholder='Name Type'
+						inline
+						component={InputField}
+					/>
+					: <Field
+						name={`${name}.type`}
+						options={nameOptions}
+						label='Name Type'
+						placeholder='Name Type'
+						component={DropdownAddableComponent}
+					/>
+				}
 			</Grid.Column>
 		</Grid.Row>
 	</Grid>

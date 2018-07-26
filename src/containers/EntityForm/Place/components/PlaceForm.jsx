@@ -30,6 +30,8 @@ import MessageDialog from '../../components/MessageDialog'
 import {nonPersonVariantTypeOptions, nonPersonDateTypeOptions, factualityOptions, certaintyOptions} from '../../components/options'
 import countries from '../../../../static/countries'
 
+import {latitude, longitude} from '../../components/FieldValidation'
+
 import Values from '../../components/Values'
 
 import type {FormProps} from 'redux-form'
@@ -87,7 +89,7 @@ class PlaceComponent extends Component<Props, State> {
 
 					<IdentityGroup
 						entityType="place"
-						nameOptions={[]}
+						nameOptions={null}
 						variantOptions={nonPersonVariantTypeOptions}
 						certaintyOptions={certaintyOptions}
 						changeFunc={this.props.change}
@@ -126,27 +128,6 @@ class PlaceComponent extends Component<Props, State> {
 									</Grid.Column>
 								</Grid>
 							</Segment>
-							<Segment basic>
-								<Grid columns='equal'>
-									<Grid.Column>
-										<Field
-											label="Place Type"
-											name="description.properties.placeType.value"
-											placeholder="Place Type"
-											options={[]}
-											component={DropdownComponent}
-										/>
-									</Grid.Column>
-									<Grid.Column>
-										<Field
-											label='Certainty'
-											name='description.properties.placeType.cert'
-											placeholder='Certainty'
-											options={certaintyOptions}
-											component={DropdownComponent}/>
-									</Grid.Column>
-								</Grid>
-							</Segment>
 							<Header as='h4'>Location</Header>
 							<Segment basic>
 								<Grid columns='equal'>
@@ -175,6 +156,7 @@ class PlaceComponent extends Component<Props, State> {
 								<Grid columns='equal'>
 									<Grid.Column>
 										<Field
+											inline
 											label="Region"
 											name="description.location.region.value"
 											placeholder="Region"
@@ -193,6 +175,8 @@ class PlaceComponent extends Component<Props, State> {
 							</Segment>
 							<Segment basic>
 								<Field
+									inline
+									style={{width: '600px'}}
 									label="Address"
 									name="description.location.address"
 									placeholder="Address"
@@ -206,6 +190,8 @@ class PlaceComponent extends Component<Props, State> {
 									</Grid.Column>
 									<Grid.Column width={6}>
 										<Field
+											inline
+											validate={[latitude]}
 											label="Latitude"
 											name="description.location.latitude"
 											placeholder="Latitude"
@@ -214,6 +200,8 @@ class PlaceComponent extends Component<Props, State> {
 									</Grid.Column>
 									<Grid.Column width={7}>
 										<Field
+											inline
+											validate={[longitude]}
 											label='Longitude'
 											name='description.location.longitude'
 											placeholder='Longitude'
@@ -228,7 +216,6 @@ class PlaceComponent extends Component<Props, State> {
 					</Segment.Group>
 
 					<Header as="h2">Sources</Header>
-					{/* <Segment> */}
 					<SegmentRepeater
 						fieldArrayName="sources.bibl"
 						headerLabel=""
@@ -238,7 +225,6 @@ class PlaceComponent extends Component<Props, State> {
 						entityType='title'
 						changeFunc={this.props.change}
 					/>
-					{/* </Segment> */}
 
 					<Field key="non_field_errors"
 						name="non_field_errors"

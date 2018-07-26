@@ -25,6 +25,8 @@ const IdentityGroup = ({
 				placeholder="e.g. Last Name, First Name (for indexing purposes)"
 				name="identity.standardName"
 				label="Standard Name"
+				inline
+				style={{width: '600px'}}
 				component={InputField}
 			/>
 			<Segment basic>

@@ -86,7 +86,7 @@ class OrganizationComponent extends Component<Props, State> {
 
 					<IdentityGroup
 						entityType="organization"
-						nameOptions={[]}
+						nameOptions={null}
 						variantOptions={nonPersonVariantTypeOptions}
 						certaintyOptions={certaintyOptions}
 						changeFunc={this.props.change}
