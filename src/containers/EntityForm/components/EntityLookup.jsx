@@ -8,6 +8,7 @@ import {DropdownComponent} from '../components/FormControls'
 
 import '../../../static/bootstrap/bootstrap-scoped.css'
 
+import cwrc from 'cwrc-tei-entities-lookup'
 import viaf from 'viaf-entity-lookup'
 import dbpedia from 'dbpedia-entity-lookup'
 import wikidata from 'wikidata-entity-lookup'
@@ -16,13 +17,16 @@ import geonames from 'geonames-entity-lookup'
 
 import PublicEntityDialog from 'cwrc-public-entity-dialogs'
 
+cwrc.setEntityRoot('https://commons.cwrc.ca')
+cwrc.setSearchRoot('https://dev-02.cwrc.ca')
+
 PublicEntityDialog.showCreateNewButton(false)
 PublicEntityDialog.showNoLinkButton(false)
 PublicEntityDialog.registerEntitySources({
-	people: (new Map()).set('viaf', viaf).set('wikidata', wikidata).set('getty', getty).set('dbpedia', dbpedia),
-	places: (new Map()).set('geonames', geonames).set('viaf', viaf).set('dbpedia', dbpedia).set('wikidata', wikidata),
-	organizations: (new Map()).set('viaf', viaf).set('wikidata', wikidata).set('dbpedia', dbpedia),
-	titles: (new Map()).set('viaf', viaf).set('wikidata', wikidata).set('dbpedia', dbpedia)
+	people: (new Map()).set('cwrc', cwrc).set('viaf', viaf).set('wikidata', wikidata).set('getty', getty).set('dbpedia', dbpedia),
+	places: (new Map()).set('geonames', geonames).set('cwrc', cwrc).set('viaf', viaf).set('dbpedia', dbpedia).set('wikidata', wikidata),
+	organizations: (new Map()).set('cwrc', cwrc).set('viaf', viaf).set('wikidata', wikidata).set('dbpedia', dbpedia),
+	titles: (new Map()).set('cwrc', cwrc).set('viaf', viaf).set('wikidata', wikidata).set('dbpedia', dbpedia)
 })
 
 class EntityLookup extends React.Component<Props, State> {

@@ -5,6 +5,7 @@
   "homepage": ".",
   "dependencies": {
     "cwrc-public-entity-dialogs": "^1.4.1",
+    "cwrc-tei-entities-lookup": "^1.0.0",
     "dbpedia-entity-lookup": "^0.3.0",
     "geonames-entity-lookup": "^1.1.2",
     "getty-entity-lookup": "^1.4.2",
