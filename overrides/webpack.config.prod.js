@@ -159,6 +159,7 @@ module.exports = {
         include: [
           paths.appSrc,
           paths.appNodeModules+path.sep+'cwrc-public-entity-dialogs',
+          paths.appNodeModules+path.sep+'cwrc-tei-entities-lookup',
           paths.appNodeModules+path.sep+'dbpedia-entity-lookup',
           paths.appNodeModules+path.sep+'geonames-entity-lookup',
           paths.appNodeModules+path.sep+'getty-entity-lookup',
@@ -188,6 +189,7 @@ module.exports = {
             include: [
               paths.appSrc,
               paths.appNodeModules+path.sep+'cwrc-public-entity-dialogs',
+              paths.appNodeModules+path.sep+'cwrc-tei-entities-lookup',
               paths.appNodeModules+path.sep+'dbpedia-entity-lookup',
               paths.appNodeModules+path.sep+'geonames-entity-lookup',
               paths.appNodeModules+path.sep+'getty-entity-lookup',
