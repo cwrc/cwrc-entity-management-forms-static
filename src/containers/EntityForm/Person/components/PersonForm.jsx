@@ -33,7 +33,10 @@ import type {FormProps} from 'redux-form'
 
 import Values from '../../components/Values'
 
-import {isPersonPostDone,
+import {
+	getEntityId,
+
+	isPersonPostDone,
 	isPersonPostPending,
 	isPersonPostError,
 	getPersonPostError,
@@ -111,6 +114,13 @@ class PersonComponent extends Component<Props, State> {
 		// 2. after the call returns, that status changes to either 'done' or 'error'.  If 'done' then state.entities.person.get.data
 		//    has the returned data.  if 'error', then data has the error.
 		// To get the values from the state, use the selectors that I've mapped to props below in mapStateToProps.
+	}
+
+	componentWillMount () {
+		const entityId = this.props.entityId
+		if (entityId !== '') {
+			this.props.getPerson(entityId)
+		}
 	}
 
 	render () {
@@ -346,7 +356,9 @@ const validate = values => {
 // i.e. model -> view
 const mapStateToProps = state => {
 	return {
-		initialValues: state.entities.person.get.data,
+		initialValues: getPersonGetData(state),
+		entityId: getEntityId(state),
+
 		isPersonPostDone: isPersonPostDone(state),
 		isPersonPostPending: isPersonPostPending(state),
 		isPersonPostError: isPersonPostError(state),
