@@ -26,6 +26,9 @@ import {
 	routerMiddleware
 } from 'react-router-redux'
 
+import RoutingWrapper from './components/addons/RoutingWrapper'
+import {getRouterRoutes, getRoutes} from './routing'
+
 import { render } from 'react-snapshot'
 
 import type {GlobalState} from './reducers'
@@ -61,10 +64,7 @@ render(
 					<MainLayout>
 						<MainContent>
 							<MainContainer>
-								<Route exact={true} path='/' component={Dashboard} />
-								<Route exact={true} path='/person' component={Person} />
-								<Route exact={true} path='/place' component={Place} />
-								<Route exact={true} path='/organization' component={Organization} />
+								<RoutingWrapper routes={getRouterRoutes(getRoutes())} />
 							</MainContainer>
 							<Footer />
 						</MainContent>

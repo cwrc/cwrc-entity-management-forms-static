@@ -47,6 +47,11 @@ const Header = ({title, toggleSidebar, isLoggedIn, isMobile}: Props) => {
 const mapStateToProps = (state, props) => {
 	const {location: {pathname}} = props
 	const currentRoute = _.find(getMetaRoutes(), a => matchPath(pathname, a)) || {}
+	if (currentRoute.meta === undefined) {
+		currentRoute.meta = {
+			name: 'Title'
+		}
+	}
 	const title = currentRoute.meta.name
 	const {isMobile} = getLayoutMobileStatuses(state)
 	return {

@@ -32,8 +32,7 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 			component: Dashboard,
 			meta: {
 				icon: 'tasks',
-				name: 'Dashboard',
-				sidebarVisible: true
+				name: 'Dashboard'
 			}
 		},
 		{
@@ -43,8 +42,7 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 			component: Person,
 			meta: {
 				name: 'Add a Person',
-				icon: 'user',
-				sidebarVisible: true
+				icon: 'user'
 			}
 		},
 		{
@@ -54,8 +52,7 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 			component: Place,
 			meta: {
 				name: 'Add a Place',
-				icon: 'world',
-				sidebarVisible: true
+				icon: 'world'
 			}
 		},
 		{
@@ -65,8 +62,7 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 			component: Organization,
 			meta: {
 				name: 'Add an Organization',
-				icon: 'users',
-				sidebarVisible: true
+				icon: 'users'
 			}
 		},
 		// Find the way to add/remove routes conditionally
