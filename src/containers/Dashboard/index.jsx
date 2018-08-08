@@ -1,21 +1,20 @@
 // @flow
 import React from 'react'
 import {Helmet} from 'react-helmet'
-import {Grid, Header} from 'semantic-ui-react'
+import {List} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 
 const Dashboard = () => {
 	return (
 		<div>
 			<Helmet>
-				<title>CWRC Dashboard</title>
+				<title>CWRC Entity Management</title>
 			</Helmet>
-			<Grid columns={1}>
-				<Grid.Row centered>
-					<Grid.Column width={16}>
-						<Header as="h1">Entity Management</Header>
-					</Grid.Column>
-				</Grid.Row>
-			</Grid>
+			<List>
+				<List.Item as={Link} to='/person'>Create Person</List.Item>
+				<List.Item as={Link} to='/place'>Create Place</List.Item>
+				<List.Item as={Link} to='/organization'>Create Organization</List.Item>
+			</List>
 		</div>
 	)
 }
