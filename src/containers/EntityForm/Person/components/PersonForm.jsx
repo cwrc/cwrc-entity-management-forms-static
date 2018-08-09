@@ -207,6 +207,13 @@ class PersonComponent extends Component<Props, State> {
 						onClose={this.resetForm}
 					/>
 				) : ''}
+				{this.props.isPersonPutDone ? (
+					<MessageDialog
+						header="Entity Edited!"
+						content={<p>Entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getPersonPutData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getPersonPutData.data.pid}</a></p>}
+						onClose={this.resetForm}
+					/>
+				) : ''}
 				{this.props.isPersonGetPending ? (
 					<Dimmer active inverted>
 						<Loader inverted>Loading Person</Loader>
