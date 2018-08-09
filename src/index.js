@@ -1,56 +1,33 @@
 // @flow
-import 'semantic-ui-css/semantic.css'
-import './styles/global'
-import {
-	PageLayout,
-	MainLayout,
-	MainContent,
-	MainContainer
-} from './containers/App/style'
-
-// necessary?
-// import 'babel-polyfill'
-
 import React from 'react'
+import {render} from 'react-snapshot'
+
 import {ThemeProvider} from 'styled-components'
 import theme from './styles/theme'
+import 'semantic-ui-css/semantic.css'
+import './styles/global'
+
+import {PageLayout, MainLayout, MainContent, MainContainer} from './containers/App/style'
+import Footer from './components/parts/Footer'
+import Header from './components/parts/Header'
 
 import {createBrowserHistory} from 'history'
 
-import thunk from 'redux-thunk'
-import {createStore, applyMiddleware, compose} from 'redux'
 import {Provider} from 'react-redux'
-import {ConnectedRouter, routerMiddleware} from 'react-router-redux'
-import promiseMiddleware from 'redux-promise-middleware'
+import {ConnectedRouter} from 'react-router-redux'
 
 import RoutingWrapper from './components/addons/RoutingWrapper'
 import {getRouterRoutes, getRoutes} from './routing'
 
-import {render} from 'react-snapshot'
-
 import type {GlobalState} from './reducers'
-import rootReducer from './reducers'
 
-import Footer from './components/parts/Footer'
-import Header from './components/parts/Header'
+import configureStore from './app/configureStore'
 
 const initialState: GlobalState = window.__INITIAL_STATE__ || {}
 
 const history = createBrowserHistory()
 
-const middlewares = [thunk, routerMiddleware(history), promiseMiddleware()]
-const enhancers = middlewares.map(a => applyMiddleware(a))
-const getComposeFunc = () => {
-	return compose
-}
-const composeFunc = getComposeFunc()
-const composedEnhancers = composeFunc.apply(null, enhancers)
-
-const store = createStore(
-	rootReducer,
-	initialState,
-	composedEnhancers
-)
+const store = configureStore(initialState, history)
 
 console.log('__INITIAL_STATE__:', initialState)
 render(
