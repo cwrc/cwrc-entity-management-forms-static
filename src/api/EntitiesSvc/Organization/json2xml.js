@@ -19,7 +19,7 @@ export const json2xml = (values) => {
 		</teiHeader>
 		<text>
 			<body>
-				<listOrg><organization></organization></listOrg>
+				<listOrg><org></org></listOrg>
 			</body>
 		</text>
 	</TEI>`
@@ -31,16 +31,16 @@ export const json2xml = (values) => {
 		return null
 	}
 
-	let organization = xmlDoc.querySelector('organization')
+	let org = xmlDoc.querySelector('org')
 
-	addIdentityXML(organization, 'orgName', values)
+	addIdentityXML(org, 'orgName', values)
 
 	// description
 	if (values.description) {
 		// dates
 		if (values.description.dates) {
 			for (let date of values.description.dates) {
-				let dateEl = createXMLFromPath(organization, `event[@type="${date.type}"]`)
+				let dateEl = createXMLFromPath(org, `event[@type="${date.type}"]`)
 				if (date.cert) {
 					dateEl.setAttribute('cert', date.cert)
 				}
@@ -62,18 +62,18 @@ export const json2xml = (values) => {
 		if (props) {
 			// factuality
 			if (props.factuality) {
-				let traitEl = createXMLFromPath(organization, 'trait[@type="factuality"]')
+				let traitEl = createXMLFromPath(org, 'trait[@type="factuality"]')
 				if (props.factuality.cert) {
 					traitEl.setAttribute('cert', props.factuality.cert)
 				}
 				createXMLFromPath(traitEl, 'ab', props.factuality.value)
 			}
 		}
-		addNotesXML(organization, values)
+		addNotesXML(org, values)
 	}
 	// sources
 	if (values.sources) {
-		addSourcesXML(organization, values)
+		addSourcesXML(org, values)
 	}
 
 	return xmlDoc

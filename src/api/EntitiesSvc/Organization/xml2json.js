@@ -8,12 +8,12 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 		sources: {}
 	}
 
-	let organization = xmlDoc.querySelector('organization')
+	let org = xmlDoc.querySelector('org')
 
-	addIdentityJSON(organization, 'orgName', values)
+	addIdentityJSON(org, 'orgName', values)
 
 	values.description.dates = []
-	let dates = organization.querySelectorAll('event')
+	let dates = org.querySelectorAll('event')
 	dates.forEach((date, index) => {
 		let date1 = date.getAttribute('when-iso')
 		let date2
@@ -58,7 +58,7 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 	})
 
 	values.description.properties = {}
-	let trait = organization.querySelector('trait[type="factuality"]')
+	let trait = org.querySelector('trait[type="factuality"]')
 	if (trait) {
 		values.description.properties.factuality = {
 			value: trait.querySelector('ab').textContent,
@@ -66,9 +66,9 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 		}
 	}
 
-	addNotesJSON(organization, values)
+	addNotesJSON(org, values)
 
-	addSourcesJSON(organization, values)
+	addSourcesJSON(org, values)
 
 	return values
 }
