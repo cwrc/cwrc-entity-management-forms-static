@@ -28,8 +28,8 @@ const DescriptiveNoteComponent = ({name}: String) => (
 
 const DescriptiveNote = () => (
 	<SegmentRepeater
-		fieldArrayName="description.projectNote"
-		headerLabel="Project-Specific Note(s)"
+		fieldArrayName="description.descriptiveNote"
+		headerLabel="General Description(s)"
 		componentLabel="Note"
 		RepeatableComponent={DescriptiveNoteComponent}
 	/>
@@ -60,8 +60,8 @@ const ProjectNoteComponent = ({name}: String) => (
 
 const ProjectNote = () => (
 	<SegmentRepeater
-		fieldArrayName="description.descriptiveNote"
-		headerLabel="General Description(s)"
+		fieldArrayName="description.projectNote"
+		headerLabel="Project-Specific Note(s)"
 		componentLabel="Description"
 		RepeatableComponent={ProjectNoteComponent}
 	/>
