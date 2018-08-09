@@ -12,7 +12,11 @@ export const getPerson = async (id) =>
 	get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person/${id}`)
 		.then(parseXML)
 		.then(res => {
-			return xml2jsonPerson(res.data)
+			try {
+				return xml2jsonPerson(res.data)
+			} catch (e) {
+				throw new Error(e)
+			}
 		})
 
 export const postPerson = async (data) => {
@@ -30,7 +34,11 @@ export const getPlace = async (id) =>
 	get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/place/${id}`)
 		.then(parseXML)
 		.then(res => {
-			return xml2jsonPlace(res.data)
+			try {
+				return xml2jsonPlace(res.data)
+			} catch (e) {
+				throw new Error(e)
+			}
 		})
 
 export const postPlace = async (data) => {
@@ -47,7 +55,11 @@ export const getOrganization = async (id) =>
 	get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/organization/${id}`)
 		.then(parseXML)
 		.then(res => {
-			return xml2jsonOrganization(res.data)
+			try {
+				return xml2jsonOrganization(res.data)
+			} catch (e) {
+				throw new Error(e)
+			}
 		})
 
 export const postOrganization = async (data) => {
