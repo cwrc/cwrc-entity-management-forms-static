@@ -18,7 +18,9 @@ const getXmlFromJson = (type, data) => {
 		xml = json2xmlOrganization(data)
 	}
 	const s = new XMLSerializer()
-	return s.serializeToString(xml)
+	const xmlStr = s.serializeToString(xml)
+	console.log(xmlStr)
+	return xmlStr
 }
 
 export const getPerson = async (id) =>
