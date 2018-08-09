@@ -8,6 +8,19 @@ import {xml2json as xml2jsonOrganization} from './Organization/xml2json'
 import {json2xml as json2xmlPlace} from './Place/json2xml'
 import {xml2json as xml2jsonPlace} from './Place/xml2json'
 
+const getXmlFromJson = (type, data) => {
+	let xml
+	if (type === 'person') {
+		xml = json2xmlPerson(data)
+	} else if (type === 'place') {
+		xml = json2xmlPlace(data)
+	} else if (type === 'organization') {
+		xml = json2xmlOrganization(data)
+	}
+	const s = new XMLSerializer()
+	return s.serializeToString(xml)
+}
+
 export const getPerson = async (id) =>
 	get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person/${id}`)
 		.then(parseXML)
@@ -20,15 +33,14 @@ export const getPerson = async (id) =>
 		})
 
 export const postPerson = async (data) => {
-	let xml = json2xmlPerson(data)
-	let s = new XMLSerializer()
-	let xmlStr = s.serializeToString(xml)
-	console.log(xmlStr)
+	const xmlStr = getXmlFromJson('person', data)
 	return post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person`, xmlStr).then(parseJSON)
 }
 
-export const putPerson = async (id, data) =>
-	put(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person/${id}`, data)
+export const putPerson = async (id, data) => {
+	const xmlStr = getXmlFromJson('person', data)
+	return put(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person/${id}`, xmlStr).then(parseJSON)
+}
 
 export const getPlace = async (id) =>
 	get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/place/${id}`)
@@ -42,14 +54,13 @@ export const getPlace = async (id) =>
 		})
 
 export const postPlace = async (data) => {
-	let xml = json2xmlPlace(data)
-	let s = new XMLSerializer()
-	let xmlStr = s.serializeToString(xml)
-	console.log(xmlStr)
+	const xmlStr = getXmlFromJson('place', data)
 	return post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/place`, xmlStr).then(parseJSON)
 }
-export const putPlace = async (id, data) =>
-	put(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/place/${id}`, data)
+export const putPlace = async (id, data) => {
+	const xmlStr = getXmlFromJson('place', data)
+	return put(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/place/${id}`, xmlStr).then(parseJSON)
+}
 
 export const getOrganization = async (id) =>
 	get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/organization/${id}`)
@@ -63,12 +74,11 @@ export const getOrganization = async (id) =>
 		})
 
 export const postOrganization = async (data) => {
-	let xml = json2xmlOrganization(data)
-	let s = new XMLSerializer()
-	let xmlStr = s.serializeToString(xml)
-	console.log(xmlStr)
+	const xmlStr = getXmlFromJson('organization', data)
 	return post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/organization`, xmlStr).then(parseJSON)
 }
 
-export const putOrganization = async (id, data) =>
-	put(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/organization/${id}`, data)
+export const putOrganization = async (id, data) => {
+	const xmlStr = getXmlFromJson('organization', data)
+	return put(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/organization/${id}`, xmlStr).then(parseJSON)
+}

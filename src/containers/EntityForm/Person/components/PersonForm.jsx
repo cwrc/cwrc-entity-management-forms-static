@@ -345,7 +345,11 @@ class PersonComponent extends Component<Props, State> {
 }
 
 const onSubmit = (values, dispatch, props) => {
-	return props.postPerson(values)
+	if (props.isPersonGetDone && props.entityId !== '') {
+		return props.putPerson(props.entityId, values)
+	} else {
+		return props.postPerson(values)
+	}
 }
 
 const validate = values => {
