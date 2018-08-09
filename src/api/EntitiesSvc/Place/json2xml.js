@@ -99,5 +99,10 @@ export const json2xml = (values) => {
 		addSourcesXML(place, values)
 	}
 
+	xmlDoc.querySelectorAll('idno').forEach((idno) => {
+		idno = idno.parentElement.removeChild(idno)
+		place.appendChild(idno)
+	})
+
 	return xmlDoc
 }
