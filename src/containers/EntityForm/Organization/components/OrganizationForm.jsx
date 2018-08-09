@@ -33,7 +33,10 @@ import Values from '../../components/Values'
 
 import type {FormProps} from 'redux-form'
 
-import {isOrganizationPostDone,
+import {
+	getEntityId,
+
+	isOrganizationPostDone,
 	isOrganizationPostPending,
 	isOrganizationPostError,
 	getOrganizationPostError,
@@ -60,6 +63,13 @@ class OrganizationComponent extends Component<Props, State> {
 		this.props.dispatch(initialize('ORG_FORM', {}))
 	}
 
+	componentWillMount () {
+		const entityId = this.props.entityId
+		if (entityId !== '') {
+			this.props.getOrganization(entityId)
+		}
+	}
+
 	render () {
 		const {handleSubmit, invalid, submitting} = this.props
 
@@ -69,6 +79,13 @@ class OrganizationComponent extends Component<Props, State> {
 					<MessageDialog
 						header="Entity Created!"
 						content={<p>New entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getOrganizationPostData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getOrganizationPostData.data.pid}</a></p>}
+						onClose={this.resetForm}
+					/>
+				) : ''}
+				{this.props.isOrganizationPutDone ? (
+					<MessageDialog
+						header="Entity Edited!"
+						content={<p>Entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getOrganizationPutData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getOrganizationPutData.data.pid}</a></p>}
 						onClose={this.resetForm}
 					/>
 				) : ''}
@@ -154,8 +171,6 @@ class OrganizationComponent extends Component<Props, State> {
 					/>
 
 					<div style={{textAlign: 'center'}}>
-						{/* <Button type="button" content="Load Sample Person (local)" icon="cloud download" onClick={this.doSampleLoad}/>
-						<Button type="button" content="Load Person (remote)" icon="cloud download" onClick={this.testGet}/> */}
 						{invalid ? (
 							<Popup size='tiny' position='right center' trigger={
 								<span><Button content="Submit" icon="sign in" disabled={true}/></span>
@@ -169,7 +184,11 @@ class OrganizationComponent extends Component<Props, State> {
 }
 
 const onSubmit = (values, dispatch, props) => {
-	return props.postOrganization(values)
+	if (props.isOrganizationGetDone && props.entityId !== '') {
+		return props.putOrganization(props.entityId, values)
+	} else {
+		return props.postOrganization(values)
+	}
 }
 
 const validate = values => {
@@ -180,7 +199,9 @@ const validate = values => {
 // i.e. model -> view
 const mapStateToProps = state => {
 	return {
-		initialValues: state.entities.organization.get.data,
+		initialValues: getOrganizationGetData(state),
+		entityId: getEntityId(state),
+
 		isOrganizationPostDone: isOrganizationPostDone(state),
 		isOrganizationPostPending: isOrganizationPostPending(state),
 		isOrganizationPostError: isOrganizationPostError(state),

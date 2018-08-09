@@ -36,7 +36,10 @@ import Values from '../../components/Values'
 
 import type {FormProps} from 'redux-form'
 
-import {isPlacePostDone,
+import {
+	getEntityId,
+
+	isPlacePostDone,
 	isPlacePostPending,
 	isPlacePostError,
 	getPlacePostError,
@@ -63,6 +66,13 @@ class PlaceComponent extends Component<Props, State> {
 		this.props.dispatch(initialize('PLACE_FORM', {}))
 	}
 
+	componentWillMount () {
+		const entityId = this.props.entityId
+		if (entityId !== '') {
+			this.props.getPlace(entityId)
+		}
+	}
+
 	render () {
 		const {handleSubmit, invalid, submitting} = this.props
 
@@ -72,6 +82,13 @@ class PlaceComponent extends Component<Props, State> {
 					<MessageDialog
 						header="Entity Created!"
 						content={<p>New entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getPlacePostData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getPlacePostData.data.pid}</a></p>}
+						onClose={this.resetForm}
+					/>
+				) : ''}
+				{this.props.isPlacePutDone ? (
+					<MessageDialog
+						header="Entity Edited!"
+						content={<p>Entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getPlacePutData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getPlacePutData.data.pid}</a></p>}
 						onClose={this.resetForm}
 					/>
 				) : ''}
@@ -252,7 +269,11 @@ class PlaceComponent extends Component<Props, State> {
 }
 
 const onSubmit = (values, dispatch, props) => {
-	return props.postPlace(values)
+	if (props.isPlaceGetDone && props.entityId !== '') {
+		return props.putPlace(props.entityId, values)
+	} else {
+		return props.postPlace(values)
+	}
 }
 
 const validate = values => {
@@ -263,7 +284,9 @@ const validate = values => {
 // i.e. model -> view
 const mapStateToProps = state => {
 	return {
-		initialValues: state.entities.place.get.data,
+		initialValues: getPlaceGetData(state),
+		entityId: getEntityId(state),
+
 		isPlacePostDone: isPlacePostDone(state),
 		isPlacePostPending: isPlacePostPending(state),
 		isPlacePostError: isPlacePostError(state),
