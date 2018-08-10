@@ -34,6 +34,8 @@ import {latitude, longitude} from '../../components/FieldValidation'
 
 import Values from '../../components/Values'
 
+import BroadcastChannel from 'broadcast-channel'
+
 import type {FormProps} from 'redux-form'
 
 import {
@@ -62,8 +64,10 @@ import {GET_PLACE, PUT_PLACE, POST_PLACE} from '../../../../actions/entities'
 type Props = FormProps
 
 class PlaceComponent extends Component<Props, State> {
-	resetForm = () => {
-		this.props.dispatch(initialize('PLACE_FORM', {}))
+	closeForm = (id) => {
+		const channel = new BroadcastChannel('cwrc-entity-management-forms')
+		channel.postMessage(id)
+		channel.close()
 	}
 
 	componentWillMount () {
@@ -82,14 +86,14 @@ class PlaceComponent extends Component<Props, State> {
 					<MessageDialog
 						header="Entity Created!"
 						content={<p>New entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getPlacePostData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getPlacePostData.data.pid}</a></p>}
-						onClose={this.resetForm}
+						onClose={this.closeForm.bind(this, this.props.getPlacePostData.data.pid)}
 					/>
 				) : ''}
 				{this.props.isPlacePutDone ? (
 					<MessageDialog
 						header="Entity Edited!"
 						content={<p>Entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getPlacePutData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getPlacePutData.data.pid}</a></p>}
-						onClose={this.resetForm}
+						onClose={this.closeForm.bind(this, this.props.getPlacePutData.data.pid)}
 					/>
 				) : ''}
 				{this.props.isPlaceGetPending ? (

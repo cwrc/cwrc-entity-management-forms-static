@@ -59,8 +59,10 @@ import {GET_ORGANIZATION, PUT_ORGANIZATION, POST_ORGANIZATION} from '../../../..
 type Props = FormProps
 
 class OrganizationComponent extends Component<Props, State> {
-	resetForm = () => {
-		this.props.dispatch(initialize('ORG_FORM', {}))
+	closeForm = (id) => {
+		const channel = new BroadcastChannel('cwrc-entity-management-forms')
+		channel.postMessage(id)
+		channel.close()
 	}
 
 	componentWillMount () {
@@ -79,14 +81,14 @@ class OrganizationComponent extends Component<Props, State> {
 					<MessageDialog
 						header="Entity Created!"
 						content={<p>New entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getOrganizationPostData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getOrganizationPostData.data.pid}</a></p>}
-						onClose={this.resetForm}
+						onClose={this.closeForm.bind(this, this.props.getOrganizationPostData.data.pid)}
 					/>
 				) : ''}
 				{this.props.isOrganizationPutDone ? (
 					<MessageDialog
 						header="Entity Edited!"
 						content={<p>Entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getOrganizationPutData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getOrganizationPutData.data.pid}</a></p>}
-						onClose={this.resetForm}
+						onClose={this.closeForm.bind(this, this.props.getOrganizationPutData.data.pid)}
 					/>
 				) : ''}
 				{this.props.isOrganizationGetPending ? (

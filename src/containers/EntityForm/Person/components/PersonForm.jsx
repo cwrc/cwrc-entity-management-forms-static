@@ -341,8 +341,8 @@ class PersonComponent extends Component<Props, State> {
 					/>
 
 					<div style={{textAlign: 'center'}}>
-						<Button type="button" content="Load Sample Person (local)" icon="cloud download" onClick={this.doSampleLoad}/>
-						<Button type="button" content="Load Person (remote)" icon="cloud download" onClick={this.testGet}/>
+						{/* <Button type="button" content="Load Sample Person (local)" icon="cloud download" onClick={this.doSampleLoad}/>
+						<Button type="button" content="Load Person (remote)" icon="cloud download" onClick={this.testGet}/> */}
 						{invalid ? (
 							<Popup size='tiny' position='right center' trigger={
 								<span><Button content="Submit" icon="sign in" disabled={true}/></span>
