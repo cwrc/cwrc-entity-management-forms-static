@@ -31,6 +31,8 @@ import {personNameTypeOptions, personVariantTypeOptions, personDateTypeOptions, 
 
 import type {FormProps} from 'redux-form'
 
+import BroadcastChannel from 'broadcast-channel'
+
 import Values from '../../components/Values'
 
 import {
@@ -62,8 +64,10 @@ import {get, parseXML} from '../../../../api/utils'
 type Props = FormProps
 
 class PersonComponent extends Component<Props, State> {
-	resetForm = () => {
-		this.props.dispatch(initialize('PERSON_FORM', {}))
+	closeForm = (id) => {
+		const channel = new BroadcastChannel('cwrc-entity-management-forms')
+		channel.postMessage(id)
+		channel.close()
 	}
 
 	doSampleLoad = () => {
@@ -204,14 +208,14 @@ class PersonComponent extends Component<Props, State> {
 					<MessageDialog
 						header="Entity Created!"
 						content={<p>New entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getPersonPostData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getPersonPostData.data.pid}</a></p>}
-						onClose={this.resetForm}
+						onClose={this.closeForm.bind(this, this.props.getPersonPostData.data.pid)}
 					/>
 				) : ''}
 				{this.props.isPersonPutDone ? (
 					<MessageDialog
 						header="Entity Edited!"
 						content={<p>Entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.getPersonPutData.data.pid + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.getPersonPutData.data.pid}</a></p>}
-						onClose={this.resetForm}
+						onClose={this.closeForm.bind(this, this.props.getPersonPutData.data.pid)}
 					/>
 				) : ''}
 				{this.props.isPersonGetPending ? (
