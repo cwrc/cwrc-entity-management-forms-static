@@ -31,6 +31,8 @@ import {nonPersonVariantTypeOptions, nonPersonDateTypeOptions, factualityOptions
 
 import Values from '../../components/Values'
 
+import BroadcastChannel from 'broadcast-channel'
+
 import type {FormProps} from 'redux-form'
 
 import {
