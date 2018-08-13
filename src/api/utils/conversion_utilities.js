@@ -94,7 +94,9 @@ export function addIdentityXML (parentEl: Element, identityEl: String, values: O
 			variantEl.setAttribute('role', variantType)
 
 			if (variant.project) {
-				createXMLFromPath(variantEl, `note/desc/orgName[@ref="${encodeURIComponent(process.env.REACT_APP_ENTITIES_HOST + '/' + variant.project.value)}"]`, variant.project.title)
+				let noteEl = createXMLFromPath(variantEl, 'note')
+				createXMLFromPath(noteEl, 'label', 'Name preferred by')
+				createXMLFromPath(noteEl, `desc/orgName[@ref="${encodeURIComponent(process.env.REACT_APP_ENTITIES_HOST + '/' + variant.project.value)}"]`, variant.project.title)
 			}
 			if (variant.parts) {
 				for (let part of variant.parts) {
