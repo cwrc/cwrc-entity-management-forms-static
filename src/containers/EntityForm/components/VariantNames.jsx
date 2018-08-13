@@ -12,7 +12,8 @@ import {required} from '../components/FieldValidation'
 const VariantNames = ({
 	name,
 	variantOptions,
-	nameOptions
+	nameOptions,
+	changeFunc
 }: any) => (
 	<div>
 		<Header as="h4">Variant Name</Header>
@@ -30,7 +31,9 @@ const VariantNames = ({
 			<Grid.Column width={5}>
 				<ProjectSelector
 					name={`${name}.project`}
-					label='Project'/>
+					label='Project'
+					changeFunc={changeFunc}
+				/>
 			</Grid.Column>
 			<Grid.Column width={5}>
 				<LanguageSelector

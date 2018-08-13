@@ -94,7 +94,7 @@ export function addIdentityXML (parentEl: Element, identityEl: String, values: O
 			variantEl.setAttribute('role', variantType)
 
 			if (variant.project) {
-				createXMLFromPath(variantEl, `note/desc/orgName[@ref="${encodeURIComponent(process.env.REACT_APP_ENTITIES_HOST + '/' + variant.project)}"]`)
+				createXMLFromPath(variantEl, `note/desc/orgName[@ref="${encodeURIComponent(process.env.REACT_APP_ENTITIES_HOST + '/' + variant.project.value)}"]`, variant.project.title)
 			}
 			if (variant.parts) {
 				for (let part of variant.parts) {
@@ -143,7 +143,7 @@ export function addNotesXML (parentEl: Element, values: Object) {
 				noteEl.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:lang', note.lang)
 			}
 			if (note.project) {
-				createXMLFromPath(noteEl, `respons[@locus="value"]/desc/orgName[@ref="${encodeURIComponent(process.env.REACT_APP_ENTITIES_HOST + '/' + note.project)}"]`)
+				createXMLFromPath(noteEl, `respons[@locus="value"]/desc/orgName[@ref="${encodeURIComponent(process.env.REACT_APP_ENTITIES_HOST + '/' + note.project.value)}"]`, note.project.title)
 			}
 		}
 	}
@@ -190,18 +190,23 @@ export function addIdentityJSON (parentEl: Element, identityEl: String, values: 
 
 	values.identity.variants = []
 	parentEl.querySelectorAll(`${identityEl}[type="variant"]`).forEach((variantEl, index) => {
-		let project = ''
+		let ref = ''
+		let title = ''
 		let orgName = variantEl.querySelector('orgName')
 		if (orgName) {
-			project = orgName.getAttribute('ref').match(/node\/\d+$/)
-			if (project !== null) {
-				project = project[0]
+			ref = orgName.getAttribute('ref').match(/node\/\d+$/)
+			if (ref !== null) {
+				ref = ref[0]
 			} else {
-				project = ''
+				ref = ''
 			}
+			title = orgName.textContent
 		}
 		let variant = {
-			project,
+			project: {
+				value: ref,
+				title
+			},
 			lang: variantEl.getAttribute('xml:lang').toLowerCase(),
 			type: variantEl.getAttribute('role'),
 			parts: []
@@ -250,21 +255,26 @@ export function addNotesJSON (parentEl: Element, values: Object) {
 
 	values.description.projectNote = []
 	parentEl.querySelectorAll('note[type="project-specific"]').forEach((el, index) => {
-		let project = ''
+		let ref = ''
+		let title = ''
 		let orgName = el.querySelector('orgName')
 		if (orgName) {
-			project = orgName.getAttribute('ref').match(/node\/\d+$/)
-			if (project !== null) {
-				project = project[0]
+			ref = orgName.getAttribute('ref').match(/node\/\d+$/)
+			if (ref !== null) {
+				ref = ref[0]
 			} else {
-				project = ''
+				ref = ''
 			}
+			title = orgName.textContent
 		}
 
 		values.description.projectNote.push({
 			value: el.firstChild.textContent,
 			lang: el.getAttribute('xml:lang').toLowerCase(),
-			project: project
+			project: {
+				value: ref,
+				title
+			}
 		})
 	})
 }

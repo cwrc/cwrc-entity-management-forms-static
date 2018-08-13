@@ -47,6 +47,7 @@ const IdentityGroup = ({
 			RepeatableComponent={VariantNames}
 			nameOptions={nameOptions}
 			variantOptions={variantOptions}
+			changeFunc={changeFunc}
 		/>
 		<SegmentRepeater
 			fieldArrayName="identity.sameAs"

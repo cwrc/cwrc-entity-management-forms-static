@@ -314,7 +314,7 @@ class PersonComponent extends Component<Props, State> {
 							RepeatableComponent={AffiliationComponent}
 						/>
 						<DescriptiveNote />
-						<ProjectNote />
+						<ProjectNote changeFunc={this.props.change}/>
 					</Segment.Group>
 
 					<Header as="h2">Sources</Header>

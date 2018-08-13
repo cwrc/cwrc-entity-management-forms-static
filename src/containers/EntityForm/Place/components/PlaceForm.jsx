@@ -233,7 +233,7 @@ class PlaceComponent extends Component<Props, State> {
 							</Segment>
 						</Segment>
 						<DescriptiveNote />
-						<ProjectNote />
+						<ProjectNote changeFunc={this.props.change}/>
 					</Segment.Group>
 
 					<Header as="h2">Sources</Header>

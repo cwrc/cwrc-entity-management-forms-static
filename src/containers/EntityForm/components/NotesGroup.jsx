@@ -35,11 +35,11 @@ const DescriptiveNote = () => (
 	/>
 )
 
-const ProjectNoteComponent = ({name}: String) => (
+const ProjectNoteComponent = ({name, changeFunc}: any) => (
 	<Grid>
 		<Grid.Row>
 			<Grid.Column width={8}>
-				<ProjectSelector label="Project" name={`${name}.project`}/>
+				<ProjectSelector label="Project" name={`${name}.project`} changeFunc={changeFunc}/>
 			</Grid.Column>
 			<Grid.Column width={8}>
 				<LanguageSelector label="Language" name={`${name}.lang`}/>
@@ -58,11 +58,12 @@ const ProjectNoteComponent = ({name}: String) => (
 	</Grid>
 )
 
-const ProjectNote = () => (
+const ProjectNote = ({changeFunc}: any) => (
 	<SegmentRepeater
 		fieldArrayName="description.projectNote"
 		headerLabel="Project-Specific Note(s)"
 		componentLabel="Description"
+		changeFunc={changeFunc}
 		RepeatableComponent={ProjectNoteComponent}
 	/>
 )
