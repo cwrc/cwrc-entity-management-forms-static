@@ -23,10 +23,10 @@ cwrc.setSearchRoot('https://dev-02.cwrc.ca')
 PublicEntityDialog.showCreateNewButton(false)
 PublicEntityDialog.showNoLinkButton(false)
 PublicEntityDialog.registerEntitySources({
-	people: (new Map()).set('cwrc', cwrc).set('viaf', viaf).set('wikidata', wikidata).set('getty', getty).set('dbpedia', dbpedia),
-	places: (new Map()).set('geonames', geonames).set('cwrc', cwrc).set('viaf', viaf).set('dbpedia', dbpedia).set('wikidata', wikidata),
-	organizations: (new Map()).set('cwrc', cwrc).set('viaf', viaf).set('wikidata', wikidata).set('dbpedia', dbpedia),
-	titles: (new Map()).set('cwrc', cwrc).set('viaf', viaf).set('wikidata', wikidata).set('dbpedia', dbpedia)
+	person: (new Map()).set('cwrc', cwrc).set('viaf', viaf).set('wikidata', wikidata).set('getty', getty).set('dbpedia', dbpedia),
+	place: (new Map()).set('geonames', geonames).set('cwrc', cwrc).set('viaf', viaf).set('dbpedia', dbpedia).set('wikidata', wikidata),
+	organization: (new Map()).set('cwrc', cwrc).set('viaf', viaf).set('wikidata', wikidata).set('dbpedia', dbpedia),
+	title: (new Map()).set('cwrc', cwrc).set('viaf', viaf).set('wikidata', wikidata).set('dbpedia', dbpedia)
 })
 
 class EntityLookup extends React.Component<Props, State> {
