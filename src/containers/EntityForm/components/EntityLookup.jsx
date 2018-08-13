@@ -106,7 +106,7 @@ class EntityLookup extends React.Component<Props, State> {
 						{(includeClear && this.state.hasLookup) &&
 						<Grid.Column width={1}>
 							<Popup size='tiny' position='right center' trigger={
-								<Button type="button" size='tiny' color='red' icon='remove' onClick={() => this.handleClearClick()} />
+								<Button type="button" size='tiny' color='red' icon='minus' onClick={() => this.handleClearClick()} />
 							} content={`Clear ${entityLabel}`} />
 						</Grid.Column>
 						}
