@@ -58,11 +58,18 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 	})
 
 	values.description.properties = {}
-	let trait = org.querySelector('trait[type="factuality"]')
-	if (trait) {
+	let factuality = org.querySelector('trait[type="factuality"]')
+	if (factuality) {
 		values.description.properties.factuality = {
-			value: trait.querySelector('ab').textContent,
-			cert: trait.getAttribute('cert')
+			value: factuality.querySelector('ab').textContent,
+			cert: factuality.getAttribute('cert')
+		}
+	}
+	let type = org.querySelector('trait[type="orgType"]')
+	if (type) {
+		values.description.properties.type = {
+			value: type.querySelector('ab').textContent,
+			cert: type.getAttribute('cert')
 		}
 	}
 

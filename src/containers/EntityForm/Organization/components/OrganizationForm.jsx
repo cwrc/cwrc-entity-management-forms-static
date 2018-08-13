@@ -21,7 +21,7 @@ import {
 
 import IdentityGroup from '../../components/IdentityGroup'
 import {DescriptiveNote, ProjectNote} from '../../components/NotesGroup'
-import {DropdownComponent} from '../../components/FormControls'
+import {DropdownComponent, InputField} from '../../components/FormControls'
 import SegmentRepeater from '../../components/SegmentRepeater'
 import DateRepeater from '../../components/DateRepeater'
 import EntityLookup from '../../components/EntityLookup'
@@ -140,6 +140,27 @@ class OrganizationComponent extends Component<Props, State> {
 										<Field
 											label='Certainty'
 											name='description.properties.factuality.cert'
+											placeholder='Certainty'
+											options={certaintyOptions}
+											component={DropdownComponent}/>
+									</Grid.Column>
+								</Grid>
+							</Segment>
+							<Segment basic>
+								<Grid columns='equal'>
+									<Grid.Column>
+										<Field
+											label="Organization Type"
+											name="description.properties.type.value"
+											placeholder="Type"
+											inline
+											component={InputField}
+										/>
+									</Grid.Column>
+									<Grid.Column>
+										<Field
+											label='Certainty'
+											name='description.properties.type.cert'
 											placeholder='Certainty'
 											options={certaintyOptions}
 											component={DropdownComponent}/>

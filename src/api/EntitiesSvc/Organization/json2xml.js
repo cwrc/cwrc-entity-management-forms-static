@@ -68,6 +68,14 @@ export const json2xml = (values) => {
 				}
 				createXMLFromPath(traitEl, 'ab', props.factuality.value)
 			}
+			// type
+			if (props.type) {
+				let traitEl = createXMLFromPath(org, 'trait[@type="orgType"]')
+				if (props.type.cert) {
+					traitEl.setAttribute('cert', props.type.cert)
+				}
+				createXMLFromPath(traitEl, 'ab', props.type.value)
+			}
 		}
 		addNotesXML(org, values)
 	}
