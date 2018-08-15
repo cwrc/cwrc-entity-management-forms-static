@@ -14,6 +14,16 @@ const langOptions = iso6392.map(lang => {
 	}
 })
 
+langOptions.sort((a, b) => {
+	if (a.text > b.text) {
+		return 1
+	}
+	if (a.text < b.text) {
+		return -1
+	}
+	return 0
+})
+
 const LanguageSelector = ({
 	input,
 	...rest
