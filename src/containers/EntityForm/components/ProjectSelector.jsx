@@ -30,6 +30,15 @@ class ProjectSelector extends React.Component<Props, State> {
 						text: obj.title
 					})
 				}
+				projects.sort((a, b) => {
+					if (a.text > b.text) {
+						return 1
+					}
+					if (a.text < b.text) {
+						return -1
+					}
+					return 0
+				})
 				this.setState({projects})
 				isFetched = true
 				fetchedProjects = projects
