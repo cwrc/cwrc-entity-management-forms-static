@@ -8,7 +8,7 @@
     "cwrc-public-entity-dialogs": "^1.7.3",
     "cwrc-tei-entities-lookup": "^1.1.1",
     "dbpedia-entity-lookup": "^0.3.0",
-    "geonames-entity-lookup": "^1.1.2",
+    "geonames-entity-lookup": "^1.1.5",
     "getty-entity-lookup": "^1.4.2",
     "history": "^4.7.2",
     "iso-639-2": "^1.1.0",
