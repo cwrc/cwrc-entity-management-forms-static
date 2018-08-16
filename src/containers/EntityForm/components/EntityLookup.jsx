@@ -18,7 +18,7 @@ import geonames from 'geonames-entity-lookup'
 import PublicEntityDialog from 'cwrc-public-entity-dialogs'
 
 cwrc.setEntityRoot('https://commons.cwrc.ca')
-cwrc.setSearchRoot('https://dev-02.cwrc.ca')
+cwrc.setSearchRoot('https://dev-02.cwrc.ca/islandora/cwrc_entities/v1')
 
 PublicEntityDialog.showCreateNewButton(false)
 PublicEntityDialog.showNoLinkButton(false)
