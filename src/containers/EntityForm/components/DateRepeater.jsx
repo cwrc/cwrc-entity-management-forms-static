@@ -6,20 +6,14 @@ import {
 	Button,
 	Icon,
 	Segment,
-	Popup
+	Popup,
+	Input
 } from 'semantic-ui-react'
 import {Field, FieldArray} from 'redux-form'
-import {DropdownComponent} from './FormControls'
-import Moment from 'moment'
-import momentLocalizer from 'react-widgets-moment'
-import {DateTimePicker} from 'react-widgets'
+import {DropdownComponent, InputField} from './FormControls'
+// import DateComponent from './DateComponent'
 import EntityLookup from './EntityLookup'
-import {required} from '../components/FieldValidation'
-
-import 'react-widgets/dist/css/react-widgets.css'
-
-Moment.locale('en')
-momentLocalizer()
+import {required, date} from '../components/FieldValidation'
 
 const dateQualifierOptions = [
 	{key: '', text: '', value: ''},
@@ -51,29 +45,6 @@ const DateRepeater = ({
 			props={{componentLabel, changeFunc, dateTypeOptions}}
 			component={renderSegment}
 			{...rest}
-		/>
-	)
-}
-
-const renderDatePicker = ({input: {onChange, value}, showTime = false}: any) => {
-	if (typeof value === 'string') {
-		if (value === '') {
-			value = null
-		} else {
-			// handling for weird date stuff
-			// see https://stackoverflow.com/a/31732581
-			value = new Date(value.replace(/-/g, '/'))
-		}
-	}
-	return (
-		<DateTimePicker
-			onChange={onChange}
-			value={value}
-			min={new Date(-3000, 1, 1)}
-			max={new Date(3000, 12, 31)}
-			format='YYYY-MM-DD'
-			placeholder='YYYY-MM-DD'
-			time={showTime}
 		/>
 	)
 }
@@ -113,7 +84,11 @@ const renderSegment = ({
 										<Grid.Column>
 											<Field
 												name={`${name}.date1`}
-												component={renderDatePicker} />
+												component={InputField}
+												validate={[date]}
+												label='Date'
+												inline
+												placeholder='YYYY-MM-DD'/>
 											<Field
 												required
 												validate={[required]}
@@ -149,7 +124,11 @@ const renderSegment = ({
 										<Grid.Column>
 											<Field
 												name={`${name}.date1`}
-												component={renderDatePicker} />
+												component={InputField}
+												validate={[date]}
+												label='Date 1'
+												inline
+												placeholder='YYYY-MM-DD'/>
 											<Field
 												required
 												validate={[required]}
@@ -173,7 +152,11 @@ const renderSegment = ({
 										<Grid.Column>
 											<Field
 												name={`${name}.date2`}
-												component={renderDatePicker} />
+												component={InputField}
+												validate={[date]}
+												label='Date 2'
+												inline
+												placeholder='YYYY-MM-DD'/>
 											<Field
 												required
 												validate={[required]}

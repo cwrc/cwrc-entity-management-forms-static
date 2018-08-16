@@ -29,3 +29,19 @@ export const longitude = value => {
 	}
 	return undefined
 }
+
+export const date = value => {
+	if (value !== undefined) {
+		if (value.match(/^\d{4}-\d{2}-\d{2}$/) !== null) {
+			return undefined
+		}
+		if (value.match(/^\d{4}-\d{2}$/) !== null) {
+			return undefined
+		}
+		if (value.match(/^\d{4}$/) !== null) {
+			return undefined
+		}
+		return 'Not a valid date'
+	}
+	return undefined
+}
