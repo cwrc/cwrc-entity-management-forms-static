@@ -9,6 +9,8 @@
 # production
 # /build
 
+/src/semantic/dist/components
+
 # misc
 .DS_Store
 .env.local
