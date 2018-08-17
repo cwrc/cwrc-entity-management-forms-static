@@ -1,14 +1,10 @@
-/**
- * You know where to get a new material palette, right?:
- * {@link https://www.materialpalette.com/}
- */
 export default {
-	primaryColorDark: '#0e1319',
-	primaryColor: '#1b1e2f',
-	primaryColorLight: '#303747',
+	primaryColorDark: '#2E2A25',
+	primaryColor: '#AC1E35',
+	primaryColorLight: '#55565A',
 	primaryColorText: '#FFFFFF',
-	accentColor: '#e2c7c0',
-	primaryTextColor: '#212121',
-	secondaryTextColor: '#757575',
+	accentColor: '#cc0000',
+	primaryTextColor: '#3f3f3f',
+	secondaryTextColor: '#3f3f3f',
 	dividerColor: '#BDBDBD'
 }

@@ -37,7 +37,7 @@ const renderSegment = ({
 		<Segment clearing basic style={{padding: 0}}>
 			<Header as="h4" floated='left'>{headerLabel}</Header>
 			<Popup size='tiny' position='right center' trigger={
-				<Button type="button" floated='right' size='tiny' color='olive' icon='plus' onClick={() => fields.push({})}/>
+				<Button type="button" floated='right' size='tiny' color='grey' icon='plus' onClick={() => fields.push({})}/>
 			} content={`Add ${componentLabel}`} />
 		</Segment>
 		{fields.map((name, index) => (

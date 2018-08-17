@@ -87,7 +87,7 @@ class EntityLookup extends React.Component<Props, State> {
 					<Grid.Row verticalAlign='top'>
 						{this.state.hasLookup === false &&
 						<Grid.Column width={4}>
-							<Button type="button" size='tiny' color='olive' onClick={() => this.handleSearchClick()}>
+							<Button type="button" size='tiny' color='grey' onClick={() => this.handleSearchClick()}>
 								<Icon name='search' />{buttonLabel}
 							</Button>
 						</Grid.Column>

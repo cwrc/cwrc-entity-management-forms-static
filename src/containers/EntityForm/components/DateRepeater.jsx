@@ -61,10 +61,10 @@ const renderSegment = ({
 	<Segment secondary>
 		<Segment clearing basic style={{padding: 0}}>
 			<Header as="h4" floated='left'>{headerLabel}</Header>
-			<Button type="button" floated='right' size='tiny' color='olive' onClick={() => fields.push({isRange: true})}>
+			<Button type="button" floated='right' size='tiny' color='grey' onClick={() => fields.push({isRange: true})}>
 				<Icon name='plus' />Date Range
 			</Button>
-			<Button type="button" floated='right' size='tiny' color='olive' onClick={() => fields.push({isRange: false})}>
+			<Button type="button" floated='right' size='tiny' color='grey' onClick={() => fields.push({isRange: false})}>
 				<Icon name='plus' />Simple Date
 			</Button>
 		</Segment>

@@ -4,8 +4,9 @@ import {render} from 'react-snapshot'
 
 import {ThemeProvider} from 'styled-components'
 import theme from './styles/theme'
-import 'semantic-ui-css/semantic.css'
-import './styles/global'
+// import 'semantic-ui-css/semantic.css'
+import './semantic/dist/semantic.css'
+// import './styles/global'
 
 import {PageLayout, MainLayout, MainContent, MainContainer} from './containers/App/style'
 import Footer from './components/parts/Footer'
