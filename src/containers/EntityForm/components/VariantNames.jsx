@@ -32,6 +32,7 @@ const VariantNames = ({
 				<ProjectSelector
 					name={`${name}.project`}
 					label='Project'
+					optional={true}
 					changeFunc={changeFunc}
 				/>
 			</Grid.Column>

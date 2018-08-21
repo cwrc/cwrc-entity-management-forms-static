@@ -99,7 +99,7 @@ class EntityLookup extends React.Component<Props, State> {
 						{includeCertainty &&
 						<Grid.Column>
 							<Field name={`${name}.cert`}
-								label='Certainty' placeholder='Certainty' component={DropdownComponent} options={certaintyOptions}
+								label='Certainty' placeholder='Optional' component={DropdownComponent} options={certaintyOptions}
 							/>
 						</Grid.Column>
 						}

@@ -34,7 +34,7 @@ const LanguageSelector = ({
 		search
 		scrolling
 		options={langOptions}
-		placeholder='Select Language'
+		placeholder='Optional'
 		component={DropdownComponent}/>
 )
 

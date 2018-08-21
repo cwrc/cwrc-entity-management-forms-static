@@ -28,6 +28,7 @@ import EntityLookup from '../../components/EntityLookup'
 import MessageDialog from '../../components/MessageDialog'
 
 import {personNameTypeOptions, personVariantTypeOptions, personDateTypeOptions, certaintyOptions, factualityOptions, genderOptions} from '../../components/options'
+// import {required} from '../../components/FieldValidation'
 
 import type {FormProps} from 'redux-form'
 
@@ -134,9 +135,11 @@ class PersonComponent extends Component<Props, State> {
 					<Grid.Column>
 						<Field
 							inline
+							// required
+							// validate={[required]}
 							label="Nationality"
 							name={`${name}.value`}
-							placeholder="Nationality"
+							placeholder="Optional"
 							component={InputField}
 						/>
 					</Grid.Column>
@@ -144,7 +147,7 @@ class PersonComponent extends Component<Props, State> {
 						<Field
 							label='Certainty'
 							name={`${name}.cert`}
-							placeholder='Certainty'
+							placeholder='Optional'
 							options={certaintyOptions}
 							component={DropdownComponent}/>
 					</Grid.Column>
@@ -158,9 +161,11 @@ class PersonComponent extends Component<Props, State> {
 					<Grid.Column>
 						<Field
 							inline
+							// required
+							// validate={[required]}
 							label="Occupation"
 							name={`${name}.value`}
-							placeholder="Occupation"
+							placeholder="Optional"
 							component={InputField}
 						/>
 					</Grid.Column>
@@ -168,7 +173,7 @@ class PersonComponent extends Component<Props, State> {
 						<Field
 							label='Certainty'
 							name={`${name}.cert`}
-							placeholder='Certainty'
+							placeholder='Optional'
 							options={certaintyOptions}
 							component={DropdownComponent}/>
 					</Grid.Column>
@@ -182,9 +187,11 @@ class PersonComponent extends Component<Props, State> {
 					<Grid.Column>
 						<Field
 							inline
+							// required
+							// validate={[required]}
 							label="Affiliation"
 							name={`${name}.value`}
-							placeholder="Affiliation"
+							placeholder="Optional"
 							component={InputField}
 						/>
 					</Grid.Column>
@@ -192,7 +199,7 @@ class PersonComponent extends Component<Props, State> {
 						<Field
 							label='Certainty'
 							name={`${name}.cert`}
-							placeholder='Certainty'
+							placeholder='Optional'
 							options={certaintyOptions}
 							component={DropdownComponent}/>
 					</Grid.Column>
@@ -256,7 +263,7 @@ class PersonComponent extends Component<Props, State> {
 										<Field
 											label="Factuality"
 											name="description.properties.factuality.value"
-											placeholder="Factuality"
+											placeholder="Optional"
 											options={factualityOptions}
 											component={DropdownComponent}
 										/>
@@ -265,7 +272,7 @@ class PersonComponent extends Component<Props, State> {
 										<Field
 											label='Certainty'
 											name='description.properties.factuality.cert'
-											placeholder='Certainty'
+											placeholder='Optional'
 											options={certaintyOptions}
 											component={DropdownComponent}/>
 									</Grid.Column>
@@ -277,7 +284,7 @@ class PersonComponent extends Component<Props, State> {
 										<Field
 											label="Gender"
 											name="description.properties.gender.value"
-											placeholder="Gender"
+											placeholder="Optional"
 											multiple
 											scrolling
 											options={genderOptions}
@@ -288,7 +295,7 @@ class PersonComponent extends Component<Props, State> {
 										<Field
 											label='Certainty'
 											name='description.properties.gender.cert'
-											placeholder='Certainty'
+											placeholder='Optional'
 											options={certaintyOptions}
 											component={DropdownComponent}/>
 									</Grid.Column>
@@ -341,8 +348,8 @@ class PersonComponent extends Component<Props, State> {
 					/>
 
 					<div style={{textAlign: 'center'}}>
-						{/* <Button type="button" content="Load Sample Person (local)" icon="cloud download" onClick={this.doSampleLoad}/>
-						<Button type="button" content="Load Person (remote)" icon="cloud download" onClick={this.testGet}/> */}
+						{/* <Button type="button" content="Load Sample Person (local)" icon="cloud download" onClick={this.doSampleLoad}/> */}
+						{/* <Button type="button" content="Load Person (remote)" icon="cloud download" onClick={this.testGet}/> */}
 						{invalid ? (
 							<Popup size='tiny' position='right center' trigger={
 								<span><Button content="Submit" icon="sign in" disabled={true}/></span>

@@ -134,7 +134,7 @@ class PlaceComponent extends Component<Props, State> {
 										<Field
 											label="Factuality"
 											name="description.properties.factuality.value"
-											placeholder="Factuality"
+											placeholder="Optional"
 											options={factualityOptions}
 											component={DropdownComponent}
 										/>
@@ -143,7 +143,7 @@ class PlaceComponent extends Component<Props, State> {
 										<Field
 											label='Certainty'
 											name='description.properties.factuality.cert'
-											placeholder='Certainty'
+											placeholder='Optional'
 											options={certaintyOptions}
 											component={DropdownComponent}/>
 									</Grid.Column>
@@ -156,7 +156,7 @@ class PlaceComponent extends Component<Props, State> {
 										<Field
 											label="Country"
 											name="description.location.country.value"
-											placeholder="Country"
+											placeholder="Optional"
 											search
 											scrolling
 											options={countries}
@@ -167,7 +167,7 @@ class PlaceComponent extends Component<Props, State> {
 										<Field
 											label='Certainty'
 											name='description.location.country.cert'
-											placeholder='Certainty'
+											placeholder='Optional'
 											options={certaintyOptions}
 											component={DropdownComponent}/>
 									</Grid.Column>
@@ -180,7 +180,7 @@ class PlaceComponent extends Component<Props, State> {
 											inline
 											label="Region"
 											name="description.location.region.value"
-											placeholder="Region"
+											placeholder="Optional"
 											component={InputField}
 										/>
 									</Grid.Column>
@@ -188,7 +188,7 @@ class PlaceComponent extends Component<Props, State> {
 										<Field
 											label='Certainty'
 											name='description.location.region.cert'
-											placeholder='Certainty'
+											placeholder='Optional'
 											options={certaintyOptions}
 											component={DropdownComponent}/>
 									</Grid.Column>
@@ -197,10 +197,9 @@ class PlaceComponent extends Component<Props, State> {
 							<Segment basic>
 								<Field
 									inline
-									style={{width: '600px'}}
 									label="Address"
 									name="description.location.address"
-									placeholder="Address"
+									placeholder="Optional"
 									component={InputField}
 								/>
 							</Segment>
@@ -215,7 +214,7 @@ class PlaceComponent extends Component<Props, State> {
 											validate={[latitude]}
 											label="Latitude"
 											name="description.location.latitude"
-											placeholder="Latitude"
+											placeholder="Optional"
 											component={InputField}
 										/>
 									</Grid.Column>
@@ -225,7 +224,7 @@ class PlaceComponent extends Component<Props, State> {
 											validate={[longitude]}
 											label='Longitude'
 											name='description.location.longitude'
-											placeholder='Longitude'
+											placeholder='Optional'
 											component={InputField}
 										/>
 									</Grid.Column>

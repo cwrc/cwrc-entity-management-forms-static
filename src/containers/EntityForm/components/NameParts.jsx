@@ -5,6 +5,7 @@ import {
 } from 'semantic-ui-react'
 import {Field} from 'redux-form'
 import {InputField, DropdownAddableComponent} from './FormControls'
+import {required} from './FieldValidation'
 
 const NameParts = ({
 	name,
@@ -14,8 +15,12 @@ const NameParts = ({
 		<Grid.Row verticalAlign='middle'>
 			<Grid.Column>
 				<Field
+					required
+					validate={[required]}
+					inline
+					label='Name Part'
 					name={`${name}.value`}
-					placeholder='Name'
+					placeholder='Name Part'
 					component={InputField}
 				/>
 			</Grid.Column>
@@ -24,11 +29,13 @@ const NameParts = ({
 					? <Field
 						name={`${name}.type`}
 						label='Name Type'
-						placeholder='Name Type'
+						placeholder='Optional'
 						inline
 						component={InputField}
 					/>
 					: <Field
+						required
+						validate={[required]}
 						name={`${name}.type`}
 						options={nameOptions}
 						label='Name Type'

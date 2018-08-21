@@ -131,7 +131,7 @@ class OrganizationComponent extends Component<Props, State> {
 										<Field
 											label="Factuality"
 											name="description.properties.factuality.value"
-											placeholder="Factuality"
+											placeholder="Optional"
 											options={factualityOptions}
 											component={DropdownComponent}
 										/>
@@ -140,7 +140,7 @@ class OrganizationComponent extends Component<Props, State> {
 										<Field
 											label='Certainty'
 											name='description.properties.factuality.cert'
-											placeholder='Certainty'
+											placeholder='Optional'
 											options={certaintyOptions}
 											component={DropdownComponent}/>
 									</Grid.Column>
@@ -152,7 +152,7 @@ class OrganizationComponent extends Component<Props, State> {
 										<Field
 											label="Organization Type"
 											name="description.properties.type.value"
-											placeholder="Type"
+											placeholder="Optional"
 											inline
 											component={InputField}
 										/>
@@ -161,7 +161,7 @@ class OrganizationComponent extends Component<Props, State> {
 										<Field
 											label='Certainty'
 											name='description.properties.type.cert'
-											placeholder='Certainty'
+											placeholder='Optional'
 											options={certaintyOptions}
 											component={DropdownComponent}/>
 									</Grid.Column>

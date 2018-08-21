@@ -3,6 +3,7 @@ import React from 'react'
 import {Field} from 'redux-form'
 import {DropdownComponent} from './FormControls'
 import {get, parseJSON} from '../../../api/utils'
+import {required} from './FieldValidation'
 
 let isFetched = false
 let fetchedProjects = []
@@ -54,12 +55,16 @@ class ProjectSelector extends React.Component<Props, State> {
 		const name = this.props.name
 		const label = this.props.label
 		const changeFunc = this.props.changeFunc
+		const optional = this.props.optional
+
 		return (
 			<Field
 				name={`${name}.value`}
 				label={label}
 				options={this.state.projects}
-				placeholder='Select Project'
+				placeholder={optional ? 'Optional' : 'Select Project'}
+				required={!optional}
+				validate={optional ? [] : [required]}
 				component={DropdownComponent}
 				onChange={(event, newVal, prevVal) => {
 					const match = fetchedProjects.find(project => {
