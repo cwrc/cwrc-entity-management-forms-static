@@ -26,11 +26,13 @@ const IdentityGroup = ({
 				name="identity.standardName"
 				label="Standard Name"
 				inline
-				style={{width: '600px'}}
 				component={InputField}
 			/>
 			<Segment basic>
-				<LanguageSelector label="Language" name="identity.namePartsLang"/>
+				<LanguageSelector
+					label="Language"
+					name="identity.namePartsLang"
+				/>
 				<SegmentRepeater
 					fieldArrayName="identity.nameParts"
 					headerLabel="Components"

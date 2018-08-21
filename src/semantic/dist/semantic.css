@@ -759,6 +759,10 @@ body .ui.inverted::-webkit-scrollbar-thumb:hover {
 /*******************************
          Site Overrides
 *******************************/
+
+.ui.form .ui.basic.red.label {
+  background: none #ffffff !important;
+}
 /*!
  * # Semantic UI 2.3.3 - Button
  * http://github.com/semantic-org/semantic-ui/
@@ -13417,6 +13421,21 @@ img.ui.bordered.image {
 /*******************************
          Site Overrides
 *******************************/
+
+.ui.form .inline.field {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.ui.form .inline.field .ui.input {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+}
 /*!
  * # Semantic UI 2.3.3 - Label
  * http://github.com/semantic-org/semantic-ui/

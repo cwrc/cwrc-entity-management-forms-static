@@ -19,7 +19,7 @@ const InputField = ({
 	meta: {touched, error},
 	...rest
 }: any) => (
-	<Form.Field error={!!(touched && error)} inline={inline} required={required} width={width} floated={floated}>
+	<Form.Field error={!!(touched && error)} inline={inline} required={required} floated={floated}>
 		<label htmlFor={rest.id || rest.name || ''}>{label}</label>
 		<InputComponent
 			label={labelText}
@@ -27,7 +27,7 @@ const InputField = ({
 			{...rest}
 		/>
 		{touched && error ? (
-			<Label basic color="red" pointing>
+			<Label basic color="red" pointing={inline ? 'left' : 'above'}>
 				{error}
 			</Label>
 		) : null}
@@ -54,7 +54,7 @@ const DropdownComponent = ({
 			onChange={(param, data) => { input.onChange(data.value) }}
 		/>
 		{touched && error ? (
-			<Label basic color="red" pointing>
+			<Label basic color="red" pointing={'left'}>
 				{error}
 			</Label>
 		) : null}
