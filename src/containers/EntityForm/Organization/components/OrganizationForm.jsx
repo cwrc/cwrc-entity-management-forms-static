@@ -28,6 +28,7 @@ import EntityLookup from '../../components/EntityLookup'
 import MessageDialog from '../../components/MessageDialog'
 
 import {nonPersonVariantTypeOptions, nonPersonDateTypeOptions, factualityOptions, certaintyOptions} from '../../components/options'
+import {dateRange} from '../../components/FieldValidation'
 
 import Values from '../../components/Values'
 
@@ -218,6 +219,17 @@ const onSubmit = (values, dispatch, props) => {
 
 const validate = values => {
 	const errors = {}
+	if (values.description && values.description.dates) {
+		errors.description = {
+			dates: []
+		}
+		for (const date of values.description.dates) {
+			const error = dateRange(date)
+			if (error !== undefined) {
+				errors.description.dates.push(error)
+			}
+		}
+	}
 	return errors
 }
 

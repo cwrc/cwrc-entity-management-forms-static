@@ -6,17 +6,15 @@ import {
 	Button,
 	Icon,
 	Segment,
-	Popup,
-	Input
+	Popup
 } from 'semantic-ui-react'
 import {Field, FieldArray} from 'redux-form'
 import {DropdownComponent, InputField} from './FormControls'
 // import DateComponent from './DateComponent'
 import EntityLookup from './EntityLookup'
-import {required, date} from '../components/FieldValidation'
+import {required, isDate} from '../components/FieldValidation'
 
 const dateQualifierOptions = [
-	{key: '', text: '', value: ''},
 	{key: 'when-iso', text: 'When', value: 'when-iso'},
 	{key: 'from-iso', text: 'From', value: 'from-iso'},
 	{key: 'to-iso', text: 'To', value: 'to-iso'},
@@ -24,8 +22,14 @@ const dateQualifierOptions = [
 	{key: 'notAfter-iso', text: 'Not after', value: 'notAfter-iso'}
 ]
 
+const dateRangeQualifierOptions = [
+	{key: 'from-iso', text: 'From', value: 'from-iso'},
+	{key: 'to-iso', text: 'To', value: 'to-iso'},
+	{key: 'notBefore-iso', text: 'Not before', value: 'notBefore-iso'},
+	{key: 'notAfter-iso', text: 'Not after', value: 'notAfter-iso'}
+]
+
 const certaintyOptions = [
-	{key: '', text: '', value: ''},
 	{key: 'high', text: 'High', value: 'high'},
 	{key: 'medium', text: 'Medium', value: 'medium'},
 	{key: 'low', text: 'Low', value: 'low'},
@@ -85,7 +89,8 @@ const renderSegment = ({
 											<Field
 												name={`${name}.date1`}
 												component={InputField}
-												validate={[date]}
+												required
+												validate={[required, isDate]}
 												label='Date'
 												inline
 												placeholder='YYYY-MM-DD'/>
@@ -125,7 +130,8 @@ const renderSegment = ({
 											<Field
 												name={`${name}.date1`}
 												component={InputField}
-												validate={[date]}
+												required
+												validate={[required, isDate]}
 												label='Date 1'
 												inline
 												placeholder='YYYY-MM-DD'/>
@@ -135,7 +141,7 @@ const renderSegment = ({
 												label='Qualifier'
 												style={{marginTop: '1em'}}
 												name={`${name}.qualifier1`}
-												options={dateQualifierOptions}
+												options={dateRangeQualifierOptions}
 												placeholder='Qualifier'
 												component={DropdownComponent}/>
 											<Field
@@ -153,7 +159,8 @@ const renderSegment = ({
 											<Field
 												name={`${name}.date2`}
 												component={InputField}
-												validate={[date]}
+												required
+												validate={[required, isDate]}
 												label='Date 2'
 												inline
 												placeholder='YYYY-MM-DD'/>
@@ -163,7 +170,7 @@ const renderSegment = ({
 												label='Qualifier'
 												style={{marginTop: '1em'}}
 												name={`${name}.qualifier2`}
-												options={dateQualifierOptions}
+												options={dateRangeQualifierOptions}
 												placeholder='Qualifier'
 												component={DropdownComponent}/>
 											<Field

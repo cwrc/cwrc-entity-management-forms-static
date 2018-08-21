@@ -28,7 +28,6 @@ export const genderOptions = [
 ]
 
 export const personNameTypeOptions = [
-	{key: '', text: '', value: ''},
 	{key: 'forename', text: 'Forename', value: 'forename'},
 	{key: 'surname', text: 'Surname', value: 'surname'},
 	{key: 'generational', text: 'Generational', value: 'generational'},
@@ -36,7 +35,6 @@ export const personNameTypeOptions = [
 ]
 
 export const personVariantTypeOptions = [
-	{key: '', text: '', value: ''},
 	{key: 'birth', text: 'birth', value: 'birth'},
 	{key: 'married', text: 'married', value: 'married'},
 	{key: 'indexed', text: 'indexed', value: 'indexed'},
@@ -57,14 +55,12 @@ export const personVariantTypeOptions = [
 ]
 
 export const personDateTypeOptions = [
-	{key: '', text: '', value: ''},
 	{key: 'birth', text: 'Birth', value: 'birth'},
 	{key: 'death', text: 'Death', value: 'death'},
 	{key: 'floruit', text: 'Floruit', value: 'floruit'}
 ]
 
 export const nonPersonVariantTypeOptions = [
-	{key: '', text: '', value: ''},
 	{key: 'indexed', text: 'indexed', value: 'indexed'},
 	{key: 'nickname', text: 'nickname', value: 'nickname'},
 	{key: 'orlando_standard', text: 'orlando standard', value: 'orlando_standard'},
@@ -77,7 +73,6 @@ export const nonPersonVariantTypeOptions = [
 ]
 
 export const nonPersonDateTypeOptions = [
-	{key: '', text: '', value: ''},
 	{key: 'establishment', text: 'Establishment', value: 'establishment'},
 	{key: 'dissolution', text: 'Dissolution', value: 'dissolution'},
 	{key: 'flourished', text: 'Flourished', value: 'flourished'}

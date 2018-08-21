@@ -54,7 +54,7 @@ const DropdownComponent = ({
 			onChange={(param, data) => { input.onChange(data.value) }}
 		/>
 		{touched && error ? (
-			<Label basic color="red" pointing={'left'}>
+			<Label basic color="red" pointing="left">
 				{error}
 			</Label>
 		) : null}
