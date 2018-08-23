@@ -2,6 +2,7 @@
 import React from 'react'
 import {Field} from 'redux-form'
 import {DropdownComponent} from './FormControls'
+import _ from 'lodash'
 
 import iso6392 from 'iso-639-2'
 
@@ -24,6 +25,14 @@ langOptions.sort((a, b) => {
 	return 0
 })
 
+const langSearch = (options: array, query: string) => {
+	const re = new RegExp('^' + _.escapeRegExp(query), 'i')
+	let filteredOptions = _.filter(options, opt =>
+		re.test(opt.text)
+	)
+	return filteredOptions
+}
+
 const LanguageSelector = ({
 	input,
 	...rest
@@ -31,7 +40,7 @@ const LanguageSelector = ({
 	<Field
 		{...input}
 		{...rest}
-		search
+		search={langSearch}
 		scrolling
 		options={langOptions}
 		placeholder='Optional'
