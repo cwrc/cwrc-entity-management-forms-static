@@ -75,8 +75,22 @@ class PersonComponent extends Component<Props, State> {
 		get(process.env.PUBLIC_URL + '/sample_person_entity.xml').then(parseXML).then(res => {
 			let json = xml2json(res.data)
 			console.log(json)
-			if (json.identity.nameParts) {
-				json.identity.nameParts.forEach(np => {
+			this.props.dispatch(initialize('PERSON_FORM', json))
+		})
+	}
+
+	componentWillMount () {
+		const entityId = this.props.entityId
+		if (entityId !== '') {
+			this.props.getPerson(entityId)
+		}
+	}
+
+	shouldComponentUpdate (nextProps, nextState) {
+		const values = nextProps.initialValues
+		if (values) {
+			if (values.identity.nameParts) {
+				values.identity.nameParts.forEach(np => {
 					let match = false
 					for (let n of personNameTypeOptions) {
 						if (n.value === np.type) {
@@ -91,8 +105,8 @@ class PersonComponent extends Component<Props, State> {
 					}
 				})
 			}
-			if (json.identity.variants) {
-				json.identity.variants.forEach(vr => {
+			if (values.identity.variants) {
+				values.identity.variants.forEach(vr => {
 					let match = false
 					for (let v of personVariantTypeOptions) {
 						if (v.value === vr.type) {
@@ -107,24 +121,6 @@ class PersonComponent extends Component<Props, State> {
 					}
 				})
 			}
-			this.props.dispatch(initialize('PERSON_FORM', json))
-		})
-	}
-
-	testGet = () => {
-		console.log('triggered the testGet')
-		this.props.getPerson('cwrc:7ce31c4a-d3ef-4839-95e9-984e394d31ef')
-		// AFTER THE GET IS ISSUE, THE STATE WILL GO THROUGH AT LEAST TWO CHANGES:
-		// 1. WHEN THE CALL IS ISSUED, THE STATE AT state.entities.person.get.status changes to 'pending' from 'none'
-		// 2. after the call returns, that status changes to either 'done' or 'error'.  If 'done' then state.entities.person.get.data
-		//    has the returned data.  if 'error', then data has the error.
-		// To get the values from the state, use the selectors that I've mapped to props below in mapStateToProps.
-	}
-
-	componentWillMount () {
-		const entityId = this.props.entityId
-		if (entityId !== '') {
-			this.props.getPerson(entityId)
 		}
 	}
 
