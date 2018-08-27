@@ -36,7 +36,8 @@ export function getDateString (date: String) {
 	if (typeof date === 'string') {
 		// handling for weird date stuff
 		// see https://stackoverflow.com/a/31732581
-		d = new Date(date.replace(/-/g, '/'))
+		// d = new Date(date.replace(/-/g, '/'))
+		return date
 	} else {
 		d = date
 	}
@@ -156,8 +157,7 @@ export function addSourcesXML (parentEl: Element, values: Object) {
 	if (values.sources.bibl) {
 		let listBibl = createXMLFromPath(parentEl, 'listBibl')
 		for (let bibl of values.sources.bibl) {
-			let biblEl = createXMLFromPath(listBibl, 'bibl')
-			createXMLFromPath(biblEl, 'title', bibl.name)
+			let biblEl = createXMLFromPath(listBibl, 'bibl', bibl.name)
 			let ref = createXMLFromPath(biblEl, 'ref')
 			ref.setAttribute('source', bibl.type)
 			ref.setAttribute('target', bibl.idno)
@@ -287,7 +287,7 @@ export function addSourcesJSON (parentEl: Element, values: Object) {
 		values.sources.bibl = []
 		listBibl.querySelectorAll('bibl').forEach((el, index) => {
 			values.sources.bibl.push({
-				name: el.querySelector('title').textContent,
+				name: el.textContent,
 				idno: el.querySelector('ref').getAttribute('target')
 			})
 		})
