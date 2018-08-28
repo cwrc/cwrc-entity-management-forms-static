@@ -122,6 +122,7 @@ class PersonComponent extends Component<Props, State> {
 				})
 			}
 		}
+		return true
 	}
 
 	render () {
