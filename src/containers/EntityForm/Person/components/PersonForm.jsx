@@ -26,6 +26,8 @@ import SegmentRepeater from '../../components/SegmentRepeater'
 import DateRepeater from '../../components/DateRepeater'
 import EntityLookup from '../../components/EntityLookup'
 import MessageDialog from '../../components/MessageDialog'
+import CollectionsDialog from '../../components/CollectionsDialog'
+import {getCollectionId} from '../../../../api/CollectionsSvc'
 
 import {personNameTypeOptions, personVariantTypeOptions, personDateTypeOptions, certaintyOptions, factualityOptions, genderOptions} from '../../components/options'
 import {dateRange} from '../../components/FieldValidation'
@@ -227,6 +229,9 @@ class PersonComponent extends Component<Props, State> {
 						<Loader inverted>Loading Person</Loader>
 					</Dimmer>
 				) : ''}
+				{this.props.getCollectionId === undefined ? (
+					<CollectionsDialog/>
+				) : ''}
 				{/* <Rail attached position='left' size='tiny'>
 					<Values form='PERSON_FORM'/>
 				</Rail> */}
@@ -388,6 +393,7 @@ const mapStateToProps = state => {
 	return {
 		initialValues: getPersonGetData(state),
 		entityId: getEntityId(state),
+		getCollectionId: getCollectionId(),
 
 		isPersonPostDone: isPersonPostDone(state),
 		isPersonPostPending: isPersonPostPending(state),

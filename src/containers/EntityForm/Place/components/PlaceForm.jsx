@@ -26,6 +26,8 @@ import SegmentRepeater from '../../components/SegmentRepeater'
 import DateRepeater from '../../components/DateRepeater'
 import EntityLookup from '../../components/EntityLookup'
 import MessageDialog from '../../components/MessageDialog'
+import CollectionsDialog from '../../components/CollectionsDialog'
+import {getCollectionId} from '../../../../api/CollectionsSvc'
 
 import {nonPersonVariantTypeOptions, nonPersonDateTypeOptions, factualityOptions, certaintyOptions} from '../../components/options'
 import countries from '../../../../static/countries'
@@ -100,6 +102,9 @@ class PlaceComponent extends Component<Props, State> {
 					<Dimmer active inverted>
 						<Loader inverted>Loading Place</Loader>
 					</Dimmer>
+				) : ''}
+				{this.props.getCollectionId === undefined ? (
+					<CollectionsDialog/>
 				) : ''}
 				{/* <Rail attached position='left' size='tiny'>
 					<Values form='PLACE_FORM'/>
@@ -300,6 +305,7 @@ const mapStateToProps = state => {
 	return {
 		initialValues: getPlaceGetData(state),
 		entityId: getEntityId(state),
+		getCollectionId: getCollectionId(),
 
 		isPlacePostDone: isPlacePostDone(state),
 		isPlacePostPending: isPlacePostPending(state),
