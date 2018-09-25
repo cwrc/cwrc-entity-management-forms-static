@@ -13,7 +13,7 @@ export const getCollectionId = () => {
 
 export const setCollectionId = (id) => {
 	const expiry = 1 / 12 // 2 hours
-	Cookies.set(process.env.REACT_APP_COLLECTIONS_COOKIE_NAME, id, { expires: expiry })
+	Cookies.set(process.env.REACT_APP_COLLECTIONS_COOKIE_NAME, id, { expires: expiry, path: '/' })
 }
 
 export const getCollections = async () => {
