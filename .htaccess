@@ -1,0 +1,3 @@
+  RewriteRule ^build/person$ build/person.html [NC]
+  RewriteRule ^build/place$ build/place.html [NC]
+  RewriteRule ^build/organization$ build/organization.html [NC]
