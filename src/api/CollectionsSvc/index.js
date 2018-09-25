@@ -4,7 +4,12 @@ import {get, parseJSON} from '../utils'
 
 const COOKIE_NAME = 'cwrc-entity-collection'
 
+const IS_NODE = navigator.userAgent.toLowerCase().indexOf('node.js') !== -1
+
 export const getCollectionId = () => {
+	if (IS_NODE) { // can't access cookies when using react-snapshot
+		return ''
+	}
 	return Cookies.get(COOKIE_NAME)
 }
 
