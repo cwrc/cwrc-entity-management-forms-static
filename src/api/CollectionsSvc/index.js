@@ -2,19 +2,18 @@
 import Cookies from 'js-cookie'
 import {get, parseJSON} from '../utils'
 
-const COOKIE_NAME = 'cwrc-entity-collection'
-
 const IS_NODE = navigator.userAgent.toLowerCase().indexOf('node.js') !== -1
 
 export const getCollectionId = () => {
 	if (IS_NODE) { // can't access cookies when using react-snapshot
 		return ''
 	}
-	return Cookies.get(COOKIE_NAME)
+	return Cookies.get(process.env.REACT_APP_COLLECTIONS_COOKIE_NAME)
 }
 
 export const setCollectionId = (id) => {
-	Cookies.set(COOKIE_NAME, id, { expires: 1 })
+	const expiry = 1 / 12 // 2 hours
+	Cookies.set(process.env.REACT_APP_COLLECTIONS_COOKIE_NAME, id, { expires: expiry })
 }
 
 export const getCollections = async () => {
