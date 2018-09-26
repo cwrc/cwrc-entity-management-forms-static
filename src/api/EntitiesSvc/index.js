@@ -8,6 +8,8 @@ import {xml2json as xml2jsonOrganization} from './Organization/xml2json'
 import {json2xml as json2xmlPlace} from './Place/json2xml'
 import {xml2json as xml2jsonPlace} from './Place/xml2json'
 
+import {getCollectionId} from '../CollectionsSvc'
+
 const getXmlFromJson = (type, data) => {
 	let xml
 	if (type === 'person') {
@@ -36,7 +38,8 @@ export const getPerson = async (id) =>
 
 export const postPerson = async (data) => {
 	const xmlStr = getXmlFromJson('person', data)
-	return post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person`, xmlStr).then(parseJSON)
+	const collectionId = getCollectionId()
+	return post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person`, [collectionId, xmlStr]).then(parseJSON)
 }
 
 export const putPerson = async (id, data) => {
@@ -57,7 +60,8 @@ export const getPlace = async (id) =>
 
 export const postPlace = async (data) => {
 	const xmlStr = getXmlFromJson('place', data)
-	return post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/place`, xmlStr).then(parseJSON)
+	const collectionId = getCollectionId()
+	return post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/place`, [collectionId, xmlStr]).then(parseJSON)
 }
 export const putPlace = async (id, data) => {
 	const xmlStr = getXmlFromJson('place', data)
@@ -77,7 +81,8 @@ export const getOrganization = async (id) =>
 
 export const postOrganization = async (data) => {
 	const xmlStr = getXmlFromJson('organization', data)
-	return post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/organization`, xmlStr).then(parseJSON)
+	const collectionId = getCollectionId()
+	return post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/organization`, [collectionId, xmlStr]).then(parseJSON)
 }
 
 export const putOrganization = async (id, data) => {
