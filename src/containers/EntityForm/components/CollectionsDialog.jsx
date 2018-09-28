@@ -33,6 +33,7 @@ export default class CollectionsDialog extends Component {
 
 	render () {
 		const value = this.state.value
+		const loading = this.state.collections.length === 0
 		return (
 			<Modal
 				open={this.state.modalOpen}
@@ -51,6 +52,7 @@ export default class CollectionsDialog extends Component {
 								fluid
 								selection
 								scrolling
+								loading={loading}
 								options={this.state.collections}
 								value={value}
 								onChange={this.handleChange}
