@@ -39,7 +39,7 @@ export const getPerson = async (id) =>
 export const postPerson = async (data) => {
 	const xmlStr = getXmlFromJson('person', data)
 	const collectionId = getCollectionId()
-	return post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person`, [collectionId, xmlStr]).then(parseJSON)
+	return post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person`, {collectionPID: collectionId, tei: xmlStr}).then(parseJSON)
 }
 
 export const putPerson = async (id, data) => {
@@ -61,7 +61,7 @@ export const getPlace = async (id) =>
 export const postPlace = async (data) => {
 	const xmlStr = getXmlFromJson('place', data)
 	const collectionId = getCollectionId()
-	return post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/place`, [collectionId, xmlStr]).then(parseJSON)
+	return post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/place`, {collectionPID: collectionId, tei: xmlStr}).then(parseJSON)
 }
 export const putPlace = async (id, data) => {
 	const xmlStr = getXmlFromJson('place', data)
@@ -82,7 +82,7 @@ export const getOrganization = async (id) =>
 export const postOrganization = async (data) => {
 	const xmlStr = getXmlFromJson('organization', data)
 	const collectionId = getCollectionId()
-	return post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/organization`, [collectionId, xmlStr]).then(parseJSON)
+	return post(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/organization`, {collectionPID: collectionId, tei: xmlStr}).then(parseJSON)
 }
 
 export const putOrganization = async (id, data) => {
