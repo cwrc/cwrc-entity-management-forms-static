@@ -72,7 +72,7 @@ class OrganizationComponent extends Component<Props, State> {
 
 	componentWillMount () {
 		const entityId = this.props.entityId
-		if (entityId !== '') {
+		if (entityId !== undefined) {
 			this.props.getOrganization(entityId)
 		}
 	}
@@ -101,7 +101,14 @@ class OrganizationComponent extends Component<Props, State> {
 						<Loader inverted>Loading Organization</Loader>
 					</Dimmer>
 				) : ''}
-				{this.props.getCollectionId === undefined ? (
+				{this.props.isOrganizationGetError ? (
+					<MessageDialog
+						header="Error Loading Entity!"
+						content={<p>An error occurred when loading the entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.entityId + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.entityId}</a><br/>It is probably encoded in an unsupported format and therefore cannot be edited.</p>}
+						onClose={this.closeForm.bind(this, undefined)}
+					/>
+				) : ''}
+				{this.props.entityId === undefined && this.props.getCollectionId === undefined ? (
 					<CollectionsDialog/>
 				) : ''}
 				{/* <Rail attached position='left' size='tiny'>
@@ -215,7 +222,7 @@ class OrganizationComponent extends Component<Props, State> {
 }
 
 const onSubmit = (values, dispatch, props) => {
-	if (props.isOrganizationGetDone && props.entityId !== '') {
+	if (props.isOrganizationGetDone && props.entityId !== undefined) {
 		return props.putOrganization(props.entityId, values)
 	} else {
 		return props.postOrganization(values)

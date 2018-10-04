@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react'
 import { Button, Icon, Modal } from 'semantic-ui-react'
 

@@ -83,7 +83,7 @@ class PersonComponent extends Component<Props, State> {
 
 	componentWillMount () {
 		const entityId = this.props.entityId
-		if (entityId !== '') {
+		if (entityId !== undefined) {
 			this.props.getPerson(entityId)
 		}
 	}
@@ -229,7 +229,14 @@ class PersonComponent extends Component<Props, State> {
 						<Loader inverted>Loading Person</Loader>
 					</Dimmer>
 				) : ''}
-				{this.props.getCollectionId === undefined ? (
+				{this.props.isPersonGetError ? (
+					<MessageDialog
+						header="Error Loading Entity!"
+						content={<p>An error occurred when loading the entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.entityId + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.entityId}</a><br/>It is probably encoded in an unsupported format and therefore cannot be edited.</p>}
+						onClose={this.closeForm.bind(this, undefined)}
+					/>
+				) : ''}
+				{this.props.entityId === undefined && this.props.getCollectionId === undefined ? (
 					<CollectionsDialog/>
 				) : ''}
 				{/* <Rail attached position='left' size='tiny'>
@@ -365,7 +372,7 @@ class PersonComponent extends Component<Props, State> {
 }
 
 const onSubmit = (values, dispatch, props) => {
-	if (props.isPersonGetDone && props.entityId !== '') {
+	if (props.isPersonGetDone && props.entityId !== undefined) {
 		return props.putPerson(props.entityId, values)
 	} else {
 		return props.postPerson(values)
