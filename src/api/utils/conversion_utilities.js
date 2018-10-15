@@ -60,7 +60,7 @@ export function addIdentityXML (parentEl: Element, identityEl: String, values: O
 	createXMLFromPath(parentEl, `${identityEl}[@type="standard"]/name`, values.identity.standardName)
 	// name components
 	if (values.identity.nameParts) {
-		let namePartEl = createXMLFromPath(parentEl, `${identityEl}[@type="prefered"]`)
+		let namePartEl = createXMLFromPath(parentEl, `${identityEl}[@type="preferred"]`)
 		for (let namePart of values.identity.nameParts) {
 			if (values.identity.namePartsLang) {
 				namePartEl.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:lang', values.identity.namePartsLang)
@@ -168,15 +168,17 @@ export function addSourcesXML (parentEl: Element, values: Object) {
 export function addIdentityJSON (parentEl: Element, identityEl: String, values: Object) {
 	values.identity.standardName = parentEl.querySelector(`${identityEl}[type="standard"]`).firstElementChild.textContent
 
-	let prefName = parentEl.querySelector(`${identityEl}[type="prefered"]`)
-	values.identity.namePartsLang = prefName.getAttribute('xml:lang').toLowerCase()
-	values.identity.nameParts = []
-	prefName.querySelectorAll('name').forEach((el, index) => {
-		values.identity.nameParts.push({
-			type: el.getAttribute('type'),
-			value: el.textContent
+	let prefName = parentEl.querySelector(`${identityEl}[type="preferred"]`)
+	if (prefName) {
+		values.identity.namePartsLang = prefName.getAttribute('xml:lang').toLowerCase()
+		values.identity.nameParts = []
+		prefName.querySelectorAll('name').forEach((el, index) => {
+			values.identity.nameParts.push({
+				type: el.getAttribute('type'),
+				value: el.textContent
+			})
 		})
-	})
+	}
 	prefName.querySelectorAll('roleName').forEach((el, index) => {
 		values.identity.nameParts.push({
 			type: 'role',
