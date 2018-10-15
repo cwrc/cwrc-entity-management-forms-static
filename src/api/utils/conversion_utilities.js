@@ -178,19 +178,19 @@ export function addIdentityJSON (parentEl: Element, identityEl: String, values: 
 				value: el.textContent
 			})
 		})
+		prefName.querySelectorAll('roleName').forEach((el, index) => {
+			values.identity.nameParts.push({
+				type: 'role',
+				value: el.textContent
+			})
+		})
+		prefName.querySelectorAll('genName').forEach((el, index) => {
+			values.identity.nameParts.push({
+				type: 'generational',
+				value: el.textContent
+			})
+		})
 	}
-	prefName.querySelectorAll('roleName').forEach((el, index) => {
-		values.identity.nameParts.push({
-			type: 'role',
-			value: el.textContent
-		})
-	})
-	prefName.querySelectorAll('genName').forEach((el, index) => {
-		values.identity.nameParts.push({
-			type: 'generational',
-			value: el.textContent
-		})
-	})
 
 	values.identity.variants = []
 	parentEl.querySelectorAll(`${identityEl}[type="variant"]`).forEach((variantEl, index) => {
