@@ -68,19 +68,25 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 
 	values.description.location = {}
 	let location = place.querySelector('location')
-	let address = location.querySelector('addrLine')
-	if (address) {
-		values.description.location.address = address.textContent
+	if (location) {
+		let address = location.querySelector('addrLine')
+		if (address) {
+			values.description.location.address = address.textContent
+		}
 	}
 	let country = location.querySelector('country')
-	values.description.location.country = {
-		value: country.textContent,
-		cert: country.getAttribute('cert')
+	if (country) {
+		values.description.location.country = {
+			value: country.textContent,
+			cert: country.getAttribute('cert')
+		}
 	}
 	let region = location.querySelector('region')
-	values.description.location.region = {
-		value: region.textContent,
-		cert: region.getAttribute('cert')
+	if (region) {
+		values.description.location.region = {
+			value: region.textContent,
+			cert: region.getAttribute('cert')
+		}
 	}
 	let geo = location.querySelector('geo')
 	if (geo) {
