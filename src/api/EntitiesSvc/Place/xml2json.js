@@ -73,26 +73,26 @@ export const xml2json = (xmlDoc: XMLDocument) => {
 		if (address) {
 			values.description.location.address = address.textContent
 		}
-	}
-	let country = location.querySelector('country')
-	if (country) {
-		values.description.location.country = {
-			value: country.textContent,
-			cert: country.getAttribute('cert')
+		let country = location.querySelector('country')
+		if (country) {
+			values.description.location.country = {
+				value: country.textContent,
+				cert: country.getAttribute('cert')
+			}
 		}
-	}
-	let region = location.querySelector('region')
-	if (region) {
-		values.description.location.region = {
-			value: region.textContent,
-			cert: region.getAttribute('cert')
+		let region = location.querySelector('region')
+		if (region) {
+			values.description.location.region = {
+				value: region.textContent,
+				cert: region.getAttribute('cert')
+			}
 		}
-	}
-	let geo = location.querySelector('geo')
-	if (geo) {
-		let latLong = geo.textContent.split(' ')
-		values.description.location.latitude = latLong[0]
-		values.description.location.longitude = latLong[1]
+		let geo = location.querySelector('geo')
+		if (geo) {
+			let latLong = geo.textContent.split(' ')
+			values.description.location.latitude = latLong[0]
+			values.description.location.longitude = latLong[1]
+		}
 	}
 
 	addNotesJSON(place, values)
