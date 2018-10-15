@@ -25,16 +25,35 @@ const getXmlFromJson = (type, data) => {
 	return xmlStr
 }
 
-export const getPerson = async (id) =>
-	get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person/${id}`)
-		.then(parseXML)
-		.then(res => {
-			try {
-				return xml2jsonPerson(res.data)
-			} catch (e) {
-				throw new Error(e)
-			}
+export const isEntityLocked = async (id) => {
+	return get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_LOCK_TEMPLATE}/${id}`)
+		.then(parseJSON)
+		.catch(err => {
+			console.warn('error fetching lock status!', err)
+			return {'locked': false}
 		})
+		.then(res => {
+			return res.locked
+		})
+}
+
+export const getPerson = async (id) => {
+	return isEntityLocked(id).then(res => {
+		if (res === true) {
+			throw new Error('locked')
+		} else {
+			return get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person/${id}`)
+				.then(parseXML)
+				.then(res => {
+					try {
+						return xml2jsonPerson(res.data)
+					} catch (e) {
+						throw new Error(e)
+					}
+				})
+		}
+	})
+}
 
 export const postPerson = async (data) => {
 	const xmlStr = getXmlFromJson('person', data)
@@ -47,16 +66,23 @@ export const putPerson = async (id, data) => {
 	return put(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person/${id}`, xmlStr).then(parseJSON)
 }
 
-export const getPlace = async (id) =>
-	get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/place/${id}`)
-		.then(parseXML)
-		.then(res => {
-			try {
-				return xml2jsonPlace(res.data)
-			} catch (e) {
-				throw new Error(e)
-			}
-		})
+export const getPlace = async (id) => {
+	return isEntityLocked(id).then(res => {
+		if (res === true) {
+			throw new Error('locked')
+		} else {
+			return get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/place/${id}`)
+				.then(parseXML)
+				.then(res => {
+					try {
+						return xml2jsonPlace(res.data)
+					} catch (e) {
+						throw new Error(e)
+					}
+				})
+		}
+	})
+}
 
 export const postPlace = async (data) => {
 	const xmlStr = getXmlFromJson('place', data)
@@ -68,16 +94,23 @@ export const putPlace = async (id, data) => {
 	return put(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/place/${id}`, xmlStr).then(parseJSON)
 }
 
-export const getOrganization = async (id) =>
-	get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/organization/${id}`)
-		.then(parseXML)
-		.then(res => {
-			try {
-				return xml2jsonOrganization(res.data)
-			} catch (e) {
-				throw new Error(e)
-			}
-		})
+export const getOrganization = async (id) => {
+	return isEntityLocked(id).then(res => {
+		if (res === true) {
+			throw new Error('locked')
+		} else {
+			return get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/organization/${id}`)
+				.then(parseXML)
+				.then(res => {
+					try {
+						return xml2jsonOrganization(res.data)
+					} catch (e) {
+						throw new Error(e)
+					}
+				})
+		}
+	})
+}
 
 export const postOrganization = async (data) => {
 	const xmlStr = getXmlFromJson('organization', data)

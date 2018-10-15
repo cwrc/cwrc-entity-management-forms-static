@@ -103,13 +103,20 @@ class PlaceComponent extends Component<Props, State> {
 						<Loader inverted>Loading Place</Loader>
 					</Dimmer>
 				) : ''}
-				{this.props.isPlaceGetError ? (
-					<MessageDialog
-						header="Error Loading Entity!"
-						content={<p>An error occurred when loading the entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.entityId + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.entityId}</a><br/>It is probably encoded in an unsupported format and therefore cannot be edited.</p>}
-						onClose={this.closeForm.bind(this, undefined)}
-					/>
-				) : ''}
+				{this.props.isPlaceGetError
+					? (this.props.getPlaceGetError.message === 'locked' ? (
+						<MessageDialog
+							header="Entity is Locked!"
+							content={<p>The entity <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.entityId + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.entityId}</a> is locked and therefore cannot be edited.</p>}
+							onClose={this.closeForm.bind(this, undefined)}
+						/>
+					) : (
+						<MessageDialog
+							header="Error Loading Entity!"
+							content={<p>An error occurred when loading the entity: <a href={process.env.REACT_APP_ENTITIES_HOST + '/islandora/object/' + this.props.entityId + '/manage/datastreams'} target="_blank" rel="noopener noreferrer">{this.props.entityId}</a><br/>It is probably encoded in an unsupported format and therefore cannot be edited.</p>}
+							onClose={this.closeForm.bind(this, undefined)}
+						/>
+					)) : ''}
 				{this.props.entityId === undefined && this.props.getCollectionId === undefined ? (
 					<CollectionsDialog/>
 				) : ''}
