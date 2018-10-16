@@ -42,6 +42,7 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 			component: Person,
 			meta: {
 				name: 'Add a Person',
+				nameEdit: 'Edit a Person',
 				icon: 'user'
 			}
 		},
@@ -52,6 +53,7 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 			component: Place,
 			meta: {
 				name: 'Add a Place',
+				nameEdit: 'Edit a Place',
 				icon: 'world'
 			}
 		},
@@ -62,6 +64,7 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 			component: Organization,
 			meta: {
 				name: 'Add an Organization',
+				nameEdit: 'Edit an Organization',
 				icon: 'users'
 			}
 		},

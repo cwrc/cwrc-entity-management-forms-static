@@ -14,7 +14,7 @@ import {
 import {Icon} from 'semantic-ui-react'
 import {Spacer} from '../../../styles/base'
 import {getMetaRoutes} from '../../../routing'
-import {getLayoutMobileStatuses} from '../../../selectors'
+import {getLayoutMobileStatuses, getEntityId} from '../../../selectors'
 
 type Props = {
 	title: string,
@@ -43,7 +43,13 @@ const mapStateToProps = (state, props) => {
 			name: 'Title'
 		}
 	}
-	const title = currentRoute.meta.name
+	const entityId = getEntityId(state)
+	let title
+	if (entityId && currentRoute.meta.nameEdit) {
+		title = currentRoute.meta.nameEdit
+	} else {
+		title = currentRoute.meta.name
+	}
 	const icon = currentRoute.meta.icon
 	const {isMobile} = getLayoutMobileStatuses(state)
 	return {
