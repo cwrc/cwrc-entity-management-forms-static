@@ -118,7 +118,7 @@ class PlaceComponent extends Component<Props, State> {
 						/>
 					)) : ''}
 				{this.props.entityId === undefined && this.props.getCollectionId === undefined ? (
-					<CollectionsDialog/>
+					<CollectionsDialog entityType="place"/>
 				) : ''}
 				{/* <Rail attached position='left' size='tiny'>
 					<Values form='PLACE_FORM'/>
@@ -319,7 +319,7 @@ const mapStateToProps = state => {
 	return {
 		initialValues: getPlaceGetData(state),
 		entityId: getEntityId(state),
-		getCollectionId: getCollectionId(),
+		getCollectionId: getCollectionId('place'),
 
 		isPlacePostDone: isPlacePostDone(state),
 		isPlacePostPending: isPlacePostPending(state),

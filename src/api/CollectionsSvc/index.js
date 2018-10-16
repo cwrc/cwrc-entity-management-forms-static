@@ -4,16 +4,16 @@ import {get, parseJSON} from '../utils'
 
 const IS_NODE = navigator.userAgent.toLowerCase().indexOf('node.js') !== -1
 
-export const getCollectionId = () => {
+export const getCollectionId = (entityType) => {
 	if (IS_NODE) { // can't access cookies when using react-snapshot
 		return ''
 	}
-	return Cookies.get(process.env.REACT_APP_COLLECTIONS_COOKIE_NAME)
+	return Cookies.get(`${process.env.REACT_APP_COLLECTIONS_COOKIE_BASE}-${entityType}`)
 }
 
-export const setCollectionId = (id) => {
+export const setCollectionId = (entityType, id) => {
 	const expiry = 1 / 12 // 2 hours
-	Cookies.set(process.env.REACT_APP_COLLECTIONS_COOKIE_NAME, id, { expires: expiry, path: '/' })
+	Cookies.set(`${process.env.REACT_APP_COLLECTIONS_COOKIE_BASE}-${entityType}`, id, { expires: expiry, path: '/' })
 }
 
 export const getCollections = async () => {
@@ -25,9 +25,12 @@ export const getCollections = async () => {
 				data: {
 					response: {
 						docs: [
-							{PID: 'cwrc:test1', fgs_label_s: 'CWRC Test Entity Collection 1'},
-							{PID: 'cwrc:test2', fgs_label_s: 'CWRC Test Entity Collection 2'},
-							{PID: 'cwrc:test3', fgs_label_s: 'CWRC Test Entity Collection 3'}
+							{PID: 'cwrc:personEntityCollection', fgs_label_s: 'CWRC Person Entity Collection'},
+							{PID: 'cwrc:organizationEntityCollection', fgs_label_s: 'CWRC Organization Entity Collection'},
+							{PID: 'cwrc:placeEntityCollection', fgs_label_s: 'CWRC Place Entity Collection'},
+							{PID: 'reed:personEntityCollection', fgs_label_s: 'Reed Person Entity Collection'},
+							{PID: 'reed:organizationEntityCollection', fgs_label_s: 'Reed Organization Entity Collection'},
+							{PID: 'reed:placeEntityCollection', fgs_label_s: 'Reed Place Entity Collection'}
 						]
 					}
 				}

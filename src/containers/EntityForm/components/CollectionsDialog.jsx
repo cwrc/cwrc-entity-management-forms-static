@@ -4,7 +4,7 @@ import {getCollections, setCollectionId} from '../../../api/CollectionsSvc'
 
 export default class CollectionsDialog extends Component {
 	static propTypes = {
-		// onClose: Function
+		entityType: String
 	}
 	state = {
 		modalOpen: true,
@@ -21,13 +21,15 @@ export default class CollectionsDialog extends Component {
 			return false
 		} else {
 			this.setState({ modalOpen: false })
-			setCollectionId(this.state.value)
+			setCollectionId(this.props.entityType, this.state.value)
 		}
 	}
 
 	componentDidMount () {
+		const entityType = this.props.entityType
 		getCollections().then(collections => {
-			this.setState({collections: collections, value: collections[0].value})
+			const filteredCollections = collections.filter(collection => collection.value.indexOf(`:${entityType}`) !== -1)
+			this.setState({collections: filteredCollections, value: collections[0].value})
 		})
 	}
 

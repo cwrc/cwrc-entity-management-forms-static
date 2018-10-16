@@ -244,7 +244,7 @@ class PersonComponent extends Component<Props, State> {
 						/>
 					)) : ''}
 				{this.props.entityId === undefined && this.props.getCollectionId === undefined ? (
-					<CollectionsDialog/>
+					<CollectionsDialog entityType="person"/>
 				) : ''}
 				{/* <Rail attached position='left' size='tiny'>
 					<Values form='PERSON_FORM'/>
@@ -407,7 +407,7 @@ const mapStateToProps = state => {
 	return {
 		initialValues: getPersonGetData(state),
 		entityId: getEntityId(state),
-		getCollectionId: getCollectionId(),
+		getCollectionId: getCollectionId('person'),
 
 		isPersonPostDone: isPersonPostDone(state),
 		isPersonPostPending: isPersonPostPending(state),

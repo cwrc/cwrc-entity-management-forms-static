@@ -116,7 +116,7 @@ class OrganizationComponent extends Component<Props, State> {
 						/>
 					)) : ''}
 				{this.props.entityId === undefined && this.props.getCollectionId === undefined ? (
-					<CollectionsDialog/>
+					<CollectionsDialog entityType="organization"/>
 				) : ''}
 				{/* <Rail attached position='left' size='tiny'>
 					<Values form='ORG_FORM'/>
@@ -257,7 +257,7 @@ const mapStateToProps = state => {
 	return {
 		initialValues: getOrganizationGetData(state),
 		entityId: getEntityId(state),
-		getCollectionId: getCollectionId(),
+		getCollectionId: getCollectionId('organization'),
 
 		isOrganizationPostDone: isOrganizationPostDone(state),
 		isOrganizationPostPending: isOrganizationPostPending(state),
