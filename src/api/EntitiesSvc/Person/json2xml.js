@@ -71,7 +71,7 @@ export const json2xml = (values) => {
 				createXMLFromPath(traitEl, 'ab', props.factuality.value)
 			}
 			// gender
-			if (props.gender) {
+			if (props.gender && props.gender.value && props.gender.value.length > 0) {
 				let sex = props.gender.value.join(' ')
 				let sexEl = createXMLFromPath(person, `sex[@value="${sex}"]`)
 				if (props.gender.cert) {
