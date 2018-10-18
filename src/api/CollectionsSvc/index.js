@@ -1,14 +1,22 @@
 // @flow
 import Cookies from 'js-cookie'
 import {get, parseJSON} from '../utils'
+import {getCollectionId as getCollectionIdFromURL} from '../../selectors'
 
 const IS_NODE = navigator.userAgent.toLowerCase().indexOf('node.js') !== -1
 
 export const getCollectionId = (entityType) => {
 	if (IS_NODE) { // can't access cookies when using react-snapshot
 		return ''
+	} else {
+		// collectionId in URL overrides any set cookie
+		const collectionId = getCollectionIdFromURL()
+		if (collectionId !== undefined) {
+			return collectionId
+		} else {
+			return Cookies.get(`${process.env.REACT_APP_COLLECTIONS_COOKIE_BASE}-${entityType}`)
+		}
 	}
-	return Cookies.get(`${process.env.REACT_APP_COLLECTIONS_COOKIE_BASE}-${entityType}`)
 }
 
 export const setCollectionId = (entityType, id) => {

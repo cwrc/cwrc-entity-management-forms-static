@@ -38,6 +38,17 @@ export const getEntityId = state => {
 	return getUrlParameter(state.routing.location.search, 'entityId')
 }
 
+export const getCollectionId = state => {
+	let search
+	// can't figure out a good way to send state from CollectionsSvc so use window location instead
+	if (state !== undefined) {
+		search = state.routing.location.search
+	} else {
+		search = window.location.search
+	}
+	return getUrlParameter(search, 'collectionId')
+}
+
 export const isPersonPostDone =	state => state.entities.person.post.status === 'done'
 export const isPersonPostPending = state => state.entities.person.post.status === 'pending'
 export const isPersonPostError = state => state.entities.person.post.status === 'error'
