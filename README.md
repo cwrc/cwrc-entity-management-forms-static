@@ -4,7 +4,7 @@
 
 1. Clone the project: `git clone`
 2. Install the dependencies: `npm install`
-3. Customize the build
+3. [Customize the build](#customizing-the-build)
 4. Run the build: `npm run build`
 
 ## Customizing the Build
