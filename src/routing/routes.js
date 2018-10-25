@@ -26,7 +26,7 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 
 	const routes: Array<RouteItem> = [
 		{
-			path: '/',
+			path: '/sites/default/libraries/cwrc-entity-management-forms-static/build/',
 			exact: true,
 			tag: Route,
 			component: Dashboard,
@@ -36,8 +36,8 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 			}
 		},
 		{
-			path: '/person',
-			exact: true,
+			path: '/sites/default/libraries/cwrc-entity-management-forms-static/build/person',
+			exact: false,
 			tag: Route,
 			component: Person,
 			meta: {
@@ -47,8 +47,8 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 			}
 		},
 		{
-			path: '/place',
-			exact: true,
+			path: '/sites/default/libraries/cwrc-entity-management-forms-static/build/place',
+			exact: false,
 			tag: Route,
 			component: Place,
 			meta: {
@@ -58,8 +58,8 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 			}
 		},
 		{
-			path: '/organization',
-			exact: true,
+			path: '/sites/default/libraries/cwrc-entity-management-forms-static/build/organization',
+			exact: false,
 			tag: Route,
 			component: Organization,
 			meta: {
@@ -67,8 +67,9 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 				nameEdit: 'Edit an Organization',
 				icon: 'users'
 			}
-		},
+		}
 		// Find the way to add/remove routes conditionally
+/*
 		{
 			tag: Route,
 			component: NotFound,
@@ -80,6 +81,7 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 			tag: Redirect,
 			to: '/'
 		}
+*/
 	]
 
 	const fns = {
