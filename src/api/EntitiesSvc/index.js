@@ -33,7 +33,7 @@ export const isEntityLocked = async (id) => {
 			return {'locked': false}
 		})
 		.then(res => {
-			return res.locked
+			return res.data.locked
 		})
 }
 
