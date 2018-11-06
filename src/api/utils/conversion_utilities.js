@@ -170,7 +170,7 @@ export function addIdentityJSON (parentEl: Element, identityEl: String, values: 
 
 	let prefName = parentEl.querySelector(`${identityEl}[type="preferred"]`)
 	if (prefName) {
-		values.identity.namePartsLang = prefName.getAttribute('xml:lang').toLowerCase()
+		values.identity.namePartsLang = prefName.getAttribute('xml:lang')
 		values.identity.nameParts = []
 		prefName.querySelectorAll('name').forEach((el, index) => {
 			values.identity.nameParts.push({
@@ -211,7 +211,7 @@ export function addIdentityJSON (parentEl: Element, identityEl: String, values: 
 				value: ref,
 				title
 			},
-			lang: variantEl.getAttribute('xml:lang').toLowerCase(),
+			lang: variantEl.getAttribute('xml:lang'),
 			type: variantEl.getAttribute('role'),
 			parts: []
 		}
@@ -253,7 +253,7 @@ export function addNotesJSON (parentEl: Element, values: Object) {
 	parentEl.querySelectorAll('note[type="general"]').forEach((el, index) => {
 		values.description.descriptiveNote.push({
 			value: el.textContent,
-			lang: el.getAttribute('xml:lang').toLowerCase()
+			lang: el.getAttribute('xml:lang')
 		})
 	})
 
@@ -274,7 +274,7 @@ export function addNotesJSON (parentEl: Element, values: Object) {
 
 		values.description.projectNote.push({
 			value: el.firstChild.textContent,
-			lang: el.getAttribute('xml:lang').toLowerCase(),
+			lang: el.getAttribute('xml:lang'),
 			project: {
 				value: ref,
 				title
