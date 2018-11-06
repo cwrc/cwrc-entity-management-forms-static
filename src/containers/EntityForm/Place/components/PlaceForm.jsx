@@ -79,6 +79,29 @@ class PlaceComponent extends Component<Props, State> {
 		}
 	}
 
+	shouldComponentUpdate (nextProps, nextState) {
+		const values = nextProps.initialValues
+		if (values) {
+			if (values.identity.variants) {
+				values.identity.variants.forEach(vr => {
+					let match = false
+					for (let v of nonPersonVariantTypeOptions) {
+						if (v.value === vr.type) {
+							match = true
+							break
+						}
+					}
+					if (!match) {
+						nonPersonVariantTypeOptions.push({
+							key: vr.type, value: vr.type, text: vr.type
+						})
+					}
+				})
+			}
+		}
+		return true
+	}
+
 	render () {
 		const {handleSubmit, invalid, submitting} = this.props
 
