@@ -59,7 +59,7 @@ export function addIdentityXML (parentEl: Element, identityEl: String, values: O
 	// standard name
 	let standardNameEl = createXMLFromPath(parentEl, `${identityEl}[@type="standard"]/name`, values.identity.standardName)
 	if (values.identity.namePartsLang) {
-		standardNameEl.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:lang', values.identity.namePartsLang)
+		standardNameEl.parentElement.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:lang', values.identity.namePartsLang)
 	}
 	// name components
 	if (values.identity.nameParts) {
