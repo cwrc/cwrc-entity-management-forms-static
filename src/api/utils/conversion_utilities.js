@@ -57,7 +57,10 @@ export function addIdentityXML (parentEl: Element, identityEl: String, values: O
 	let title = parentEl.ownerDocument.querySelector('fileDesc > titleStmt > title')
 	createXMLFromPath(title, '', values.identity.standardName)
 	// standard name
-	createXMLFromPath(parentEl, `${identityEl}[@type="standard"]/name`, values.identity.standardName)
+	let standardNameEl = createXMLFromPath(parentEl, `${identityEl}[@type="standard"]/name`, values.identity.standardName)
+	if (values.identity.namePartsLang) {
+		standardNameEl.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:lang', values.identity.namePartsLang)
+	}
 	// name components
 	if (values.identity.nameParts) {
 		let namePartEl = createXMLFromPath(parentEl, `${identityEl}[@type="preferred"]`)
@@ -166,7 +169,9 @@ export function addSourcesXML (parentEl: Element, values: Object) {
 }
 
 export function addIdentityJSON (parentEl: Element, identityEl: String, values: Object) {
-	values.identity.standardName = parentEl.querySelector(`${identityEl}[type="standard"]`).firstElementChild.textContent
+	let standardNameEl = parentEl.querySelector(`${identityEl}[type="standard"]`)
+	values.identity.standardName = standardNameEl.firstElementChild.textContent
+	values.identity.namePartsLang = standardNameEl.getAttribute('xml:lang')
 
 	let prefName = parentEl.querySelector(`${identityEl}[type="preferred"]`)
 	if (prefName) {
