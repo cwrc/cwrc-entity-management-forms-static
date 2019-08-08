@@ -9,7 +9,9 @@ export default class CollectionsDialog extends Component {
 	state = {
 		modalOpen: true,
 		collections: [],
-		value: undefined
+		value: undefined,
+		loading: true,
+		error: false
 	}
 
 	handleOpen = () => this.setState({ modalOpen: true })
@@ -25,17 +27,24 @@ export default class CollectionsDialog extends Component {
 		}
 	}
 
+	handleCancel = () => window.close()
+
 	componentDidMount () {
 		const entityType = this.props.entityType
 		getCollections().then(collections => {
-			const filteredCollections = collections.filter(collection => collection.value.indexOf(`:${entityType}`) !== -1)
-			this.setState({collections: filteredCollections, value: collections[0].value})
+			if (collections.length > 0) {
+				const filteredCollections = collections.filter(collection => collection.value.indexOf(`:${entityType}`) !== -1)
+				this.setState({loading: false, collections: filteredCollections, value: collections[0].value})
+			} else {
+				this.setState({loading: false, error: true, collections: []})
+			}
 		})
 	}
 
 	render () {
 		const value = this.state.value
-		const loading = this.state.collections.length === 0
+		const loading = this.state.loading
+		const error = this.state.error
 		return (
 			<Modal
 				open={this.state.modalOpen}
@@ -50,14 +59,16 @@ export default class CollectionsDialog extends Component {
 					<Grid>
 						<Grid.Column width={6}>
 							<Dropdown
-								placeholder='Select collection'
+								placeholder={error ? 'You do not have access to any CWRC collections' : 'Select collection'}
 								fluid
 								selection
 								scrolling
 								loading={loading}
+								error={error}
 								options={this.state.collections}
 								value={value}
 								onChange={this.handleChange}
+								
 							/>
 						</Grid.Column>
 						<Grid.Column width={8}>
@@ -67,6 +78,9 @@ export default class CollectionsDialog extends Component {
 					</Grid>
 				</Modal.Content>
 				<Modal.Actions>
+					<Button onClick={this.handleCancel}>
+						Cancel
+					</Button>
 					<Button color='green' onClick={this.handleClose}>
 						<Icon name='checkmark' /> Use selected collection
 					</Button>
