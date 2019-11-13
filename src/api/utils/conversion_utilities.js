@@ -74,7 +74,7 @@ export function addIdentityXML (parentEl: Element, identityEl: String, values: O
 				createXMLFromPath(namePartEl, 'genName', namePart.value)
 			} else {
 				let namePartType = namePart.type
-				if (namePartType === undefined || namePartType === '') {
+				if (namePartType == null || namePartType === '') {
 					namePartType = 'undefined'
 				}
 				namePartType = namePartType.replace(/\s+/g, '_')
@@ -91,7 +91,7 @@ export function addIdentityXML (parentEl: Element, identityEl: String, values: O
 			}
 
 			let variantType = variant.type
-			if (variantType === undefined || variantType === '') {
+			if (variantType == null || variantType === '') {
 				variantType = 'undefined'
 			}
 			variantType = variantType.replace(/\s+/g, '_')
@@ -110,7 +110,7 @@ export function addIdentityXML (parentEl: Element, identityEl: String, values: O
 						createXMLFromPath(variantEl, 'genName', part.value)
 					} else {
 						let namePartType = part.type
-						if (namePartType === undefined || namePartType === '') {
+						if (namePartType == null || namePartType === '') {
 							namePartType = 'undefined'
 						}
 						namePartType = namePartType.replace(/\s+/g, '_')
