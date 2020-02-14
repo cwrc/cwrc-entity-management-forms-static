@@ -29,20 +29,31 @@ export const getCollections = async () => {
 		.then(parseJSON)
 		.catch(err => {
 			console.warn('error fetching collections!', err)
-			return {
-				data: {
-					response: {
-						docs: [
-							// {PID: 'cwrc:personEntityCollection', fgs_label_s: 'CWRC Person Entity Collection'},
-							// {PID: 'cwrc:organizationEntityCollection', fgs_label_s: 'CWRC Organization Entity Collection'},
-							// {PID: 'cwrc:placeEntityCollection', fgs_label_s: 'CWRC Place Entity Collection'},
-							// {PID: 'reed:personEntityCollection', fgs_label_s: 'Reed Person Entity Collection'},
-							// {PID: 'reed:organizationEntityCollection', fgs_label_s: 'Reed Organization Entity Collection'},
-							// {PID: 'reed:placeEntityCollection', fgs_label_s: 'Reed Place Entity Collection'}
-						]
+			if (process.env.NODE_ENV === 'development') {
+				return {
+					data: {
+						response: {
+							docs: [
+								{PID: 'cwrc:personEntityCollection', fgs_label_s: 'CWRC Person Entity Collection'},
+								{PID: 'cwrc:organizationEntityCollection', fgs_label_s: 'CWRC Organization Entity Collection'},
+								{PID: 'cwrc:placeEntityCollection', fgs_label_s: 'CWRC Place Entity Collection'},
+								{PID: 'reed:personEntityCollection', fgs_label_s: 'Reed Person Entity Collection'},
+								{PID: 'reed:organizationEntityCollection', fgs_label_s: 'Reed Organization Entity Collection'},
+								{PID: 'reed:placeEntityCollection', fgs_label_s: 'Reed Place Entity Collection'}
+							]
+						}
+					}
+				}
+			} else {
+				return {
+					data: {
+						response: {
+							docs: []
+						}
 					}
 				}
 			}
+			
 		})
 		.then(res => {
 			const collections = []

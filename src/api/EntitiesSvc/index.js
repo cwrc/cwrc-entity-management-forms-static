@@ -26,15 +26,20 @@ const getXmlFromJson = (type, data) => {
 }
 
 export const isEntityLocked = async (id) => {
-	return get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_LOCK_TEMPLATE}/${id}`)
-		.then(parseJSON)
-		.catch(err => {
-			console.warn('error fetching lock status!', err)
-			return {'locked': false}
-		})
-		.then(res => {
-			return res.data.locked
-		})
+	if (process.env.NODE_ENV === 'development') {
+		return false;
+	} else {
+		return get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_LOCK_TEMPLATE}/${id}`)
+			.then(parseJSON)
+			.catch(err => {
+				console.warn('error fetching lock status!', err)
+				// if we can't determine if it's locked, best err on the side of caution
+				return true
+			})
+			.then(res => {
+				return res.data.locked
+			})
+	}
 }
 
 export const getPerson = async (id) => {
@@ -42,15 +47,27 @@ export const getPerson = async (id) => {
 		if (res === true) {
 			throw new Error('locked')
 		} else {
-			return get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person/${id}`)
-				.then(parseXML)
-				.then(res => {
-					try {
-						return xml2jsonPerson(res.data)
-					} catch (e) {
-						throw new Error(e)
-					}
-				})
+			if (process.env.NODE_ENV === 'development') {
+				return get(`${process.env.REACT_APP_ENTITIES_HOST}/sample_person_entity.xml`)
+					.then(parseXML)
+					.then(res => {
+						try {
+							return xml2jsonPerson(res.data)
+						} catch (e) {
+							throw new Error(e)
+						}
+					})
+			} else {
+				return get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/person/${id}`)
+					.then(parseXML)
+					.then(res => {
+						try {
+							return xml2jsonPerson(res.data)
+						} catch (e) {
+							throw new Error(e)
+						}
+					})
+			}
 		}
 	})
 }
@@ -71,15 +88,27 @@ export const getPlace = async (id) => {
 		if (res === true) {
 			throw new Error('locked')
 		} else {
-			return get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/place/${id}`)
-				.then(parseXML)
-				.then(res => {
-					try {
-						return xml2jsonPlace(res.data)
-					} catch (e) {
-						throw new Error(e)
-					}
-				})
+			if (process.env.NODE_ENV === 'development') {
+				return get(`${process.env.REACT_APP_ENTITIES_HOST}/sample_place_entity.xml`)
+					.then(parseXML)
+					.then(res => {
+						try {
+							return xml2jsonPlace(res.data)
+						} catch (e) {
+							throw new Error(e)
+						}
+					})
+			} else {
+				return get(`${process.env.REACT_APP_ENTITIES_HOST}/${process.env.REACT_APP_ENTITIES_BASE}/place/${id}`)
+					.then(parseXML)
+					.then(res => {
+						try {
+							return xml2jsonPlace(res.data)
+						} catch (e) {
+							throw new Error(e)
+						}
+					})
+			}
 		}
 	})
 }
