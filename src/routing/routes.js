@@ -11,6 +11,8 @@ import Organization from '../containers/EntityForm/Organization'
 
 import type {RouteItem} from 'types'
 
+const routeRoot = process.env.REACT_APP_ENTITIES_FORMS_PATH;
+
 function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all') {
 	const sidebarExternalLinks = [
 		// {
@@ -26,7 +28,7 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 
 	const routes: Array<RouteItem> = [
 		{
-			path: '/sites/default/libraries/cwrc-entity-management-forms-static/build/',
+			path: `${routeRoot}`,
 			exact: true,
 			tag: Route,
 			component: Dashboard,
@@ -36,7 +38,7 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 			}
 		},
 		{
-			path: '/sites/default/libraries/cwrc-entity-management-forms-static/build/person',
+			path: `${routeRoot}person`,
 			exact: false,
 			tag: Route,
 			component: Person,
@@ -47,7 +49,7 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 			}
 		},
 		{
-			path: '/sites/default/libraries/cwrc-entity-management-forms-static/build/place',
+			path: `${routeRoot}place`,
 			exact: false,
 			tag: Route,
 			component: Place,
@@ -58,7 +60,7 @@ function routingFnCreator (useFor: 'sidebar' | 'routing' | 'meta' | 'all' = 'all
 			}
 		},
 		{
-			path: '/sites/default/libraries/cwrc-entity-management-forms-static/build/organization',
+			path: `${routeRoot}organization`,
 			exact: false,
 			tag: Route,
 			component: Organization,
