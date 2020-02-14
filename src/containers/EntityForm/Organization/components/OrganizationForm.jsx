@@ -32,8 +32,6 @@ import {getCollectionId} from '../../../../api/CollectionsSvc'
 import {nonPersonVariantTypeOptions, nonPersonDateTypeOptions, factualityOptions, certaintyOptions} from '../../components/options'
 import {dateRange} from '../../components/FieldValidation'
 
-import Values from '../../components/Values'
-
 import BroadcastChannel from 'broadcast-channel'
 
 import type {FormProps} from 'redux-form'
@@ -141,9 +139,6 @@ class OrganizationComponent extends Component<Props, State> {
 				{this.props.entityId === undefined && this.props.getCollectionId === undefined ? (
 					<CollectionsDialog entityType="organization"/>
 				) : ''}
-				{/* <Rail attached position='left' size='tiny'>
-					<Values form='ORG_FORM'/>
-				</Rail> */}
 				<Form onSubmit={handleSubmit} error={invalid}>
 
 					<Header as="h2">Identity</Header>

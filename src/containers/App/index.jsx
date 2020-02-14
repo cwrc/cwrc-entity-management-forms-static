@@ -11,7 +11,7 @@ import Header from '../../components/parts/Header'
 // Import actions
 import {TOGGLE_SIDEBAR, WINDOW_RESIZE} from '../../actions/layout'
 import {getLayoutState, getWindowInnerWidth, getLayoutMobileStatuses} from '../../selectors'
-import ReactGA from 'react-ga'
+
 // Import styled components
 import {
 	PageLayout,
@@ -50,9 +50,6 @@ class App extends Component <Props> {
 	}
 
 	componentDidMount () {
-		if (process.env.BROWSER && process.env.GA_ID) {
-			ReactGA.initialize(process.env.GA_ID)
-		}
 	}
 
 	render () {

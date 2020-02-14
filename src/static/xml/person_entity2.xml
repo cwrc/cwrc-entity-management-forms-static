@@ -32,7 +32,7 @@
                <persName type="standard">
                   <name>Doe, Jane</name>
                </persName>
-               <persName type="prefered" xml:lang="ENG">
+               <persName type="preferred" xml:lang="ENG">
                   <name type="forename">Jane</name>
                   <name type="surname">Doe</name>
                </persName>
