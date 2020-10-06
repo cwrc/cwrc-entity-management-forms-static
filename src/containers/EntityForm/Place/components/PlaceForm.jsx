@@ -34,7 +34,7 @@ import countries from '../../../../static/countries'
 
 import {latitude, longitude, dateRange} from '../../components/FieldValidation'
 
-import BroadcastChannel from 'broadcast-channel'
+import { BroadcastChannel } from 'broadcast-channel'
 
 import type {FormProps} from 'redux-form'
 

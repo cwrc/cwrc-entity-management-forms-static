@@ -34,7 +34,7 @@ import {dateRange} from '../../components/FieldValidation'
 
 import type {FormProps} from 'redux-form'
 
-import BroadcastChannel from 'broadcast-channel'
+import { BroadcastChannel } from 'broadcast-channel'
 
 import {
 	getEntityId,

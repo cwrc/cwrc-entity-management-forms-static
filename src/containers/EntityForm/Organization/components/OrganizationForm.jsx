@@ -32,7 +32,7 @@ import {getCollectionId} from '../../../../api/CollectionsSvc'
 import {nonPersonVariantTypeOptions, nonPersonDateTypeOptions, factualityOptions, certaintyOptions} from '../../components/options'
 import {dateRange} from '../../components/FieldValidation'
 
-import BroadcastChannel from 'broadcast-channel'
+import { BroadcastChannel } from 'broadcast-channel'
 
 import type {FormProps} from 'redux-form'
 
