@@ -11,7 +11,7 @@
 
 ### Environment Variables
 
-Server and cookie variables can be set in the [.env](https://github.com/cwrc/cwrc-entity-management-forms-static/blob/master/.env) file.
+Server and cookie variables can be set in the [.env-cmdrc](https://github.com/cwrc/cwrc-entity-management-forms-static/blob/master/.env-cmdrc) file.
 
 ### Overrides
 
@@ -28,10 +28,6 @@ In order for React routing to work properly, a few files need to be altered.
 In [package.json](https://github.com/cwrc/cwrc-entity-management-forms-static/blob/master/package.json) the `homepage`
 field needs to be set to the build folder on the server, e.g. `https://dev-02.cwrc.ca/cwrc-entity-management-forms-static/build/`.
 
-In [routes.js](https://github.com/cwrc/cwrc-entity-management-forms-static/blob/master/src/routing/routes.js) each route needs to be altered.
-The `path` field needs to include the folder structure (minus the server root).
-So for example `/person` becomes `/cwrc-entity-management-forms-static/build/person`. Additionally, the `exact` field should be set to `false`.
-
 ## Updating the Build
 
 1. From the installation directory, run `git pull` to update. (You might need to `git stash` the above build customizations. Then `git stash pop` them after the pull is complete.)
@@ -45,17 +41,16 @@ Listed below are the files and directories directly related to the entity forms.
 
 ### API
 
-Everything related to client server communication is at: https://github.com/cwrc/cwrc-entity-management-forms-static/tree/master/src/api/EntitiesSvc
+Everything related to client server communication is at: [https://github.com/cwrc/cwrc-entity-management-forms-static/tree/master/src/api/EntitiesSvc](https://github.com/cwrc/cwrc-entity-management-forms-static/tree/master/src/api/EntitiesSvc)
 
 Entities are stored as XML on the server, and manipulated as JSON on the client. Code for doing XML to JSON and JSON to XML conversion can be found for each entity in the relevant directory inside EntitiesSvc.
 
-Common functions used in the conversions can be found here: https://github.com/cwrc/cwrc-entity-management-forms-static/blob/master/src/api/utils/conversion_utilities.js
+Common functions used in the conversions can be found here: [https://github.com/cwrc/cwrc-entity-management-forms-static/blob/master/src/api/utils/conversion_utilities.js](https://github.com/cwrc/cwrc-entity-management-forms-static/blob/master/src/api/utils/conversion_utilities.js)
 
-Actual server calls are made at: https://github.com/cwrc/cwrc-entity-management-forms-static/blob/master/src/api/EntitiesSvc/index.js
+Actual server calls are made at: [https://github.com/cwrc/cwrc-entity-management-forms-static/blob/master/src/api/EntitiesSvc/index.js](https://github.com/cwrc/cwrc-entity-management-forms-static/blob/master/src/api/EntitiesSvc/index.js)
 
 ### Forms
 
-The code for the forms themselves is at: https://github.com/cwrc/cwrc-entity-management-forms-static/tree/master/src/containers/EntityForm
+The code for the forms themselves is at: [https://github.com/cwrc/cwrc-entity-management-forms-static/tree/master/src/containers/EntityForm](https://github.com/cwrc/cwrc-entity-management-forms-static/tree/master/src/containers/EntityForm)
 
-Common components used in all forms can be found here: https://github.com/cwrc/cwrc-entity-management-forms-static/tree/master/src/containers/EntityForm/components
-
+Common components used in all forms can be found here: [https://github.com/cwrc/cwrc-entity-management-forms-static/tree/master/src/containers/EntityForm/components](https://github.com/cwrc/cwrc-entity-management-forms-static/tree/master/src/containers/EntityForm/components)
