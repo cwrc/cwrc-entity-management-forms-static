@@ -2,8 +2,9 @@
 
 # dependencies
 /node_modules
+/dependency-graph
 
-# testing
+# testings
 /coverage
 
 # production
