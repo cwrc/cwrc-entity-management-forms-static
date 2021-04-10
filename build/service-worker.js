@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/sites/default/libraries/cwrc-entity-management-forms-static/build/precache-manifest.3f7ecf69d663488ba39f6cdee818c6d2.js"
+  "/sites/default/libraries/cwrc-entity-management-forms-static/build/precache-manifest.8361432fe3c07ec2bd50fa418c770ef9.js"
 );
 
 self.addEventListener('message', (event) => {
