@@ -70,37 +70,33 @@ field needs to be set to the build folder on the server:
 
 run one of the options on package.json:
 
-- "start": "env-cmd -e local react-scripts start"
-- "build:dev02": "env-cmd -e development npm run build && copyfiles -u 1 \"build/**/*\" ./bin/dev02"
-- "build:tes01": "env-cmd -e testing npm run build && copyfiles -u 1 \"build/**/*\" ./bin/test01"
-- "build:stage01": "env-cmd -e staging npm run build && copyfiles -u 1 \"build/**/*\" ./bin/stage01"
-- "build:prod": "env-cmd -e production npm run build && copyfiles -u 1 \"build/**/*\" ./bin/prod"
-- "build:all": "npm run build:dev02 && npm run build:tes01 && npm run build:stage01 && npm run build:prod"
+- "build:development": "env-cmd -e development npm run build && copyfiles -u 1 \"build/**/*\" ./bin/dev && npm run clean:build"
+- "build:testing": "env-cmd -e testing npm run build && copyfiles -u 1 \"build/**/*\" ./bin/testing && npm run clean:build"
+- "build:staging": "env-cmd -e staging npm run build && copyfiles -u 1 \"build/**/*\" ./bin/staging && npm run clean:build"
+- "build:production": "env-cmd -e production npm run build && copyfiles -u 1 \"build/**/*\" ./bin/production && npm run clean:build"
+- "build:all": "npm run build:development && npm run build:testing && npm run build:staging && npm run build:production"
 
-Each one of them takes env variables from the file .env-cmdrc.
-"build:all" will generate builds for all environments at once
-The built files will be saved into each specific folder in the `bin` folder.
-`build` containst the production version
+Each one of them takes env variables from the file .env-cmdrc.js. "build:all" will generate builds for all environments at once. The built files will be saved into each specific folder in the `bin` folder.
+
+### IMPORTANT NOTE: BEFORE Compile
+
+If dependencies are updated (specifically react-scripts and react-snapshop), you need to replace the override files as follows (check oveerides)
 
 ## Deploying
 
-Push files to Gihub
-Pull files on server
+1. Push files to Gihub
+2. Pull files on server
 
 It is better to compile code on site becuase of the different build options. But you can use the pre-built code on `bin` if you like.
 
 ### Updating the Build: Using pre-builts
 
 1. From the installation directory, run `git pull` to update. (You might need to `git stash` the above build customizations. Then `git stash pop` them after the pull is complete.)
-2. Move or copy the content of a specific environment (e.g. `/bin/dev-02`) to `/build`. e.g.: `cp -R /bin/dev-02 /build`
+2. Move or copy the content of a specific environment (e.g.: `/bin/dev-02`) to `/build`. e.g.: `cp -R ./bin/dev02 ./build`
 
 ### Updating the Build: Compiling code ON SITE
 
 1. From the installation directory, run `git pull` to update. (You might need to `git stash` the above build customizations. Then `git stash pop` them after the pull is complete.)
 2. run `npm i` to install eventual dependencies updates
 3. Run `npm run {build-version}` to actually create a build for a specific environment. Or `npm run build:all` to create version to all environments.
-4. Move or copy the content of a specific environment (e.g. `/bin/dev-02`) to `/build`. e.g.: `cp -R /bin/dev-02 /build`
-
-### IMPORTANT NOTE: BEFORE Compile
-
-If dependencies are updated (specifically react-scripts and react-snapshop), you need to replace the override files as follows (check oveerides)
+4. Move or copy the content of a specific environment (e.g. `/bin/dev-02`) to `/build`. e.g.: `cp -R ./bin/dev-02 ./build`
