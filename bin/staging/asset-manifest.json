@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/sites/default/libraries/cwrc-entity-management-forms-static/build/static/css/main.c67b6979.chunk.css",
+    "main.js": "/sites/default/libraries/cwrc-entity-management-forms-static/build/static/js/main.d83a52c5.chunk.js",
+    "main.js.map": "/sites/default/libraries/cwrc-entity-management-forms-static/build/static/js/main.d83a52c5.chunk.js.map",
+    "runtime-main.js": "/sites/default/libraries/cwrc-entity-management-forms-static/build/static/js/runtime-main.3f3b9691.js",
+    "runtime-main.js.map": "/sites/default/libraries/cwrc-entity-management-forms-static/build/static/js/runtime-main.3f3b9691.js.map",
+    "static/js/2.ec02b0dd.chunk.js": "/sites/default/libraries/cwrc-entity-management-forms-static/build/static/js/2.ec02b0dd.chunk.js",
+    "static/js/2.ec02b0dd.chunk.js.map": "/sites/default/libraries/cwrc-entity-management-forms-static/build/static/js/2.ec02b0dd.chunk.js.map",
+    "index.html": "/sites/default/libraries/cwrc-entity-management-forms-static/build/index.html",
+    "precache-manifest.004a64a5826154e5d44b60e4557eb703.js": "/sites/default/libraries/cwrc-entity-management-forms-static/build/precache-manifest.004a64a5826154e5d44b60e4557eb703.js",
+    "service-worker.js": "/sites/default/libraries/cwrc-entity-management-forms-static/build/service-worker.js",
+    "static/css/main.c67b6979.chunk.css.map": "/sites/default/libraries/cwrc-entity-management-forms-static/build/static/css/main.c67b6979.chunk.css.map",
+    "static/js/2.ec02b0dd.chunk.js.LICENSE.txt": "/sites/default/libraries/cwrc-entity-management-forms-static/build/static/js/2.ec02b0dd.chunk.js.LICENSE.txt",
+    "static/media/Logo.png": "/sites/default/libraries/cwrc-entity-management-forms-static/build/static/media/Logo.af27906b.png",
+    "static/media/Logo_White.png": "/sites/default/libraries/cwrc-entity-management-forms-static/build/static/media/Logo_White.5ee3c5eb.png",
+    "static/media/semantic.css": "/sites/default/libraries/cwrc-entity-management-forms-static/build/static/media/outline-icons.ef60a4f6.woff",
+    "static/media/bootstrap-scoped.css": "/sites/default/libraries/cwrc-entity-management-forms-static/build/static/media/glyphicons-halflings-regular.fa277232.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3f3b9691.js",
+    "static/js/2.ec02b0dd.chunk.js",
+    "static/css/main.c67b6979.chunk.css",
+    "static/js/main.d83a52c5.chunk.js"
+  ]
+}

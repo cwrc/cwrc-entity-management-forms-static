@@ -32,7 +32,7 @@
                <persName type="standard">
                   <name>Last Name, First Name </name>
                </persName>
-               <persName type="prefered" xml:lang="ENG">
+               <persName type="preferred" xml:lang="ENG">
                   <name type="prenomen">Marcus</name>
                   <name type="nomen">Aurelius</name>
                   <name type="cognomen">Antoninus</name>
@@ -43,7 +43,7 @@
                   <name type="nomen">Annius</name>
                   <name type="cognomen">Verus</name>
                   <note>
-                     <label>Named prefered by: </label>
+                     <label>Named preferred by: </label>
                      <desc>
                         <orgName ref="https://beta.cwrc.ca/project/canada%E2%80%99s-early-women-writers">Canada's Early Women Writers</orgName>
                      </desc>

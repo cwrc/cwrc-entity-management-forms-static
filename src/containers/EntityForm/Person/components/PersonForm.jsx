@@ -34,9 +34,7 @@ import {dateRange} from '../../components/FieldValidation'
 
 import type {FormProps} from 'redux-form'
 
-import BroadcastChannel from 'broadcast-channel'
-
-import Values from '../../components/Values'
+import { BroadcastChannel } from 'broadcast-channel'
 
 import {
 	getEntityId,
@@ -246,9 +244,6 @@ class PersonComponent extends Component<Props, State> {
 				{this.props.entityId === undefined && this.props.getCollectionId === undefined ? (
 					<CollectionsDialog entityType="person"/>
 				) : ''}
-				{/* <Rail attached position='left' size='tiny'>
-					<Values form='PERSON_FORM'/>
-				</Rail> */}
 				<Form onSubmit={handleSubmit} error={invalid}>
 
 					<Header as="h2">Identity</Header>
