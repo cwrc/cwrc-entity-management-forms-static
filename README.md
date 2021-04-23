@@ -97,6 +97,6 @@ It is better to compile code on site becuase of the different build options. But
 ### Updating the Build: Compiling code ON SITE
 
 1. From the installation directory, run `git pull` to update. (You might need to `git stash` the above build customizations. Then `git stash pop` them after the pull is complete.)
-2. run `npm i` to install eventual dependencies updates
+2. run `npm i` to install eventual dependencies updates.
 3. Run `npm run {build-version}` to actually create a build for a specific environment. Or `npm run build:all` to create version to all environments.
 4. Move or copy the content of a specific environment (e.g. `/bin/dev`) to `/build`. e.g.: `cp -R ./bin/dev ./build`
